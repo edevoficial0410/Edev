@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verificar Certificado — Autenticidade | Edev</title>
+  <meta name="description" content="Verifique a autenticidade e validade de certificados de conclusão emitidos pela plataforma Edev.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="img/logo/logo-icon-bg.png">
+  <link rel="apple-touch-icon" href="img/logo/logo-icon-bg.png">
+  <link rel="stylesheet" href="css/verificar.css">
+</head>
+<body>
+
+  <!-- Header Fixo -->
+  <header class="inst-header">
+    <div class="inst-header-inner">
+      <a href="landing.html" class="inst-brand" aria-label="Edev - Início">
+        <img src="img/logo/logo-horizontal.png" alt="Edev" style="height: 48px; width: auto;">
+        <span class="inst-slogan">Do iniciante ao avançado</span>
+      </a>
+
+      <nav class="inst-nav">
+        <a href="https://www.instagram.com/edev.oficial" target="_blank" rel="noopener noreferrer" class="btn-inst-instagram" aria-label="Instagram @edev.oficial" title="Siga @edev.oficial no Instagram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+        </a>
+        <a href="app.html" class="inst-nav-link">Plataforma</a>
+        <a href="sobre.html" class="inst-nav-link">Sobre</a>
+        <a href="contato.html" class="inst-nav-link">Contato</a>
+        <a href="verificar.html" class="inst-nav-link active">Verificar Certificado</a>
+        <a href="landing.html" class="inst-nav-cta">
+          <span>Início</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Conteúdo Principal -->
+  <main class="inst-main">
+
+    <!-- Hero -->
+    <section class="inst-hero">
+      <div class="inst-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          <polyline points="9 12 11 14 15 10"></polyline>
+        </svg>
+        Autenticidade Oficial
+      </div>
+      <h1 class="inst-title">Verificar Certificado</h1>
+      <p class="inst-subtitle">
+        Digite o código de verificação para confirmar a autenticidade do certificado.
+      </p>
+    </section>
+
+    <!-- Formulário de Consulta -->
+    <section class="verify-section">
+      <div class="verify-card">
+        <form id="verifyForm" class="verify-form" novalidate>
+          <div class="verify-input-wrap">
+            <input
+              type="text"
+              id="certCode"
+              class="verify-input"
+              placeholder="EDEV-2026-XXXXX"
+              required
+              autocomplete="off"
+              spellcheck="false"
+              maxlength="24"
+            >
+          </div>
+          <button type="submit" id="btnVerify" class="btn-verify">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span id="btnVerifyText">Verificar</span>
+          </button>
+        </form>
+
+        <!-- Área de Resultado -->
+        <div id="verifyResult" class="verify-result">
+          <!-- Card Válido (Verde) -->
+          <div id="cardValid" class="result-card-valid" style="display: none;">
+            <div class="result-header-valid">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span>Certificado Autêntico & Válido</span>
+            </div>
+            <div class="result-details">
+              <div>
+                <div class="result-item-label">Aluno</div>
+                <div id="resStudent" class="result-item-value"></div>
+              </div>
+              <div>
+                <div class="result-item-label">Curso Concluído</div>
+                <div id="resCourse" class="result-item-value highlight"></div>
+              </div>
+              <div>
+                <div class="result-item-label">Data de Emissão</div>
+                <div id="resDate" class="result-item-value"></div>
+              </div>
+              <div>
+                <div class="result-item-label">Código de Registro</div>
+                <div id="resCode" class="result-item-value" style="font-family: monospace;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Inválido (Vermelho) -->
+          <div id="cardInvalid" class="result-card-invalid" style="display: none;">
+            <div class="result-invalid-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="15" y1="9" x2="9" y2="15"></line>
+                <line x1="9" y1="9" x2="15" y2="15"></line>
+              </svg>
+            </div>
+            <div>
+              <div class="result-invalid-title">Certificado não encontrado</div>
+              <div class="result-invalid-desc">
+                Não localizamos nenhum registro com o código informado. Verifique se digitou todos os caracteres corretamente (ex: EDEV-2026-A3F9K).
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer Padrão com Instagram -->
+  <footer class="inst-footer">
+    <div class="inst-footer-inner">
+      <div class="inst-footer-top">
+        <div class="inst-footer-brand">
+          <div class="inst-logo"><span class="logo-e">E</span><span class="logo-dev">dev</span></div>
+          <div class="inst-footer-desc">
+            Plataforma de cursos práticos de programação orientados a projetos acumulativos.
+          </div>
+        </div>
+
+        <nav class="inst-footer-links" aria-label="Links institucionais">
+          <a href="sobre.html" class="inst-footer-link">Sobre</a>
+          <a href="contato.html" class="inst-footer-link">Contato</a>
+          <a href="verificar.html" class="inst-footer-link active">Verificar Certificado</a>
+          <a href="termos.html" class="inst-footer-link">Termos de Uso</a>
+          <a href="privacidade.html" class="inst-footer-link">Política de Privacidade</a>
+        </nav>
+      </div>
+
+      <div class="inst-footer-bottom">
+        <div>&copy; 2026 Edev. Todos os direitos reservados.</div>
+        <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+          <a href="https://www.instagram.com/edev.oficial" target="_blank" rel="noopener noreferrer" style="color: #1CA8E3; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; font-weight: 600;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+            @edev.oficial
+          </a>
+          <span class="inst-footer-contact-email">Contato oficial: <a href="mailto:edev735@gmail.com">edev735@gmail.com</a></span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const API_BASE = window.EDEV_API_BASE || (
+      window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+        ? 'http://localhost:3001'
+        : ''
+    );
+
+    const form = document.getElementById('verifyForm');
+    const input = document.getElementById('certCode');
+    const btn = document.getElementById('btnVerify');
+    const btnText = document.getElementById('btnVerifyText');
+    const resultArea = document.getElementById('verifyResult');
+    const cardValid = document.getElementById('cardValid');
+    const cardInvalid = document.getElementById('cardInvalid');
+
+    const resStudent = document.getElementById('resStudent');
+    const resCourse = document.getElementById('resCourse');
+    const resDate = document.getElementById('resDate');
+    const resCode = document.getElementById('resCode');
+
+    async function doVerify(rawCode) {
+      const code = (rawCode || '').trim().toUpperCase();
+      if (!code) {
+        input.focus();
+        return;
+      }
+
+      btn.disabled = true;
+      btnText.textContent = 'Verificando...';
+      cardValid.style.display = 'none';
+      cardInvalid.style.display = 'none';
+      resultArea.style.display = 'none';
+
+      try {
+        const response = await fetch(`${API_BASE}/api/verify/${encodeURIComponent(code)}`);
+        const data = await response.json();
+
+        resultArea.style.display = 'block';
+
+        if (response.ok && data.valid) {
+          resStudent.textContent = data.studentName || 'Aluno Edev';
+          resCourse.textContent = data.courseName || data.courseId || 'Curso';
+          
+          let dateStr = data.issuedAt;
+          if (data.issuedAt) {
+            try {
+              const d = new Date(data.issuedAt);
+              if (!isNaN(d.getTime())) {
+                dateStr = d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+              }
+            } catch (e) {}
+          }
+          resDate.textContent = dateStr || 'Data de emissão registrada';
+          resCode.textContent = data.code || code;
+
+          cardValid.style.display = 'block';
+        } else {
+          cardInvalid.style.display = 'flex';
+        }
+      } catch (err) {
+        console.error('Erro na requisição de verificação:', err);
+        resultArea.style.display = 'block';
+        cardInvalid.style.display = 'flex';
+      } finally {
+        btn.disabled = false;
+        btnText.textContent = 'Verificar';
+      }
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      doVerify(input.value);
+    });
+
+    // Auto-preenche e pesquisa se vier com ?code= na URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const codeParam = urlParams.get('code');
+    if (codeParam) {
+      input.value = codeParam;
+      doVerify(codeParam);
+    }
+  </script>
+
+  <!-- Banner de Cookies (LGPD) -->
+  <div id="cookieBanner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Consentimento de Cookies">
+    <div class="cookie-banner-content">
+      <div class="cookie-banner-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1CA8E3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M12 2a10 10 0 0 0-1.5 19.9"></path>
+          <circle cx="8.5" cy="8.5" r="1.5" fill="#1CA8E3"></circle>
+          <circle cx="15.5" cy="11.5" r="1" fill="#1CA8E3"></circle>
+          <circle cx="10" cy="15.5" r="1" fill="#1CA8E3"></circle>
+        </svg>
+      </div>
+      <div class="cookie-banner-text">
+        Usamos cookies para manter você logado e melhorar sua experiência. Ao continuar, você concorda com nossos <a href="termos.html" class="cookie-link">Termos de Uso</a> e nossa <a href="privacidade.html" class="cookie-link">Política de Privacidade</a>. <a href="privacidade.html" class="cookie-learn-more">Saiba mais</a>
+      </div>
+      <div class="cookie-banner-actions">
+        <button type="button" id="btnRejectCookies" class="btn-cookie-reject">Rejeitar</button>
+        <button type="button" id="btnAcceptCookies" class="btn-cookie-accept">Aceitar</button>
+      </div>
+    </div>
+  </div>
+  <script src="js/cookie-banner.js"></script>
+</body>
+</html>

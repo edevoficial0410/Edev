@@ -1,0 +1,35 @@
+/**
+ * css/conquistas.css
+ * Grade de conquistas com botão de compartilhamento social.
+ */
+
+.ach-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 14px;
+}
+.ach {
+  text-align: center; padding: 22px 14px; border-radius: 14px;
+  background: var(--card); border: 1px solid rgba(110, 110, 110, 0.3);
+  transition: transform var(--ease), border-color var(--ease), box-shadow var(--ease);
+}
+.ach:hover { transform: translateY(-4px); }
+.ach.on  { border-color: var(--yellow); box-shadow: 0 8px 24px rgba(234, 179, 8, 0.08); }
+.ach.off { opacity: 0.45; }
+
+.ach-ic {
+  width: 54px; height: 54px; margin: 0 auto 10px; border-radius: 50%;
+  display: grid; place-items: center;
+}
+.ach.on  .ach-ic { background: rgba(234, 179, 8, 0.14);  color: var(--yellow); }
+.ach.off .ach-ic { background: #0A0A0A;                  color: var(--muted);  }
+.ach-ic svg { width: 26px; height: 26px; }
+
+.ach h4 { font-size: 0.88rem; margin-bottom: 4px; }
+.ach p  { font-size: 0.75rem; color: var(--muted); margin-bottom: 10px; }
+
+/* Botão de compartilhar dentro da conquista */
+.ach .btn-share {
+  font-size: 0.75rem; padding: 6px 10px;
+  width: 100%; justify-content: center;
+}

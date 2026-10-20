@@ -1,0 +1,188 @@
+/**
+ * css/verificar.css
+ * Estilos da página de verificação de autenticidade de certificados do Edev.
+ */
+
+@import url('institucional.css');
+
+.verify-section {
+  max-width: 680px;
+  margin: 0 auto 60px;
+  padding: 0 20px;
+}
+
+.verify-card {
+  background: linear-gradient(180deg, #161A22 0%, #101319 100%);
+  border: 1px solid rgba(28, 168, 227, 0.25);
+  border-radius: 18px;
+  padding: 36px 32px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5), 0 0 25px rgba(28, 168, 227, 0.08);
+}
+
+.verify-form {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+@media (max-width: 600px) {
+  .verify-form {
+    flex-direction: column;
+  }
+}
+
+.verify-input-wrap {
+  flex: 1;
+  position: relative;
+}
+
+.verify-input {
+  width: 100%;
+  padding: 14px 18px;
+  background: #0B0E14;
+  border: 1.5px solid rgba(148, 163, 184, 0.25);
+  border-radius: 10px;
+  color: #FFFFFF;
+  font-family: 'Inter', monospace, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.verify-input::placeholder {
+  color: #64748b;
+  letter-spacing: 1px;
+  font-weight: 400;
+}
+
+.verify-input:focus {
+  outline: none;
+  border-color: #1CA8E3;
+  box-shadow: 0 0 0 3px rgba(28, 168, 227, 0.2);
+}
+
+.btn-verify {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(180deg, #28b6ee, #1ca8e3);
+  color: #041019;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 14px 28px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.15s, box-shadow 0.2s, opacity 0.2s;
+}
+
+.btn-verify:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(28, 168, 227, 0.35);
+}
+
+.btn-verify:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Área de Resultado */
+.verify-result {
+  margin-top: 28px;
+  display: none;
+}
+
+/* Card Válido (Verde) */
+.result-card-valid {
+  background: rgba(16, 185, 129, 0.08);
+  border: 1.5px solid rgba(16, 185, 129, 0.45);
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 10px 25px rgba(16, 185, 129, 0.12);
+  animation: fadeIn 0.3s ease;
+}
+
+.result-header-valid {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #10B981;
+  font-weight: 700;
+  font-size: 1.15rem;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.result-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.result-item-label {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.result-item-value {
+  font-size: 1.05rem;
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+.result-item-value.highlight {
+  color: #1CA8E3;
+}
+
+/* Card Inválido (Vermelho) */
+.result-card-invalid {
+  background: rgba(239, 68, 68, 0.08);
+  border: 1.5px solid rgba(239, 68, 68, 0.45);
+  border-radius: 14px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 10px 25px rgba(239, 68, 68, 0.12);
+  animation: fadeIn 0.3s ease;
+}
+
+.result-invalid-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(239, 68, 68, 0.15);
+  display: grid;
+  place-items: center;
+  color: #EF4444;
+  flex-shrink: 0;
+}
+
+.result-invalid-title {
+  color: #EF4444;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+.result-invalid-desc {
+  color: #cbd5e1;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}

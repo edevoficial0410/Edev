@@ -1,0 +1,114 @@
+/**
+ * css/playground.css
+ * Layout do Playground — editor de código e painel de resultado lado a lado.
+ */
+
+#page-playground {
+  height: calc(100vh - var(--top) - 56px);
+}
+#page-playground.active {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Cabeçalho ───────────────────────────────────────────── */
+.playground-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 14px; flex-shrink: 0; flex-wrap: wrap; gap: 10px;
+}
+.playground-header h2 { font-size: 1.1rem; font-weight: 750; }
+
+/* ── Abas de linguagem ───────────────────────────────────── */
+.pg-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.pg-tab {
+  display: flex; align-items: center; gap: 6px;
+  padding: 7px 14px; border-radius: 8px; border: 0; cursor: pointer;
+  background: rgba(110, 110, 110, 0.12); color: var(--muted);
+  font-size: 0.85rem; font-weight: 700;
+  transition: background var(--ease), color var(--ease);
+}
+.pg-tab svg { width: 15px; height: 15px; }
+.pg-tab.active { background: rgba(28, 168, 227, 0.15); color: var(--blue); }
+.pg-tab:hover:not(.active) { background: rgba(110, 110, 110, 0.2); color: var(--text); }
+
+/* ── Corpo: editor | preview ─────────────────────────────── */
+.playground-body {
+  flex: 1; min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+/* ── Painel do editor ────────────────────────────────────── */
+.pg-editor-panel {
+  background: var(--card);
+  border: 1px solid rgba(110, 110, 110, 0.28);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.pg-panel-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 14px;
+  background: linear-gradient(90deg, var(--deep), #0d2438);
+  font-size: 0.82rem; font-weight: 700; color: var(--muted);
+  flex-shrink: 0;
+}
+.pg-panel-header span { color: var(--text); }
+
+/* Editor CodeMirror ocupa todo o espaço */
+.pg-editor-wrap { flex: 1; min-height: 0; overflow: auto; font-size: 0.9rem; }
+.pg-editor-wrap .cm-editor  { height: 100%; }
+.pg-editor-wrap .cm-scroller { overflow: auto; }
+
+/* Fallback textarea */
+.pg-editor-wrap textarea {
+  width: 100%; height: 100%; min-height: 300px; resize: none;
+  background: #0A0A0A; color: var(--text);
+  border: 0; outline: none; padding: 14px;
+  font-family: Consolas, "Cascadia Code", monospace; font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+/* ── Painel de resultado ─────────────────────────────────── */
+.pg-output-panel {
+  background: var(--card);
+  border: 1px solid rgba(110, 110, 110, 0.28);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.pg-output-wrap { flex: 1; min-height: 0; overflow: hidden; position: relative; }
+
+/* iframe HTML/CSS/JS */
+.pg-iframe { width: 100%; height: 100%; border: 0; background: #fff; display: block; }
+
+/* Saída Python simulada */
+.pg-python-output {
+  height: 100%; overflow-y: auto;
+  padding: 16px;
+  font-family: Consolas, "Cascadia Code", monospace;
+  font-size: 0.88rem; color: #7ee787; background: #0A0A0A;
+  white-space: pre-wrap; line-height: 1.6;
+  display: none;
+}
+.pg-python-output .out-error { color: var(--red); }
+.pg-python-output .out-info  { color: var(--muted); }
+
+/* ── Ações e templates ───────────────────────────────────── */
+.pg-actions {
+  display: flex; align-items: center; gap: 8px;
+  margin-top: 14px; padding-top: 14px;
+  border-top: 1px solid rgba(110, 110, 110, 0.22);
+  flex-shrink: 0; flex-wrap: wrap;
+}
+.pg-actions .sep { flex: 1; }
+
+.pg-templates { display: flex; align-items: center; gap: 6px; }
+.pg-templates span { font-size: 0.82rem; color: var(--muted); }
+.pg-tpl {
+  padding: 5px 10px; border-radius: 6px; border: 0; cursor: pointer;
+  background: rgba(110, 110, 110, 0.12); color: var(--text);
+  font-size: 0.8rem; transition: background var(--ease);
+}
+.pg-tpl:hover { background: rgba(28, 168, 227, 0.12); color: var(--blue); }

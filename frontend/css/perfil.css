@@ -1,0 +1,80 @@
+/**
+ * css/perfil.css
+ * Formulário de perfil do usuário.
+ */
+
+.profile {
+  max-width: 620px;
+  background: var(--card);
+  border-radius: 16px;
+  border: 1px solid rgba(110, 110, 110, 0.3);
+  padding: 28px;
+}
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.fg  { margin-bottom: 16px; }
+.fg label {
+  display: block; font-size: 0.8rem;
+  color: var(--muted); font-weight: 700; margin-bottom: 6px;
+}
+.fg input, .fg select, .fg textarea {
+  width: 100%; padding: 11px 13px; border-radius: 10px;
+  background: #0A0A0A; color: var(--text);
+  border: 1px solid rgba(110, 110, 110, 0.4); outline: none;
+  transition: border-color var(--ease);
+}
+.fg input:focus, .fg select:focus, .fg textarea:focus { border-color: var(--blue); }
+
+/* ── Tempo de Estudo no Perfil ───────────────────────────── */
+.profile-study-section {
+  margin-top: 32px;
+  max-width: 620px;
+}
+.profile-study-card {
+  background: var(--card);
+  border-radius: 16px;
+  border: 1px solid rgba(110, 110, 110, 0.3);
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+.study-time-total {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 18px; border-radius: 12px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  margin-bottom: 20px;
+}
+.total-label { font-size: 0.95rem; font-weight: 600; color: #cbd5e1; }
+.total-value { font-size: 1.4rem; font-weight: 800; color: #10B981; }
+
+.study-courses-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+}
+@media (max-width: 600px) {
+  .study-courses-grid { grid-template-columns: 1fr; }
+}
+.study-course-col {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(110, 110, 110, 0.2);
+  border-radius: 12px; padding: 16px;
+}
+.study-course-head {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 12px; padding-bottom: 8px;
+  border-bottom: 1px solid rgba(110, 110, 110, 0.2);
+}
+.study-course-head h4 { font-size: 0.92rem; font-weight: 700; }
+.study-course-head span { font-size: 0.85rem; font-weight: 700; color: #cbd5e1; }
+.study-course-head.fe h4 { color: var(--blue); }
+.study-course-head.py h4 { color: var(--green); }
+
+.study-modules-list {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.study-modules-list li {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 0.82rem; color: var(--muted);
+}
+.study-modules-list .mod-name { max-width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.study-modules-list .mod-val { font-weight: 600; color: #cbd5e1; }
+

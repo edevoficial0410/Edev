@@ -1,0 +1,206 @@
+/**
+ * css/dashboard.css
+ * Dashboard moderno do Edev: Banner de boas-vindas, cards gamificados,
+ * grid central de progresso, continuidade e cards de engajamento.
+ */
+
+/* ── Banner de Boas-Vindas ───────────────────────────────── */
+.dash-welcome-banner {
+  background: linear-gradient(135deg, rgba(0, 31, 63, 0.9) 0%, rgba(20, 26, 32, 0.95) 60%, rgba(28, 168, 227, 0.15) 100%);
+  border: 1px solid rgba(28, 168, 227, 0.35);
+  border-radius: var(--radius-lg);
+  padding: 28px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 24px; margin-bottom: 26px;
+  box-shadow: var(--shadow), 0 0 30px rgba(28, 168, 227, 0.08);
+  position: relative; overflow: hidden;
+}
+.dash-welcome-banner::after {
+  content: ""; position: absolute; right: -40px; top: -40px;
+  width: 180px; height: 180px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(28, 168, 227, 0.25), transparent 70%);
+  pointer-events: none;
+}
+.dash-welcome-content { flex: 1; position: relative; z-index: 1; }
+.dash-welcome-tag {
+  display: inline-block; font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.8px; color: var(--blue); margin-bottom: 6px;
+}
+.dash-welcome-title {
+  font-size: 1.6rem; font-weight: 800; color: #fff; margin-bottom: 6px;
+  letter-spacing: -0.3px;
+}
+.dash-welcome-title span { color: var(--blue-light); }
+.dash-welcome-subtitle { font-size: 0.92rem; color: var(--muted); max-width: 580px; line-height: 1.5; }
+.dash-welcome-action { flex-shrink: 0; position: relative; z-index: 1; }
+
+/* ── Grid de cards ───────────────────────────────────────── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 16px;
+  margin-bottom: 26px;
+}
+.stat-card {
+  background: linear-gradient(180deg, #1E252E 0%, #151A20 100%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  display: flex; gap: 14px; align-items: center;
+  box-shadow: var(--shadow);
+  position: relative; overflow: hidden;
+  transition: border-color var(--ease), transform var(--ease), box-shadow var(--ease);
+}
+.stat-card:hover {
+  border-color: var(--blue);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 42px rgba(0, 0, 0, 0.5), 0 0 25px rgba(28, 168, 227, 0.12);
+}
+.stat-icon {
+  width: 46px; height: 46px; border-radius: 12px;
+  display: grid; place-items: center; flex-shrink: 0;
+  transition: transform var(--ease-bounce);
+}
+.stat-card:hover .stat-icon { transform: scale(1.08); }
+.stat-icon svg { width: 22px; height: 22px; }
+.stat-icon.xp   { background: rgba(234, 179, 8, 0.14);   color: var(--yellow); }
+.stat-icon.rank { background: rgba(139, 92, 246, 0.14);  color: var(--purple); }
+.stat-icon.ach  { background: rgba(28, 168, 227, 0.14);  color: var(--blue);   }
+.stat-icon.st   { background: rgba(239, 68, 68, 0.14);   color: var(--red);    }
+.stat-icon.time { background: rgba(16, 185, 129, 0.14);  color: #10B981;       }
+
+.stat-info { flex: 1; min-width: 0; }
+.stat-label { font-size: 0.76rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.stat-value { font-size: 1.35rem; font-weight: 800; color: #fff; line-height: 1.2; margin: 2px 0; }
+.stat-subtext { font-size: 0.74rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Mini barras internas nos cards */
+.stat-mini-bar {
+  width: 100%; height: 4px; background: rgba(0, 0, 0, 0.4);
+  border-radius: 999px; margin-top: 6px; overflow: hidden;
+}
+.stat-mini-fill { height: 100%; border-radius: 999px; transition: width 0.6s ease; }
+.stat-mini-fill.xp  { background: linear-gradient(90deg, var(--yellow), #f59e0b); }
+.stat-mini-fill.ach { background: linear-gradient(90deg, var(--blue-2), var(--blue)); }
+
+/* ── Layout Central do Dashboard ─────────────────────────── */
+.dash-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 24px;
+  align-items: start;
+}
+
+.dash-progress-panel {
+  padding: 26px;
+  background: linear-gradient(180deg, #1A212A 0%, #13171D 100%);
+  border: 1px solid var(--border);
+}
+.dash-panel-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 22px; padding-bottom: 12px;
+  border-bottom: 1px solid rgba(110, 110, 110, 0.18);
+}
+
+/* Itens de Progresso dos Cursos */
+.progress-item { margin-bottom: 20px; }
+.progress-item:last-child { margin-bottom: 0; }
+.progress-head {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 8px;
+}
+.progress-title-wrap { display: flex; align-items: center; gap: 10px; font-size: 0.94rem; }
+.progress-pct-badge {
+  font-size: 0.8rem; font-weight: 800; color: #fff;
+  background: rgba(255, 255, 255, 0.08); padding: 2px 8px; border-radius: 6px;
+}
+.bar {
+  height: 10px; border-radius: 999px; overflow: hidden;
+  background: #0D1117; border: 1px solid rgba(110, 110, 110, 0.35);
+}
+.fill { height: 100%; border-radius: 999px; transition: width .6s cubic-bezier(0.22, 1, 0.36, 1); }
+.fill.fe { background: linear-gradient(90deg, var(--blue-2), var(--blue)); box-shadow: 0 0 12px rgba(28, 168, 227, 0.4); }
+.fill.py { background: linear-gradient(90deg, #15803d, var(--green)); box-shadow: 0 0 12px rgba(34, 197, 94, 0.4); }
+.progress-footer { font-size: 0.78rem; color: var(--muted); margin-top: 5px; text-align: right; }
+
+/* ── Continuidade (Última & Próxima Aula) ─────────────────── */
+.dash-continuity-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  margin-top: 26px; padding-top: 22px;
+  border-top: 1px solid rgba(110, 110, 110, 0.2);
+}
+.dash-cont-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(110, 110, 110, 0.22);
+  border-radius: 14px; padding: 18px;
+  display: flex; flex-direction: column; justify-content: space-between; gap: 8px;
+  transition: all var(--ease);
+}
+.dash-cont-card:hover {
+  background: rgba(28, 168, 227, 0.04);
+  border-color: rgba(28, 168, 227, 0.4);
+  transform: translateY(-2px);
+}
+.dash-cont-card.last-lesson { border-left: 3px solid var(--blue); }
+.dash-cont-card.next-lesson { border-left: 3px solid var(--green); }
+.dash-cont-tag {
+  display: inline-block; font-size: 0.7rem; font-weight: 700;
+  color: var(--blue); text-transform: uppercase; letter-spacing: 0.5px;
+}
+.dash-cont-tag.next { color: var(--green); }
+.dash-cont-title {
+  font-size: 0.95rem; font-weight: 700; color: #fff; line-height: 1.35;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.dash-cont-desc { font-size: 0.8rem; color: var(--muted); margin-bottom: 6px; }
+
+/* ── Coluna Lateral do Dashboard ─────────────────────────── */
+.dash-side-col { display: flex; flex-direction: column; gap: 20px; }
+
+.dash-achievements-panel {
+  padding: 22px; margin-bottom: 0;
+  background: linear-gradient(180deg, #1A2028 0%, #14181E 100%);
+}
+.dash-next-ach-list { display: flex; flex-direction: column; gap: 10px; }
+.dash-ach-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 14px; border-radius: 10px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(110, 110, 110, 0.16);
+  transition: all var(--ease);
+}
+.dash-ach-item:hover {
+  background: rgba(28, 168, 227, 0.06);
+  border-color: rgba(28, 168, 227, 0.3);
+}
+.dash-ach-icon {
+  width: 34px; height: 34px; border-radius: 8px; flex-shrink: 0;
+  background: rgba(28, 168, 227, 0.12); color: var(--blue);
+  display: grid; place-items: center;
+}
+.dash-ach-icon svg { width: 18px; height: 18px; }
+.dash-ach-info { flex: 1; min-width: 0; }
+.dash-ach-info h5 { font-size: 0.86rem; font-weight: 700; color: #fff; margin-bottom: 2px; }
+.dash-ach-info p  { font-size: 0.74rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dash-ach-lock-badge {
+  font-size: 0.68rem; font-weight: 600; padding: 2px 7px; border-radius: 999px;
+  background: rgba(110, 110, 110, 0.15); color: var(--muted);
+}
+.dash-all-ach-done {
+  padding: 16px; text-align: center; font-size: 0.88rem; color: var(--green);
+  background: rgba(34, 197, 94, 0.1); border-radius: 10px;
+}
+
+/* Dica do Dia */
+.dash-tip-card {
+  background: linear-gradient(145deg, rgba(28, 168, 227, 0.08) 0%, rgba(0, 31, 63, 0.25) 100%);
+  border: 1px dashed rgba(28, 168, 227, 0.4);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+}
+.dash-tip-header {
+  display: flex; align-items: center; gap: 8px; font-size: 0.88rem;
+  color: var(--blue-light); margin-bottom: 8px;
+}
+.dash-tip-content { font-size: 0.88rem; color: #cbd5e1; line-height: 1.55; font-style: italic; }
+

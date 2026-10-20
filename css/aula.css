@@ -1,0 +1,572 @@
+/**
+ * css/aula.css
+ * Página de aula: cabeçalho, steps, blocos de teoria, desafio e verificação.
+ * Inclui melhorias de UX: barra de progresso 3px, fade-in, callouts, divisores, TTS, termos novos e bloco prático.
+ */
+
+/* ── Barra de ações do topo da aula ─────────────────────── */
+.aula-topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 18px; flex-wrap: wrap; gap: 10px;
+}
+.aula-focus-btns { display: flex; gap: 8px; align-items: center; }
+
+/* ── Botão Modo Áudio TTS (Melhoria 7) ───────────────────── */
+.btn-tts {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all var(--ease);
+}
+.btn-tts.tts-active {
+  background: rgba(28, 168, 227, 0.18);
+  border-color: var(--blue);
+  color: #38bdf8;
+  box-shadow: 0 0 14px rgba(28, 168, 227, 0.35);
+}
+.btn-tts.tts-active .tts-icon {
+  display: inline-block;
+  animation: ttsPulse 0.9s infinite alternate ease-in-out;
+}
+@keyframes ttsPulse {
+  from { transform: scale(1); }
+  to   { transform: scale(1.22); }
+}
+
+/* ── Cabeçalho da aula e Tempo Estimado (Melhoria 3) ──────── */
+.lesson-header {
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(110, 110, 110, 0.28);
+}
+.lesson-header h2 { font-size: 1.35rem; margin-bottom: 6px; }
+.lesson-meta {
+  color: var(--muted);
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.meta-dot {
+  opacity: 0.4;
+  font-size: 0.8rem;
+}
+.lesson-read-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #cbd5e1;
+  font-weight: 600;
+  font-size: 0.82rem;
+  background: rgba(28, 168, 227, 0.08);
+  border: 1px solid rgba(28, 168, 227, 0.25);
+  padding: 2px 10px;
+  border-radius: 999px;
+}
+
+/* ── Steps (indicador de progresso interno) ─────────────── */
+.steps { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 18px; }
+.step  { height: 5px; border-radius: 99px; background: #2a2f36; }
+.step.active { background: var(--blue); }
+.step.done   { background: var(--green); }
+
+/* ── Blocos de conteúdo ──────────────────────────────────── */
+.block {
+  background: var(--card);
+  border: 1px solid rgba(110, 110, 110, 0.28);
+  border-radius: 14px; overflow: hidden; margin-bottom: 16px;
+}
+.block-h {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 18px;
+  background: linear-gradient(90deg, var(--deep), #0d2438);
+  font-weight: 750;
+}
+.block-h svg { width: 20px; height: 20px; color: var(--blue); }
+.block-b { padding: 22px; }
+
+/* ── Caixa "Nesta aula você vai:" (Melhoria 4) ───────────── */
+.aula-goals-box {
+  background: linear-gradient(135deg, rgba(28, 168, 227, 0.08) 0%, rgba(18, 23, 28, 0.95) 100%);
+  border: 1px solid rgba(28, 168, 227, 0.3);
+  border-left: 4px solid var(--blue);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+}
+.aula-goals-title {
+  font-size: 0.96rem;
+  font-weight: 750;
+  color: #FFFFFF;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.aula-goals-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.aula-goals-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: #E5E7EB;
+  line-height: 1.5;
+}
+.aula-goals-list .goal-check {
+  font-size: 0.88rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ── Teoria e Divisores Visuais (Melhoria 6) ─────────────── */
+.theory h3 {
+  color: var(--blue);
+  font-size: 1.08rem;
+  margin: 34px 0 14px;
+  position: relative;
+  padding-top: 22px;
+}
+.theory h3:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+.theory h3:not(:first-child)::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(28, 168, 227, 0.6) 0%, rgba(28, 168, 227, 0.15) 50%, transparent 90%);
+}
+.theory p  { margin-bottom: 12px; font-size: 0.95rem; line-height: 1.65; }
+.theory ul { margin: 0 0 14px 18px; color: #c5ccd4; }
+.theory li { margin-bottom: 5px; }
+
+/* ── Bloco de código (exemplo) ───────────────────────────── */
+.code {
+  background: #0A0A0A;
+  border: 1px solid rgba(110, 110, 110, 0.35);
+  border-radius: 10px; padding: 14px 16px;
+  font-family: Consolas, "Cascadia Code", monospace;
+  font-size: 0.84rem; color: #7ee787; overflow-x: auto; margin: 14px 0;
+  white-space: pre; line-height: 1.5;
+  position: relative;
+  transition: border-color var(--ease), box-shadow var(--ease);
+}
+.code:hover {
+  border-color: rgba(28, 168, 227, 0.5);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* ── Destaque do comando ensinado ────────────────────────── */
+.command-spotlight {
+  margin: 20px 0;
+  padding: 16px 20px;
+  background: rgba(28, 168, 227, 0.07);
+  border: 1px solid rgba(28, 168, 227, 0.35);
+  border-left: 4px solid var(--blue);
+  border-radius: 10px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+}
+.command-spotlight-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--blue);
+  margin-bottom: 12px;
+}
+.command-spotlight-code {
+  background: #090d13;
+  border: 1px solid rgba(28, 168, 227, 0.3);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-family: Consolas, "Cascadia Code", monospace;
+  font-size: 0.95rem;
+  color: #79c0ff;
+  text-align: center;
+  margin-bottom: 14px;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4);
+  overflow-x: auto;
+}
+.command-spotlight-breakdown {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 0.88rem;
+  color: #cbd5e1;
+}
+.command-spotlight-breakdown li {
+  position: relative;
+  padding-left: 18px;
+  line-height: 1.5;
+}
+.command-spotlight-breakdown li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--blue);
+  font-weight: bold;
+}
+.command-spotlight-breakdown code {
+  background: rgba(255, 255, 255, 0.08);
+  color: #79c0ff;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: Consolas, "Cascadia Code", monospace;
+  font-size: 0.85rem;
+}
+
+/* ── Blocos de destaque coloridos (Callouts) (Melhoria 5) ── */
+.callout {
+  margin: 20px 0;
+  padding: 14px 18px;
+  border-radius: 10px;
+  background: rgba(26, 31, 38, 0.9);
+  border: 1px solid rgba(110, 110, 110, 0.25);
+  border-left-width: 4px;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: #E5E7EB;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+/* 📌 Nota importante -> borda laranja */
+.callout.callout-note,
+.callout.callout-important {
+  border-left-color: #f59e0b;
+  background: rgba(245, 158, 11, 0.08);
+  border-color: rgba(245, 158, 11, 0.3);
+}
+/* ⚠️ Atenção / Erro comum -> borda vermelha */
+.callout.callout-warning,
+.callout.callout-danger {
+  border-left-color: #ef4444;
+  background: rgba(239, 68, 68, 0.08);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+/* ✨ Dica profissional -> borda roxa */
+.callout.callout-tip,
+.callout.callout-pro {
+  border-left-color: #8b5cf6;
+  background: rgba(139, 92, 246, 0.08);
+  border-color: rgba(139, 92, 246, 0.3);
+}
+/* 📚 Saiba mais -> borda cinza */
+.callout.callout-more,
+.callout.callout-learn {
+  border-left-color: #6e6e6e;
+  background: rgba(110, 110, 110, 0.08);
+  border-color: rgba(110, 110, 110, 0.3);
+}
+/* 🧠 Curiosidade -> borda azul claro */
+.callout.callout-curiosity,
+.callout.callout-info {
+  border-left-color: #1CA8E3;
+  background: rgba(28, 168, 227, 0.08);
+  border-color: rgba(28, 168, 227, 0.3);
+}
+
+/* ── Termo Novo com Tooltip (Melhoria 8) ──────────────────── */
+.termo-novo {
+  position: relative;
+  display: inline-block;
+  cursor: help;
+  color: #38bdf8;
+  border-bottom: 2px dotted #1CA8E3;
+  font-weight: 600;
+  transition: color var(--ease), border-color var(--ease);
+}
+.termo-novo:hover {
+  color: #7dd3fc;
+  border-bottom-style: solid;
+}
+.termo-novo::after {
+  content: attr(data-definicao);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: #14181f;
+  color: #f1f5f9;
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1.45;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(28, 168, 227, 0.45);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65);
+  white-space: normal;
+  width: max-content;
+  max-width: 260px;
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
+  z-index: 100;
+}
+.termo-novo::before {
+  content: "";
+  position: absolute;
+  bottom: calc(100% + 2px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  border: 5px solid transparent;
+  border-top-color: rgba(28, 168, 227, 0.65);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
+  z-index: 101;
+}
+.termo-novo:hover::after,
+.termo-novo:hover::before,
+.termo-novo.active::after,
+.termo-novo.active::before {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ── Bloco "Como você pode usar isso" (Melhoria 9) ───────── */
+.uso-pratico {
+  margin: 24px 0;
+  padding: 16px 20px;
+  background: rgba(28, 168, 227, 0.08);
+  border: 1px solid rgba(28, 168, 227, 0.35);
+  border-left: 4px solid var(--blue);
+  border-radius: 12px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+  transition: border-color var(--ease), transform var(--ease);
+}
+.uso-pratico:hover {
+  border-color: rgba(28, 168, 227, 0.6);
+  transform: translateY(-2px);
+}
+.uso-pratico h4 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.98rem;
+  font-weight: 750;
+  color: var(--blue);
+  margin-bottom: 8px;
+}
+.uso-pratico p {
+  margin: 0;
+  font-size: 0.93rem;
+  color: #e2e8f0;
+  line-height: 1.6;
+}
+
+/* ── Área de desafio ─────────────────────────────────────── */
+.challenge-desc { color: #c5ccd4; margin-bottom: 14px; }
+.editor {
+  width: 100%; min-height: 150px; resize: vertical;
+  background: #0A0A0A; color: var(--text);
+  border: 1px solid rgba(110, 110, 110, 0.4);
+  border-radius: 10px; padding: 14px;
+  font-family: Consolas, "Cascadia Code", monospace; font-size: 0.88rem; outline: none;
+}
+.editor:focus { border-color: var(--blue); }
+
+/* ── Quiz ────────────────────────────────────────────────── */
+.quiz { display: flex; flex-direction: column; gap: 10px; }
+.opt {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 14px; border-radius: 10px; cursor: pointer;
+  background: #0A0A0A; border: 1px solid rgba(110, 110, 110, 0.35);
+  transition: border-color var(--ease), background var(--ease), transform var(--ease);
+}
+.opt:hover, .opt.selected {
+  border-color: var(--blue); background: rgba(28, 168, 227, 0.08); transform: translateX(4px);
+}
+.opt input { accent-color: var(--blue); }
+
+/* ── Ações e feedback ────────────────────────────────────── */
+.actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
+.note { display: none; margin-top: 12px; padding: 12px 14px; border-radius: 10px; font-size: 0.88rem; }
+.note.show { display: block; }
+.note.hint { background: rgba(234, 179, 8, 0.10);  border: 1px solid var(--yellow); color: var(--yellow); }
+.note.sol  { background: rgba(139, 92, 246, 0.10); border: 1px solid var(--purple); color: #d6c7ff; }
+.fb { display: none; margin-top: 14px; padding: 18px; border-radius: 12px; }
+.fb.ok  { display: block; background: rgba(34, 197, 94, 0.08);  border: 1px solid var(--green); color: var(--text-soft); }
+.fb.bad { display: block; background: rgba(239, 68, 68, 0.08);  border: 1px solid var(--red);   color: var(--text-soft); }
+.fb-header { display: flex; align-items: center; gap: 10px; font-size: 0.98rem; font-weight: 750; margin-bottom: 6px; }
+.fb.ok .fb-header { color: var(--green); }
+.fb.bad .fb-header { color: var(--red); }
+.fb-header svg { width: 20px; height: 20px; flex-shrink: 0; }
+.fb-desc { font-size: 0.88rem; color: #cbd5e1; margin-bottom: 12px; line-height: 1.5; }
+
+.fb-diff-box {
+  background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(110, 110, 110, 0.25);
+  border-radius: 10px; padding: 12px 14px; margin-bottom: 12px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.fb-diff-row { display: flex; flex-direction: column; gap: 4px; font-size: 0.82rem; }
+.fb-diff-label { color: var(--muted); font-weight: 600; text-transform: uppercase; font-size: 0.72rem; }
+.fb-user-code { color: #fca5a5; background: rgba(239, 68, 68, 0.12); padding: 4px 8px; border-radius: 6px; font-family: monospace; }
+.fb-expected-code { color: #86efac; background: rgba(34, 197, 94, 0.12); padding: 4px 8px; border-radius: 6px; font-family: monospace; }
+
+.fb-tip-section {
+  background: rgba(234, 179, 8, 0.08); border: 1px dashed rgba(234, 179, 8, 0.4);
+  padding: 10px 12px; border-radius: 8px; font-size: 0.84rem; color: #fef08a; margin-bottom: 8px;
+}
+.fb-retry-prompt { font-size: 0.82rem; color: var(--muted); font-style: italic; }
+
+.xp-line { display: flex; align-items: center; gap: 6px; margin-top: 10px; font-weight: 800; color: var(--yellow); }
+.xp-line svg { width: 18px; height: 18px; }
+
+/* ── Bloco de projeto acumulativo ────────────────────────── */
+.project-block { margin-top: 4px; }
+.project-block .code { color: #79c0ff; }
+
+/* ── Barra de progresso de leitura fixa no topo da aula (Melhoria 1) ── */
+#page-aula .reading-progress-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.04);
+  z-index: 9999;
+  pointer-events: none;
+  margin: 0;
+}
+#page-aula:not(.active) .reading-progress-container {
+  display: none;
+}
+#page-aula .reading-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: #1CA8E3;
+  box-shadow: 0 0 8px rgba(28, 168, 227, 0.8);
+  transition: width 0.1s ease-out;
+}
+
+/* ── Banner de Modo Foco (quando fullscreen é bloqueado pelo browser) ── */
+.focus-prompt-banner {
+  background: linear-gradient(90deg, rgba(0, 31, 63, 0.8), rgba(28, 168, 227, 0.18));
+  border: 1px solid rgba(28, 168, 227, 0.4);
+  border-radius: 12px;
+  padding: 12px 18px;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  animation: slideDown 0.4s var(--ease-out);
+}
+.focus-prompt-text {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: #e2e8f0;
+}
+.focus-prompt-text svg {
+  width: 20px;
+  height: 20px;
+  color: var(--blue);
+  flex-shrink: 0;
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Fade-in dos blocos ao rolar (Melhoria 2) ─────────────── */
+.reveal-item {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.reveal-item.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Feedback visual: Celebração e Shake ────────────────── */
+.fb.celebrate-pulse {
+  animation: celebratePulse 0.6s ease-out;
+}
+@keyframes celebratePulse {
+  0% { transform: scale(0.97); box-shadow: 0 0 0 rgba(34, 197, 94, 0); }
+  50% { transform: scale(1.02); box-shadow: 0 0 30px rgba(34, 197, 94, 0.35); }
+  100% { transform: scale(1); box-shadow: 0 0 10px rgba(34, 197, 94, 0.15); }
+}
+
+.fb.shake-horizontal {
+  animation: shakeHoriz 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+@keyframes shakeHoriz {
+  10%, 90% { transform: translateX(-3px); }
+  20%, 80% { transform: translateX(5px); }
+  30%, 50%, 70% { transform: translateX(-5px); }
+  40%, 60% { transform: translateX(3px); }
+}
+
+/* Confetes decorativos discretos */
+.confetti-layer {
+  position: absolute;
+  pointer-events: none;
+  inset: 0;
+  overflow: hidden;
+  z-index: 99;
+}
+.confetti-particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  animation: confettiFall 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+@keyframes confettiFall {
+  0% { opacity: 1; transform: translate(0, 0) rotate(0deg); }
+  100% { opacity: 0; transform: translate(var(--tx, 40px), var(--ty, 100px)) rotate(360deg); }
+}
+
+/* ── Fullscreen: esconde a UI externa quando ativo ──────── */
+#page-aula:fullscreen .topbar,
+#page-aula:fullscreen .sidebar {
+  display: none;
+}
+#page-aula:fullscreen {
+  background: var(--bg);
+  overflow: auto;
+  padding: 32px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/* Acessibilidade: respeita preferências de redução de movimento */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-item {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .fb.celebrate-pulse,
+  .fb.shake-horizontal,
+  .confetti-particle,
+  .btn-tts.tts-active .tts-icon {
+    animation: none !important;
+  }
+}

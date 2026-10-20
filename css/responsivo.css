@@ -1,0 +1,59 @@
+/**
+ * css/responsivo.css
+ * Media queries — layout responsivo para tablets e mobile.
+ */
+
+@media (max-width: 1024px) {
+  .dash-main-grid   { grid-template-columns: 1fr; }
+  .courses-grid     { grid-template-columns: 1fr; }
+  .cert-grid        { grid-template-columns: 1fr; }
+  .row              { grid-template-columns: 1fr; }
+  .playground-body  { grid-template-columns: 1fr; }
+  #page-playground  { height: auto; }
+}
+
+@media (max-width: 768px) {
+  /* Sidebar fica escondida, abre via hamburguer */
+  .sidebar      { transform: translateX(-100%); }
+  .sidebar.open { transform: none; }
+  .main         { margin-left: 0; }
+  .hamburger    { display: block; }
+  .content      { padding: 16px; }
+
+  /* Banner de Boas-Vindas */
+  .dash-welcome-banner { flex-direction: column; align-items: flex-start; padding: 22px 20px; }
+  .dash-welcome-action { width: 100%; }
+  .dash-welcome-action .btn { width: 100%; justify-content: center; }
+
+  /* Continuidade em 1 coluna */
+  .dash-continuity-grid { grid-template-columns: 1fr; }
+
+  /* Busca e cabeçalho */
+  .courses-header-row { flex-direction: column; align-items: stretch; }
+  .search-bar { width: 100%; }
+  .search-lesson-item { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .search-item-action { width: 100%; justify-content: space-between; }
+
+  /* Botões ocupam largura total na aula */
+  .actions .btn   { flex: 1; justify-content: center; min-width: 0; }
+
+  /* Foco da aula — esconde texto no mobile, mantém ícone */
+  .aula-focus-btns .btn span { display: none; }
+
+  /* Playground empilhado */
+  .pg-actions   { flex-direction: column; align-items: stretch; }
+  .pg-actions .sep { display: none; }
+  .pg-templates { flex-wrap: wrap; }
+
+  /* Stats 2 colunas */
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 480px) {
+  .stats-grid { grid-template-columns: 1fr; }
+  .ach-grid   { grid-template-columns: repeat(2, 1fr); }
+  .cert-grid  { grid-template-columns: 1fr; }
+  .dash-welcome-title { font-size: 1.3rem; }
+}
+
+

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Criar Conta — Edev</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="img/logo/logo-icon-bg.png">
+  <link rel="apple-touch-icon" href="img/logo/logo-icon-bg.png">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <a href="landing.html" style="display:inline-block;margin-bottom:16px;color:var(--blue);font-weight:600;text-decoration:none;font-size:0.88rem;">← Voltar para a página inicial</a>
+      <div class="auth-header">
+        <a href="landing.html" class="auth-logo">
+          <img src="img/logo/logo-horizontal.png" alt="Edev" style="height: 52px; width: auto;">
+        </a>
+        <div class="auth-slogan">Do iniciante ao avançado</div>
+        <h1 class="auth-title">Crie sua conta</h1>
+        <p class="auth-subtitle">Acesso vitalício gratuito aos cursos e projetos práticos</p>
+      </div>
+
+      <div id="authAlert" class="auth-alert" role="alert"></div>
+
+      <form id="registerForm" class="auth-form" novalidate>
+        <div class="form-group">
+          <label for="name">Seu nome</label>
+          <div class="input-container">
+            <input type="text" id="name" name="name" required autocomplete="name" placeholder="Ex: Lucas Mendes" autofocus>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Endereço de email</label>
+          <div class="input-container">
+            <input type="email" id="email" name="email" required autocomplete="email" placeholder="seu@email.com">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Crie uma senha forte</label>
+          <div class="input-container">
+            <input type="password" id="password" name="password" required autocomplete="new-password" placeholder="Mínimo 8 caracteres">
+            <button type="button" class="toggle-password" aria-label="Mostrar ou ocultar senha">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+          <div class="password-hints">
+            <ul>
+              <li id="hintLength">○ Mínimo de 8 caracteres</li>
+              <li id="hintMix">○ Conter pelo menos uma letra e um número</li>
+            </ul>
+          </div>
+        </div>
+
+        <button type="submit" id="btnSubmit" class="btn-submit">
+          <span class="btn-text">Criar minha conta</span>
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        Já possui uma conta? <a href="login.html">Fazer login</a>
+      </div>
+
+      <div style="margin-top: 18px; text-align: center; font-size: 0.85rem; border-top: 1px solid rgba(148, 163, 184, 0.15); padding-top: 14px;">
+        <a href="https://www.instagram.com/edev.oficial" target="_blank" rel="noopener noreferrer" style="color: #1CA8E3; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; font-weight: 600;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+          @edev.oficial
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import {
+      redirectIfAuthenticated,
+      register,
+      showAlert,
+      hideAlert,
+      setButtonLoading,
+      setupPasswordToggles,
+      redirectToApp
+    } from './js/auth.js';
+
+    // Se já autenticado, vai para o app
+    redirectIfAuthenticated();
+    setupPasswordToggles();
+
+    const form = document.getElementById('registerForm');
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const btnSubmit = document.getElementById('btnSubmit');
+    const alertEl = document.getElementById('authAlert');
+
+    const hintLength = document.getElementById('hintLength');
+    const hintMix = document.getElementById('hintMix');
+
+    // Feedback dinâmico da senha
+    passwordInput.addEventListener('input', () => {
+      const val = passwordInput.value;
+      const isLen = val.length >= 8;
+      const isMix = /[a-zA-Z]/.test(val) && /[0-9]/.test(val);
+
+      hintLength.className = isLen ? 'valid' : '';
+      hintLength.textContent = (isLen ? '✓' : '○') + ' Mínimo de 8 caracteres';
+
+      hintMix.className = isMix ? 'valid' : '';
+      hintMix.textContent = (isMix ? '✓' : '○') + ' Conter pelo menos uma letra e um número';
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      hideAlert(alertEl);
+
+      const name = nameInput.value.trim();
+      const email = emailInput.value.trim();
+      const password = passwordInput.value;
+
+      // Validação client-side
+      if (!name || name.length < 2) {
+        showAlert(alertEl, 'error', 'Informe seu nome (mínimo 2 caracteres).');
+        nameInput.focus();
+        return;
+      }
+
+      if (!email || !email.includes('@')) {
+        showAlert(alertEl, 'error', 'Informe um endereço de email válido.');
+        emailInput.focus();
+        return;
+      }
+
+      if (password.length < 8) {
+        showAlert(alertEl, 'error', 'A senha deve ter no mínimo 8 caracteres.');
+        passwordInput.focus();
+        return;
+      }
+
+      if (!/[a-zA-Z]/.test(password) || !/[0-9]/.test(password)) {
+        showAlert(alertEl, 'error', 'A senha deve conter pelo menos uma letra e um número.');
+        passwordInput.focus();
+        return;
+      }
+
+      setButtonLoading(btnSubmit, true, 'Criar minha conta');
+
+      try {
+        await register(name, email, password);
+        showAlert(alertEl, 'success', 'Conta criada com sucesso! Redirecionando...');
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const redirect = urlParams.get('redirect');
+
+        setTimeout(() => {
+          if (redirect === 'monthly') {
+            window.open('https://pay.kiwify.com.br/ksvrvDc', '_blank');
+            window.location.replace('app.html?subscription=pending');
+          } else if (redirect === 'yearly') {
+            window.open('https://pay.kiwify.com.br/U9fA01u', '_blank');
+            window.location.replace('app.html?subscription=pending');
+          } else {
+            redirectToApp();
+          }
+        }, 500);
+      } catch (err) {
+        showAlert(alertEl, 'error', err.message || 'Erro ao criar conta.');
+        setButtonLoading(btnSubmit, false, 'Criar minha conta');
+      }
+    });
+  </script>
+
+  <!-- Banner de Cookies (LGPD) -->
+  <div id="cookieBanner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Consentimento de Cookies">
+    <div class="cookie-banner-content">
+      <div class="cookie-banner-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1CA8E3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M12 2a10 10 0 0 0-1.5 19.9"></path>
+          <circle cx="8.5" cy="8.5" r="1.5" fill="#1CA8E3"></circle>
+          <circle cx="15.5" cy="11.5" r="1" fill="#1CA8E3"></circle>
+          <circle cx="10" cy="15.5" r="1" fill="#1CA8E3"></circle>
+        </svg>
+      </div>
+      <div class="cookie-banner-text">
+        Usamos cookies para manter você logado e melhorar sua experiência. Ao continuar, você concorda com nossos <a href="termos.html" class="cookie-link">Termos de Uso</a> e nossa <a href="privacidade.html" class="cookie-link">Política de Privacidade</a>. <a href="privacidade.html" class="cookie-learn-more">Saiba mais</a>
+      </div>
+      <div class="cookie-banner-actions">
+        <button type="button" id="btnRejectCookies" class="btn-cookie-reject">Rejeitar</button>
+        <button type="button" id="btnAcceptCookies" class="btn-cookie-accept">Aceitar</button>
+      </div>
+    </div>
+  </div>
+  <script src="js/cookie-banner.js"></script>
+</body>
+</html>

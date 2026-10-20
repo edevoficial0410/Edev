@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Planos & Assinaturas — Edev</title>
+  <meta name="description" content="Conheça os planos e assinaturas do Edev. Acesso a todos os cursos práticos de programação, projetos acumulativos e certificados.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="img/logo/logo-icon-bg.png">
+  <link rel="apple-touch-icon" href="img/logo/logo-icon-bg.png">
+  <link rel="stylesheet" href="css/landing.css">
+  <link rel="stylesheet" href="css/institucional.css">
+</head>
+<body>
+
+  <!-- Header Fixo -->
+  <header class="inst-header">
+    <div class="inst-header-inner">
+      <a href="landing.html" class="inst-brand" aria-label="Edev - Início">
+        <img src="img/logo/logo-horizontal.png" alt="Edev" style="height: 48px; width: auto;">
+        <span class="inst-slogan">Do iniciante ao avançado</span>
+      </a>
+
+      <nav class="inst-nav">
+        <a href="https://www.instagram.com/edev.oficial" target="_blank" rel="noopener noreferrer" class="btn-inst-instagram" aria-label="Instagram @edev.oficial" title="Siga @edev.oficial no Instagram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+        </a>
+        <a href="landing.html#cursos" class="inst-nav-link">Cursos</a>
+        <a href="sobre.html" class="inst-nav-link">Sobre</a>
+        <a href="contato.html" class="inst-nav-link">Contato</a>
+        <a href="verificar.html" class="inst-nav-link">Verificar Certificado</a>
+        <a href="app.html" class="inst-nav-cta">
+          <span>Acessar Plataforma</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Conteúdo Principal -->
+  <main class="inst-main" style="max-width:1100px;">
+
+    <!-- Hero -->
+    <section class="inst-hero" style="margin-bottom:32px;">
+      <div class="founder-counter-badge" id="heroFounderBadge" style="margin-bottom:16px;">
+        <span class="pulse-dot"></span>
+        <span>Vagas de Fundador: <strong class="counter-remaining">--</strong>/10 vagas restantes</span>
+      </div>
+      <h1 class="inst-title">Planos Transparentes, Zero Pegadinhas</h1>
+      <p class="inst-subtitle">
+        Aprenda programação construindo projetos reais. Comece gratuitamente no Módulo 0 ou desbloqueie todas as trilhas completas.
+      </p>
+    </section>
+
+    <!-- Status dinâmico para usuário autenticado (Fundador / Assinante / Free) -->
+    <div id="userPlanStatusArea" style="margin-bottom:28px;"></div>
+
+    <!-- Grid de Planos -->
+    <div class="plans-grid" id="plansCardsGrid" style="margin-top:20px;">
+
+      <!-- Card 1: Fundador -->
+      <div class="plan-card founder" id="planCardFounder">
+        <div class="plan-badge-top gold">10 Primeiros Alunos</div>
+        <div class="plan-header">
+          <h3 class="plan-name">Acesso Fundador</h3>
+          <p class="plan-desc">Acesso vitalício gratuito para apoiar quem começa junto com a gente.</p>
+        </div>
+        <div class="plan-price-wrap">
+          <span class="plan-price">R$ 0</span>
+          <span class="plan-period">/ vitalício</span>
+        </div>
+        <ul class="plan-features">
+          <li class="plan-feature-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span><strong>Todos os 6 cursos liberados</strong> (100% das aulas)</span>
+          </li>
+          <li class="plan-feature-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Badge exclusivo de <strong>Fundador</strong> no perfil</span>
+          </li>
+          <li class="plan-feature-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Acesso vitalício sem cobrança futura</span>
+          </li>
+          <li class="plan-feature-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Certificados inclusos sem taxa extra</span>
+          </li>
+        </ul>
+        <a href="register.html" class="btn-plan gold">Garantir minha vaga grátis</a>
+      </div>
+
+      <!-- Card 2: Mensal -->
+      <div class="plan-card">
+        <div class="plan-header">
+          <h3 class="plan-name">Assinatura Mensal</h3>
+          <p class="plan-desc">Flexibilidade total para estudar no seu ritmo e cancelar quando quiser.</p>
+        </div>
+        <div class="plan-price-wrap">
+          <span class="plan-price">R$ 49,90</span>
+          <span class="plan-period">/ mês</span>
+        </div>
+        <ul class="plan-features">
+          <li class="plan-feature-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Acesso completo a todos os cursos e módulos</span>
+          </li>
+          <li class="plan-feature-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Projetos práticos e códigos para download</span>
+          </li>
+          <li class="plan-feature-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Cancelamento simples com 1 clique</span>
+          </li>
+          <li class="plan-feature-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Emissão de certificados de conclusão</span>
+          </li>
+        </ul>
+        <button type="button" class="btn-plan outline" id="btnPlanMonthly">Assinar mensal</button>
+      </div>
+
+      <!-- Card 3: Anual (Mais Popular) -->
+      <div class="plan-card featured">
+        <div class="plan-badge-top">Economize 50%</div>
+        <div class="plan-header">
+          <h3 class="plan-name">Assinatura Anual</h3>
+          <p class="plan-desc">O melhor custo-benefício para se tornar um desenvolvedor completo.</p>
+        </div>
+        <div class="plan-price-wrap">
+          <span class="plan-price">R$ 299,90</span>
+          <span class="plan-period">/ ano (R$ 24,99/mês)</span>
+        </div>
+        <ul class="plan-features">
+          <li class="plan-feature-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span><strong>12 meses de acesso irrestrito</strong> a todas as trilhas</span>
+          </li>
+          <li class="plan-feature-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Acesso prioritário a novos cursos e atualizações</span>
+          </li>
+
+          <li class="plan-feature-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Certificados digitais inclusos</span>
+          </li>
+        </ul>
+        <button type="button" class="btn-plan primary" id="btnPlanYearly">Assinar anual</button>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Footer Padrão -->
+  <footer class="inst-footer">
+    <div class="inst-footer-inner">
+      <div class="inst-footer-top">
+        <div class="inst-footer-brand">
+          <div class="inst-logo"><span class="logo-e">E</span><span class="logo-dev">dev</span></div>
+          <div class="inst-footer-desc">
+            Plataforma de cursos práticos de programação orientados a projetos acumulativos.
+          </div>
+        </div>
+
+        <nav class="inst-footer-links" aria-label="Links institucionais">
+          <a href="sobre.html" class="inst-footer-link">Sobre</a>
+          <a href="contato.html" class="inst-footer-link">Contato</a>
+          <a href="verificar.html" class="inst-footer-link">Verificar Certificado</a>
+          <a href="termos.html" class="inst-footer-link">Termos de Uso</a>
+          <a href="privacidade.html" class="inst-footer-link">Política de Privacidade</a>
+        </nav>
+      </div>
+
+      <div class="inst-footer-bottom">
+        <div>&copy; 2026 Edev. Todos os direitos reservados.</div>
+        <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+          <a href="https://www.instagram.com/edev.oficial" target="_blank" rel="noopener noreferrer" style="color: #1CA8E3; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; font-weight: 600;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+            @edev.oficial
+          </a>
+          <span class="inst-footer-contact-email">Contato oficial: <a href="mailto:edev735@gmail.com">edev735@gmail.com</a></span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Banner de Cookies (LGPD) -->
+  <div id="cookieBanner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Consentimento de Cookies">
+    <div class="cookie-banner-content">
+      <div class="cookie-banner-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1CA8E3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M12 2a10 10 0 0 0-1.5 19.9"></path>
+          <circle cx="8.5" cy="8.5" r="1.5" fill="#1CA8E3"></circle>
+          <circle cx="15.5" cy="11.5" r="1" fill="#1CA8E3"></circle>
+          <circle cx="10" cy="15.5" r="1" fill="#1CA8E3"></circle>
+        </svg>
+      </div>
+      <div class="cookie-banner-text">
+        Usamos cookies para manter você logado e melhorar sua experiência. Ao continuar, você concorda com nossos <a href="termos.html" class="cookie-link">Termos de Uso</a> e nossa <a href="privacidade.html" class="cookie-link">Política de Privacidade</a>. <a href="privacidade.html" class="cookie-learn-more">Saiba mais</a>
+      </div>
+      <div class="cookie-banner-actions">
+        <button type="button" id="btnRejectCookies" class="btn-cookie-reject">Rejeitar</button>
+        <button type="button" id="btnAcceptCookies" class="btn-cookie-accept">Aceitar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/landing.js"></script>
+  <script src="js/cookie-banner.js"></script>
+</body>
+</html>
