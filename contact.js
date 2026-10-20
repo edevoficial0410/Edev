@@ -12,11 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnText = btnSubmit?.querySelector('.btn-text');
 
   // Define a URL base da API
-  const API_BASE = window.EDEV_API_BASE || (
-    window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:'
-      ? 'http://localhost:3001'
-      : ''
-  );
+  const API_BASE = window.EDEV_API_BASE || 'https://edev-production.up.railway.app';
+
 
   function showAlert(type, message) {
     if (!alertBox) return;

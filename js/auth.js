@@ -3,15 +3,8 @@
  * Módulo completo de autenticação e comunicação com a API do Edev.
  */
 
-export const API_BASE = (typeof window !== 'undefined' && window.EDEV_API_BASE) || (
-  typeof window !== 'undefined' && (
-    window.location.hostname === 'localhost' ||
-    window.location.hostname === '127.0.0.1' ||
-    window.location.protocol === 'file:'
-  )
-    ? 'http://localhost:3001'
-    : ''
-);
+export const API_BASE = (typeof window !== 'undefined' && window.EDEV_API_BASE) || 'https://edev-production.up.railway.app';
+
 
 export const TOKEN_KEYS = {
   ACCESS: 'edev_access_token',
@@ -246,7 +239,7 @@ export async function deleteAccount() {
     method: 'DELETE',
   });
   clearTokens();
-  window.location.replace('landing.html');
+  window.location.replace('index.html');
   return data;
 }
 

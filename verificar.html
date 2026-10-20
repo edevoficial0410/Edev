@@ -17,7 +17,7 @@
   <!-- Header Fixo -->
   <header class="inst-header">
     <div class="inst-header-inner">
-      <a href="landing.html" class="inst-brand" aria-label="Edev - Início">
+      <a href="index.html" class="inst-brand" aria-label="Edev - Início">
         <img src="img/logo/logo-horizontal.png" alt="Edev" style="height: 48px; width: auto;">
         <span class="inst-slogan">Do iniciante ao avançado</span>
       </a>
@@ -34,7 +34,7 @@
         <a href="sobre.html" class="inst-nav-link">Sobre</a>
         <a href="contato.html" class="inst-nav-link">Contato</a>
         <a href="verificar.html" class="inst-nav-link active">Verificar Certificado</a>
-        <a href="landing.html" class="inst-nav-cta">
+        <a href="index.html" class="inst-nav-cta">
           <span>Início</span>
         </a>
       </nav>
@@ -175,11 +175,8 @@
   </footer>
 
   <script>
-    const API_BASE = window.EDEV_API_BASE || (
-      window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-        ? 'http://localhost:3001'
-        : ''
-    );
+    const API_BASE = window.EDEV_API_BASE || 'https://edev-production.up.railway.app';
+
 
     const form = document.getElementById('verifyForm');
     const input = document.getElementById('certCode');

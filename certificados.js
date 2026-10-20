@@ -9,11 +9,8 @@ import { state, registerRenderer, esc } from './main.js';
 import { CERT_DATA } from '../data/certificados.js';
 import { COURSES } from '../data/cursos.js';
 
-const API_BASE = (typeof window !== 'undefined' && window.EDEV_API_BASE) || (
-  typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
-    ? 'http://localhost:3001'
-    : ''
-);
+const API_BASE = (typeof window !== 'undefined' && window.EDEV_API_BASE) || 'https://edev-production.up.railway.app';
+
 
 /**
  * Gera um código temporário de verificação local (fallback no frontend sem salvar no banco)
