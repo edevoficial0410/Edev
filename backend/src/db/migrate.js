@@ -16,6 +16,9 @@ function runMigrations() {
       last_login DATETIME,
       failed_login_attempts INTEGER DEFAULT 0,
       locked_until DATETIME,
+      study_profile TEXT,
+      google_id TEXT UNIQUE,
+      preferences TEXT,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
       updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
@@ -145,6 +148,16 @@ function runMigrations() {
   }
   if (!columnExists(db, 'users', 'kiwify_customer_id')) {
     db.exec("ALTER TABLE users ADD COLUMN kiwify_customer_id TEXT;");
+  }
+  if (!columnExists(db, 'users', 'study_profile')) {
+    db.exec("ALTER TABLE users ADD COLUMN study_profile TEXT;");
+  }
+  if (!columnExists(db, 'users', 'google_id')) {
+    db.exec("ALTER TABLE users ADD COLUMN google_id TEXT;");
+    db.exec("CREATE UNIQUE INDEX IF NOT EXISTS idx_users_google_id ON users(google_id);");
+  }
+  if (!columnExists(db, 'users', 'preferences')) {
+    db.exec("ALTER TABLE users ADD COLUMN preferences TEXT;");
   }
 
   // Garante que o administrador/proprietário da plataforma seja sempre fundador vitalício

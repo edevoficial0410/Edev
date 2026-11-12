@@ -10,6 +10,31 @@
     }
   </script>
 
+  <meta name="description" content="Plataforma prática de programação orientada a projetos reais. Front-end, Python, Java e muito mais.">
+  <meta name="theme-color" content="#0A0A0A">
+
+  <!-- Open Graph / Facebook / WhatsApp / Discord -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://edev.dev/app.html">
+  <meta property="og:title" content="Edev — Plataforma de Programação Prática">
+  <meta property="og:description" content="Estude programação construindo projetos reais do zero ao portfólio profissional.">
+  <meta property="og:image" content="https://edev.dev/img/edev-og-preview.png">
+  <meta property="og:image:secure_url" content="https://edev.dev/img/edev-og-preview.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Edev — Plataforma Prática de Programação">
+  <meta property="og:site_name" content="Edev">
+  <meta property="og:locale" content="pt_BR">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://edev.dev/app.html">
+  <meta name="twitter:title" content="Edev — Plataforma de Programação Prática">
+  <meta name="twitter:description" content="Estude programação construindo projetos reais do zero ao portfólio profissional.">
+  <meta name="twitter:image" content="https://edev.dev/img/edev-og-preview.png">
+  <meta name="twitter:image:alt" content="Edev — Plataforma Prática de Programação">
+
   <!-- ── Google Fonts (Inter + JetBrains Mono) ──────────── -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,7 +42,6 @@
 
   <link rel="icon" type="image/png" href="img/logo/logo-icon-bg.png">
   <link rel="apple-touch-icon" href="img/logo/logo-icon-bg.png">
-  <meta property="og:image" content="img/logo/logo-horizontal-bg.png">
 
   <!-- ── CSS ──────────────────────────────────────────── -->
   <link rel="stylesheet" href="css/main.css">
@@ -29,6 +53,8 @@
   <link rel="stylesheet" href="css/conquistas.css">
   <link rel="stylesheet" href="css/certificados.css">
   <link rel="stylesheet" href="css/perfil.css">
+  <link rel="stylesheet" href="css/orientador.css">
+  <link rel="stylesheet" href="css/narration.css">
   <link rel="stylesheet" href="css/responsivo.css">
 
   <!-- ── CDNs ─────────────────────────────────────────── -->
@@ -75,6 +101,14 @@
           <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
         </svg>
         Dashboard
+      </button>
+
+      <button class="nav-item" data-page="orientador" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+        </svg>
+        Orientador
       </button>
 
       <button class="nav-item" data-page="cursos" type="button">
@@ -258,6 +292,9 @@
             </button>
           </div>
         </div>
+
+        <!-- Banner Dinâmico do Orientador de Estudos (Trilha Recomendada vs Convite) -->
+        <div id="dashOrientadorBanner" style="margin-top:16px;margin-bottom:20px;"></div>
 
         <!-- Grid de Estatísticas Gamificadas -->
         <div class="stats-grid">
@@ -453,6 +490,12 @@
             <button class="btn btn-ghost btn-tts" id="btnTts" type="button" title="Ouvir teoria da aula em voz alta">
               <span class="tts-icon">🔊</span>
               <span class="tts-text">Ouvir aula</span>
+            </button>
+            <button class="btn btn-ghost btn-tts-stop" id="btnStopTts" type="button" title="Parar narração completamente" hidden>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                <rect x="5" y="5" width="14" height="14" rx="2"></rect>
+              </svg>
+              <span>Parar</span>
             </button>
             <button class="btn btn-ghost" id="btnFullscreen" type="button" title="Entrar em tela cheia">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -845,6 +888,11 @@
 
       </section><!-- /page-planos -->
 
+      <!-- ── Orientador de Estudos ──────────────────────── -->
+      <section class="page" id="page-orientador">
+        <!-- Renderizado dinamicamente via js/orientador.js -->
+      </section>
+
       <!-- Footer da Plataforma -->
       <footer class="app-footer" style="padding: 32px 0 16px; border-top: 1px solid var(--border); margin-top: 48px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.85rem; color: var(--muted);">
         <div>&copy; 2026 Edev — Do iniciante ao avançado</div>
@@ -888,12 +936,14 @@
   import { initAulaButtons } from './js/aula.js';
   import { initPerfil } from './js/perfil.js';
   import { initPlayground } from './js/playground.js';
+  import { initOrientador, checkAndPromptOnboarding } from './js/orientador.js';
 
   // ── Inicializa o app ────────────────────────────────────────────────────
-  await init();       // carrega dados remotos / migração forçada, sidebar, usuário
+  const user = await init();       // carrega dados remotos / migração forçada, sidebar, usuário
   initAulaButtons();  // botões da página de aula
   initPerfil();       // formulário de perfil
   initPlayground();   // editor do playground
+  initOrientador();   // orientador de estudos
 
   // 'cursos' ainda não tem renderer registrado pelo próprio módulo —
   // registramos aqui porque renderCatalog é importado explicitamente
@@ -901,6 +951,9 @@
 
   // Abre o dashboard como tela inicial
   openNavPage('dashboard');
+
+  // Apresenta boas-vindas / questionário automaticamente apenas para novos usuários
+  checkAndPromptOnboarding(user);
 </script>
 
 <!-- Banner de Cookies (LGPD) -->

@@ -496,4 +496,6 @@ export async function init() {
     showSubscriptionSuccessToast();
     window.history.replaceState({}, document.title, window.location.pathname);
   }
+
+  return user;
 }

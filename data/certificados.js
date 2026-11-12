@@ -5,6 +5,12 @@
 
 export const CERT_DATA = [
   {
+    id: 'logica',
+    name: 'Lógica de Programação',
+    desc: 'Algoritmos, estruturas de dados, funções e criação do RPG Crônicas de Eldória com Python.',
+    hours: '45 horas'
+  },
+  {
     id: 'frontend',
     name: 'Front-end Completo',
     desc: 'HTML, CSS e JavaScript — do ambiente de trabalho ao deploy.',

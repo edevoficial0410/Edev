@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Verificar Certificado — Autenticidade | Edev</title>
   <meta name="description" content="Verifique a autenticidade e validade de certificados de conclusão emitidos pela plataforma Edev.">
+  <meta name="theme-color" content="#0A0A0A">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://edev.dev/verificar.html">
+  <meta property="og:title" content="Verificar Certificado — Edev">
+  <meta property="og:description" content="Verifique a autenticidade e validade de certificados emitidos pelo Edev.">
+  <meta property="og:image" content="https://edev.dev/img/edev-og-preview.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://edev.dev/img/edev-og-preview.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -175,7 +183,10 @@
   </footer>
 
   <script>
-    const API_BASE = window.EDEV_API_BASE || 'https://edev-production.up.railway.app';
+    const API_BASE = (typeof window !== 'undefined' && window.EDEV_API_BASE)
+      || (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+        ? 'http://localhost:3001'
+        : 'https://edev-production.up.railway.app');
 
 
     const form = document.getElementById('verifyForm');

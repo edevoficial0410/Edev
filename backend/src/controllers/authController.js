@@ -152,6 +152,63 @@ class AuthController {
       next(error);
     }
   }
+  async googleAuth(req, res, next) {
+    try {
+      const { idToken } = req.body;
+      if (!idToken) {
+        return res.status(400).json({ status: 'error', message: 'idToken é obrigatório.' });
+      }
+
+      const ip = getClientIp(req);
+      const userAgent = req.headers['user-agent'];
+
+      const result = await authService.googleAuth({ idToken, ip, userAgent });
+
+      // Domínio de terceiro: Google não é autoridade — exige confirmação com senha Edev
+      if (result.requiresPasswordConfirm) {
+        return res.status(202).json({
+          status: 'requires_password_confirm',
+          message: 'Encontramos uma conta Edev com este e-mail. Informe sua senha para vincular sua conta Google.',
+          email: result.email,
+          idToken: result.idToken, // reenviado para o confirm-link
+        });
+      }
+
+      return res.status(200).json({
+        status: 'success',
+        message: 'Autenticação Google realizada com sucesso!',
+        user: result.user,
+        accessToken: result.accessToken,
+        refreshToken: result.refreshToken,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async googleConfirmLink(req, res, next) {
+    try {
+      const { idToken, password } = req.body;
+      if (!idToken || !password) {
+        return res.status(400).json({ status: 'error', message: 'idToken e password são obrigatórios.' });
+      }
+
+      const ip = getClientIp(req);
+      const userAgent = req.headers['user-agent'];
+
+      const result = await authService.googleConfirmLink({ idToken, password, ip, userAgent });
+
+      return res.status(200).json({
+        status: 'success',
+        message: 'Conta vinculada ao Google com sucesso!',
+        user: result.user,
+        accessToken: result.accessToken,
+        refreshToken: result.refreshToken,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = new AuthController();

@@ -1,59 +1,765 @@
 /**
  * css/responsivo.css
- * Media queries — layout responsivo para tablets e mobile.
+ * Sistema completo de responsividade mobile e tablets da Edev.
+ *
+ * Princípios fundamentais:
+ * 1. Zero rolagem horizontal na página inteira (conteúdo se adapta à largura disponível).
+ * 2. Textos e títulos com quebra de linha natural sem truncar ou vazar a viewport.
+ * 3. Blocos de código com scroll horizontal estritamente interno.
+ * 4. Botões e alvos de toque com altura mínima acessível (>= 40-44px).
+ * 5. Layout otimizado para celulares pequenos (320-375px), médios (390-414px) e grandes (428-480px).
  */
 
+/* ============================================================
+   0. REGRAS GLOBAIS ANTI-OVERFLOW HORIZONTAL
+   ============================================================ */
+
+html, body {
+  overflow-x: hidden !important;
+  max-width: 100vw;
+  width: 100%;
+  position: relative;
+}
+
+.app {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+.main {
+  width: 100%;
+  max-width: 100vw;
+  min-width: 0;
+  overflow-x: hidden;
+}
+
+.content {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+/* Garante que imagens, vídeos e canvas nunca estourem seus containers */
+img, svg, video, canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ============================================================
+   1. BREAKPOINT: TABLETS E TELAS MÉDIAS (max-width: 1024px)
+   ============================================================ */
+
 @media (max-width: 1024px) {
-  .dash-main-grid   { grid-template-columns: 1fr; }
-  .courses-grid     { grid-template-columns: 1fr; }
+  .dash-main-grid   { grid-template-columns: 1fr; gap: 20px; }
+  .courses-grid     { grid-template-columns: 1fr; gap: 20px; }
   .cert-grid        { grid-template-columns: 1fr; }
   .row              { grid-template-columns: 1fr; }
   .playground-body  { grid-template-columns: 1fr; }
   #page-playground  { height: auto; }
 }
 
+/* ============================================================
+   2. BREAKPOINT: SMARTPHONES E TABLETS PEQUENOS (max-width: 768px)
+   ============================================================ */
+
 @media (max-width: 768px) {
-  /* Sidebar fica escondida, abre via hamburguer */
-  .sidebar      { transform: translateX(-100%); }
-  .sidebar.open { transform: none; }
-  .main         { margin-left: 0; }
-  .hamburger    { display: block; }
-  .content      { padding: 16px; }
+  /* ── Layout Geral & Sidebar ────────────────────────────── */
+  .sidebar {
+    transform: translateX(-100%);
+    width: min(290px, 84vw);
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.7);
+    -webkit-overflow-scrolling: touch;
+  }
+  .sidebar.open {
+    transform: none;
+  }
+  .main {
+    margin-left: 0;
+    width: 100%;
+  }
+  .content {
+    padding: 16px 14px;
+  }
 
-  /* Banner de Boas-Vindas */
-  .dash-welcome-banner { flex-direction: column; align-items: flex-start; padding: 22px 20px; }
-  .dash-welcome-action { width: 100%; }
-  .dash-welcome-action .btn { width: 100%; justify-content: center; }
+  /* Topbar Mobile */
+  .topbar {
+    padding: 0 16px;
+    height: 60px;
+  }
+  .hamburger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0;
+  }
+  .page-title {
+    font-size: 1.1rem;
+    font-weight: 750;
+  }
+  .streak-badge {
+    padding: 6px 11px;
+    font-size: 0.8rem;
+  }
 
-  /* Continuidade em 1 coluna */
-  .dash-continuity-grid { grid-template-columns: 1fr; }
+  /* ── Dashboard Mobile ──────────────────────────────────── */
+  .dash-welcome-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px 18px;
+    gap: 16px;
+    border-radius: 14px;
+  }
+  .dash-welcome-title {
+    font-size: 1.35rem;
+    line-height: 1.3;
+  }
+  .dash-welcome-desc {
+    font-size: 0.92rem;
+    margin-bottom: 0;
+  }
+  .dash-welcome-action {
+    width: 100%;
+  }
+  .dash-welcome-action .btn {
+    width: 100%;
+    min-height: 44px;
+    justify-content: center;
+  }
 
-  /* Busca e cabeçalho */
-  .courses-header-row { flex-direction: column; align-items: stretch; }
-  .search-bar { width: 100%; }
-  .search-lesson-item { flex-direction: column; align-items: flex-start; gap: 10px; }
-  .search-item-action { width: 100%; justify-content: space-between; }
+  /* Continuidade e Cursos */
+  .dash-continuity-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .dash-courses-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .stat-card {
+    padding: 16px 14px;
+    border-radius: 12px;
+  }
+  .stat-value {
+    font-size: 1.6rem;
+  }
+  .stat-label {
+    font-size: 0.76rem;
+  }
 
-  /* Botões ocupam largura total na aula */
-  .actions .btn   { flex: 1; justify-content: center; min-width: 0; }
+  /* ── ABA DE CURSOS (Mobile Prioridade Máxima) ─────────────── */
+  .courses-header-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .search-bar {
+    width: 100%;
+    min-height: 44px;
+    padding: 8px 14px;
+    border-radius: 12px;
+  }
+  .search-bar input {
+    font-size: 0.92rem;
+  }
+  .module-filter-bar {
+    padding-bottom: 8px;
+    gap: 6px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .module-filter-bar::-webkit-scrollbar {
+    display: none;
+  }
+  .mod-filter-btn {
+    padding: 7px 13px;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+  }
 
-  /* Foco da aula — esconde texto no mobile, mantém ícone */
-  .aula-focus-btns .btn span { display: none; }
+  /* Cards do Catálogo de Cursos */
+  .courses-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .course-card {
+    padding: 22px 18px;
+    border-radius: 16px;
+    min-width: 0;
+  }
+  .course-card-top {
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .course-card h3 {
+    font-size: 1.2rem;
+    line-height: 1.35;
+    margin: 10px 0 6px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .course-card p {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    margin-bottom: 16px;
+    overflow-wrap: break-word;
+  }
+  .course-card-progress {
+    padding: 10px 12px;
+    margin-bottom: 14px;
+    border-radius: 10px;
+  }
+  .course-meta {
+    flex-wrap: wrap;
+    gap: 6px 14px;
+    font-size: 0.8rem;
+    margin-bottom: 16px;
+  }
+  .btn-card-action {
+    width: 100%;
+    min-height: 44px;
+    justify-content: center;
+    font-size: 0.92rem;
+  }
 
-  /* Playground empilhado */
-  .pg-actions   { flex-direction: column; align-items: stretch; }
-  .pg-actions .sep { display: none; }
-  .pg-templates { flex-wrap: wrap; }
+  /* Módulos do Curso (Acordeão) */
+  .module {
+    border-radius: 12px;
+    margin-bottom: 10px;
+    min-width: 0;
+  }
+  .module-head {
+    padding: 15px 14px;
+    gap: 10px;
+    min-width: 0;
+  }
+  .module-head h4 {
+    font-size: 0.94rem;
+    line-height: 1.35;
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .module-head small {
+    font-size: 0.76rem;
+    margin-top: 3px;
+  }
 
-  /* Stats 2 colunas */
-  .stats-grid { grid-template-columns: 1fr 1fr; }
+  /* Linhas de Aula dentro do Módulo */
+  .lesson-row {
+    padding: 12px 12px;
+    gap: 10px;
+    min-width: 0;
+  }
+  .lesson-num {
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
+    font-size: 0.72rem;
+    flex-shrink: 0;
+  }
+  .lesson-name {
+    font-size: 0.88rem;
+    line-height: 1.38;
+    min-width: 0;
+    flex: 1;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .status-pill {
+    font-size: 0.7rem;
+    padding: 3px 8px;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+  .module-download {
+    padding: 10px 14px;
+  }
+  .module-download .btn {
+    width: 100%;
+    min-height: 40px;
+    justify-content: center;
+  }
+
+  /* Itens de Resultado de Busca */
+  .search-lesson-item {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 12px 14px;
+  }
+  .search-item-action {
+    width: 100%;
+    justify-content: space-between;
+    padding-top: 6px;
+    border-top: 1px solid rgba(110, 110, 110, 0.15);
+  }
+
+  /* ── TELA DAS AULAS (Mobile Prioridade Máxima) ─────────────── */
+  #page-aula {
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* Modo Foco / Fullscreen em Celular */
+  #page-aula:fullscreen {
+    padding: 16px 12px !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    box-sizing: border-box;
+    overflow-x: hidden !important;
+  }
+
+  /* Topbar de Ações da Aula */
+  .aula-topbar {
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+  .aula-focus-btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+  }
+  .aula-focus-btns .btn {
+    padding: 8px 12px;
+    min-height: 40px;
+    font-size: 0.84rem;
+  }
+  /* Oculta textos secundários mantendo ícones e o botão de narração visível */
+  #btnFullscreen span,
+  #btnNewTab span {
+    display: none;
+  }
+
+  /* Cabeçalho da Aula */
+  .lesson-header {
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+  }
+  .lesson-header h2 {
+    font-size: 1.2rem;
+    line-height: 1.35;
+    margin-bottom: 8px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .lesson-meta {
+    font-size: 0.8rem;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .lesson-read-time {
+    font-size: 0.76rem;
+    padding: 2px 8px;
+  }
+
+  /* Blocos de Conteúdo e Caixa de Objetivos */
+  .block {
+    border-radius: 12px;
+    margin-bottom: 14px;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+  }
+  .block-h {
+    padding: 12px 14px;
+    font-size: 0.94rem;
+  }
+  .block-b {
+    padding: 16px 14px;
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+  }
+
+  .aula-goals-box {
+    padding: 14px 14px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border-left-width: 3px;
+  }
+  .aula-goals-title {
+    font-size: 0.92rem;
+    margin-bottom: 8px;
+  }
+  .aula-goals-list {
+    gap: 6px;
+  }
+  .aula-goals-list li {
+    font-size: 0.86rem;
+    line-height: 1.45;
+  }
+
+  /* Leitura Imersiva e Teoria */
+  .theory {
+    font-size: 0.93rem;
+    line-height: 1.62;
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+  .theory p {
+    margin-bottom: 12px;
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+  .theory h3 {
+    font-size: 1.04rem;
+    margin: 26px 0 10px;
+    padding-top: 16px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .theory ul {
+    margin: 0 0 12px 18px;
+  }
+  .theory li {
+    margin-bottom: 4px;
+  }
+
+  /* BLOCOS DE CÓDIGO: Scroll estritamente interno sem estourar a página */
+  .code,
+  pre.code,
+  .command-spotlight-code,
+  .project-block .code {
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    white-space: pre !important;
+    font-size: 0.8rem;
+    line-height: 1.48;
+    padding: 12px 14px;
+    margin: 12px 0;
+    border-radius: 8px;
+  }
+
+  .command-spotlight {
+    padding: 14px 14px;
+    margin: 16px 0;
+    border-radius: 10px;
+  }
+  .command-spotlight-title {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+  }
+  .callout {
+    padding: 12px 14px;
+    margin: 16px 0;
+    font-size: 0.88rem;
+    border-radius: 8px;
+  }
+  .uso-pratico {
+    padding: 14px 14px;
+    margin: 18px 0;
+    border-radius: 10px;
+  }
+  .uso-pratico h4 {
+    font-size: 0.92rem;
+  }
+  .uso-pratico p {
+    font-size: 0.88rem;
+  }
+
+  /* Desafio e Editor Interativo */
+  .challenge-desc {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .editor {
+    width: 100%;
+    max-width: 100%;
+    min-height: 130px;
+    font-size: 0.84rem;
+    padding: 10px 12px;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+  .quiz {
+    gap: 8px;
+  }
+  .opt {
+    padding: 11px 12px;
+    font-size: 0.86rem;
+    line-height: 1.4;
+    border-radius: 8px;
+  }
+
+  /* Botões de Ação na Aula: Touch Amigável e Empilhados */
+  .actions {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .actions .btn {
+    width: 100%;
+    min-height: 44px;
+    justify-content: center;
+    font-size: 0.92rem;
+    padding: 11px 16px;
+    border-radius: 10px;
+  }
+
+  /* Feedback do Desafio */
+  .fb {
+    padding: 14px 14px;
+    margin-top: 12px;
+    border-radius: 10px;
+  }
+  .fb-header {
+    font-size: 0.94rem;
+  }
+  .fb-desc {
+    font-size: 0.86rem;
+    margin-bottom: 10px;
+  }
+  .fb-diff-box {
+    padding: 10px 10px;
+    border-radius: 8px;
+  }
+  .fb-user-code,
+  .fb-expected-code {
+    max-width: 100%;
+    overflow-x: auto;
+    word-break: break-all;
+    font-size: 0.8rem;
+    padding: 4px 6px;
+  }
+
+  /* Banner de Convite ao Modo Foco */
+  .focus-prompt-banner {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    gap: 10px;
+    padding: 12px 14px;
+  }
+  .focus-prompt-text {
+    justify-content: center;
+    font-size: 0.85rem;
+  }
+  .focus-prompt-banner .btn {
+    width: 100%;
+    min-height: 40px;
+    justify-content: center;
+  }
+
+  /* Playground */
+  .pg-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .pg-actions .sep {
+    display: none;
+  }
+  .pg-templates {
+    flex-wrap: wrap;
+  }
 }
+
+/* ============================================================
+   3. BREAKPOINT: SMARTPHONES PEQUENOS E MÉDIOS (max-width: 480px)
+   ============================================================ */
 
 @media (max-width: 480px) {
-  .stats-grid { grid-template-columns: 1fr; }
-  .ach-grid   { grid-template-columns: repeat(2, 1fr); }
-  .cert-grid  { grid-template-columns: 1fr; }
-  .dash-welcome-title { font-size: 1.3rem; }
+  /* Padding de página compacto para maximizar leitura */
+  .content {
+    padding: 12px 10px;
+  }
+
+  /* Topbar */
+  .topbar {
+    padding: 0 12px;
+    height: 56px;
+  }
+  .page-title {
+    font-size: 1rem;
+  }
+
+  /* Stats em 2 colunas compactas */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .stat-card {
+    padding: 12px 10px;
+  }
+  .stat-value {
+    font-size: 1.4rem;
+  }
+  .stat-label {
+    font-size: 0.72rem;
+  }
+  .ach-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .cert-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Cards de Cursos no Mobile */
+  .course-card {
+    padding: 18px 14px;
+    border-radius: 14px;
+  }
+  .course-card h3 {
+    font-size: 1.12rem;
+  }
+  .course-card p {
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+  }
+  .course-badge {
+    font-size: 0.68rem;
+    padding: 3px 8px;
+  }
+  .course-resume-badge {
+    font-size: 0.68rem;
+    padding: 3px 8px;
+  }
+
+  /* Aula no Celular Estreito */
+  #page-aula:fullscreen {
+    padding: 12px 8px !important;
+  }
+  .lesson-header h2 {
+    font-size: 1.12rem;
+  }
+  .block-h {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
+  .block-b {
+    padding: 14px 12px;
+  }
+  .theory {
+    font-size: 0.91rem;
+    line-height: 1.6;
+  }
+  .theory h3 {
+    font-size: 0.98rem;
+  }
+  .aula-goals-box {
+    padding: 12px 12px;
+  }
+  .aula-goals-list li {
+    font-size: 0.84rem;
+  }
+
+  /* Tooltip do termo novo em tela pequena: não vaza tela */
+  .termo-novo::after {
+    max-width: 200px;
+    font-size: 0.76rem;
+    padding: 6px 10px;
+  }
+
+  /* Modal de Onboarding da Narração no Mobile */
+  .narration-modal-overlay {
+    padding: 10px;
+  }
+  .narration-modal-card {
+    padding: 22px 16px 18px;
+    border-radius: 14px;
+    max-height: calc(100vh - 24px);
+    overflow-y: auto;
+  }
+  .narration-modal-title {
+    font-size: 1.2rem;
+  }
+  .narration-modal-body p {
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+  .btn-narration-primary {
+    padding: 12px 16px;
+    font-size: 0.92rem;
+    min-height: 44px;
+  }
+  .btn-narration-secondary {
+    padding: 10px 16px;
+    font-size: 0.88rem;
+    min-height: 40px;
+  }
+
+  /* Toast discreto de narração: 100% visível na tela sem corte */
+  .narration-toast {
+    left: 10px !important;
+    right: 10px !important;
+    bottom: 12px !important;
+    max-width: none !important;
+    font-size: 0.84rem;
+    padding: 10px 14px;
+    border-radius: 8px;
+  }
+
+  /* Banner de Cookies LGPD */
+  .cookie-banner {
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    padding: 14px 14px;
+    border-radius: 12px;
+  }
+  .cookie-banner-content {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .cookie-banner-actions {
+    width: 100%;
+    display: flex;
+    gap: 8px;
+  }
+  .cookie-banner-actions button {
+    flex: 1;
+    min-height: 40px;
+  }
 }
 
+/* ============================================================
+   4. BREAKPOINT: SMARTPHONES ULTRA-COMPACTOS (max-width: 360px)
+   ============================================================ */
 
+@media (max-width: 360px) {
+  .content {
+    padding: 10px 8px;
+  }
+  .lesson-header h2 {
+    font-size: 1.05rem;
+  }
+  .stat-value {
+    font-size: 1.25rem;
+  }
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+  .actions .btn {
+    font-size: 0.86rem;
+    padding: 10px 12px;
+  }
+  .btn-card-action {
+    font-size: 0.86rem;
+  }
+}

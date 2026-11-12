@@ -3,7 +3,10 @@
  * Módulo completo de autenticação e comunicação com a API do Edev.
  */
 
-export const API_BASE = (typeof window !== 'undefined' && window.EDEV_API_BASE) || 'https://edev-production.up.railway.app';
+export const API_BASE = (typeof window !== 'undefined' && window.EDEV_API_BASE)
+  || (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+    ? 'http://localhost:3001'
+    : 'https://edev-production.up.railway.app');
 
 
 export const TOKEN_KEYS = {
@@ -67,6 +70,7 @@ export function clearTokens() {
   localStorage.removeItem('edev_progress');
   localStorage.removeItem('edev_last_lesson');
   localStorage.removeItem('edev_study_time');
+  localStorage.removeItem('edev_study_profile');
 
   // Varredura de segurança: remove rigorosamente qualquer chave com prefixo edev_
   try {
@@ -338,4 +342,93 @@ export function setupPasswordToggles() {
       }
     });
   });
+}
+
+/**
+ * Autentica com Google via Google Identity Services (GIS).
+ *
+ * Casos possíveis ao resolver/rejeitar:
+ *   resolve(data)                        — login/cadastro concluído, tokens salvos
+ *   reject(err) com err.requiresPasswordConfirm === true
+ *                                        — conta Edev existente com domínio de terceiro;
+ *                                          o frontend deve exibir modal de senha e chamar
+ *                                          googleConfirmLink(idToken, password) em seguida.
+ *   reject(err)                          — erro genérico (token inválido, rede, etc.)
+ *
+ * @param {string} googleClientId - Client ID público (window.EDEV_GOOGLE_CLIENT_ID)
+ */
+export function loginWithGoogle(googleClientId) {
+  return new Promise((resolve, reject) => {
+    if (typeof google === 'undefined' || !google?.accounts?.id) {
+      reject(new Error('Google Identity Services não carregado. Verifique sua conexão.'));
+      return;
+    }
+
+    google.accounts.id.initialize({
+      client_id: googleClientId,
+      callback: async (response) => {
+        if (!response?.credential) {
+          reject(new Error('Nenhuma credencial retornada pelo Google.'));
+          return;
+        }
+
+        try {
+          clearTokens();
+
+          // apiFetch lança para status >= 400 mas NÃO para 202
+          const res = await fetch(`${API_BASE}/api/auth/google`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ idToken: response.credential }),
+          });
+
+          const data = await res.json();
+
+          if (res.status === 202 && data.status === 'requires_password_confirm') {
+            // Domínio de terceiro — Google não é autoridade; exige senha Edev
+            const err = new Error(data.message || 'Confirme sua identidade Edev.');
+            err.requiresPasswordConfirm = true;
+            err.email   = data.email;
+            err.idToken = data.idToken;  // preservado para o confirm-link
+            reject(err);
+            return;
+          }
+
+          if (!res.ok) {
+            const msg = data.message || (data.errors?.[0]?.message) || `Erro ${res.status}`;
+            reject(new Error(msg));
+            return;
+          }
+
+          saveTokens(data);
+          resolve(data);
+        } catch (err) {
+          reject(err);
+        }
+      },
+      cancel_on_tap_outside: true,
+    });
+
+    google.accounts.id.prompt((notification) => {
+      if (notification.isNotDisplayed()) {
+        reject(new Error('O popup do Google foi bloqueado pelo navegador. Por favor, permita popups para este site.'));
+      }
+    });
+  });
+}
+
+/**
+ * Segunda etapa do fluxo para domínios de terceiro:
+ * confirma a identidade Edev com senha e vincula o google_id.
+ *
+ * @param {string} idToken   - ID token Google devolvido pelo requiresPasswordConfirm
+ * @param {string} password  - Senha atual da conta Edev do usuário
+ */
+export async function googleConfirmLink(idToken, password) {
+  const data = await apiFetch('/api/auth/google/confirm-link', {
+    method: 'POST',
+    body: JSON.stringify({ idToken, password }),
+  });
+  saveTokens(data);
+  return data;
 }

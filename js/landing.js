@@ -9,7 +9,10 @@
 const KIWIFY_MONTHLY = 'https://pay.kiwify.com.br/ksvrvDc';
 const KIWIFY_YEARLY = 'https://pay.kiwify.com.br/U9fA01u';
 
-const API_BASE = window.EDEV_API_BASE || 'https://edev-production.up.railway.app';
+const API_BASE = (typeof window !== 'undefined' && window.EDEV_API_BASE)
+  || (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+    ? 'http://localhost:3001'
+    : 'https://edev-production.up.railway.app');
 
 
 document.addEventListener('DOMContentLoaded', () => {

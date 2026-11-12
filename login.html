@@ -4,12 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Entrar — Edev</title>
+  <meta name="description" content="Acesse sua conta no Edev e continue construindo seus projetos práticos de programação.">
+  <meta name="theme-color" content="#0A0A0A">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Entrar — Edev">
+  <meta property="og:description" content="Acesse sua conta no Edev e continue construindo seus projetos práticos de programação.">
+  <meta property="og:image" content="https://edev.dev/img/edev-og-preview.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://edev.dev/img/edev-og-preview.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="img/logo/logo-icon-bg.png">
   <link rel="apple-touch-icon" href="img/logo/logo-icon-bg.png">
-  <meta property="og:image" content="img/logo/logo-horizontal-bg.png">
   <link rel="stylesheet" href="css/auth.css">
 </head>
 <body>
@@ -57,6 +64,18 @@
         </button>
       </form>
 
+      <div class="auth-divider"><span>ou</span></div>
+
+      <button type="button" id="btnGoogleLogin" class="btn-google">
+        <svg class="google-icon" viewBox="0 0 48 48">
+          <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+          <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+          <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+          <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+        </svg>
+        Continuar com Google
+      </button>
+
       <div class="auth-footer">
         Ainda não tem uma conta? <a href="register.html">Cadastre-se grátis</a>
       </div>
@@ -74,10 +93,17 @@
     </div>
   </div>
 
+  <!-- Google Client ID público (configure em js/google-config.js) -->
+  <script src="js/google-config.js"></script>
+  <!-- Google Identity Services -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
   <script type="module">
     import {
       redirectIfAuthenticated,
       login,
+      loginWithGoogle,
+      googleConfirmLink,
       showAlert,
       hideAlert,
       setButtonLoading,
@@ -85,49 +111,145 @@
       redirectToApp
     } from './js/auth.js';
 
-    // Se já estiver autenticado, vai direto para o dashboard
     redirectIfAuthenticated();
     setupPasswordToggles();
 
-    const form = document.getElementById('loginForm');
-    const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
-    const btnSubmit = document.getElementById('btnSubmit');
-    const alertEl = document.getElementById('authAlert');
+    const form        = document.getElementById('loginForm');
+    const emailInput  = document.getElementById('email');
+    const passInput   = document.getElementById('password');
+    const btnSubmit   = document.getElementById('btnSubmit');
+    const btnGoogle   = document.getElementById('btnGoogleLogin');
+    const alertEl     = document.getElementById('authAlert');
 
+    const GOOGLE_ICON = '<svg class="google-icon" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg> Continuar com Google';
+
+    function resetGoogleBtn() {
+      btnGoogle.disabled = false;
+      btnGoogle.innerHTML = GOOGLE_ICON;
+    }
+
+    // ── Login com email/senha ──────────────────────────────────────────────────
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       hideAlert(alertEl);
 
-      const email = emailInput.value.trim();
-      const password = passwordInput.value;
+      const email    = emailInput.value.trim();
+      const password = passInput.value;
 
-      // Validação client-side inicial
-      if (!email || !email.includes('@')) {
-        showAlert(alertEl, 'error', 'Informe um endereço de email válido.');
-        emailInput.focus();
-        return;
-      }
-
-      if (!password) {
-        showAlert(alertEl, 'error', 'Informe sua senha.');
-        passwordInput.focus();
-        return;
-      }
+      if (!email || !email.includes('@')) { showAlert(alertEl, 'error', 'Informe um endereço de email válido.'); emailInput.focus(); return; }
+      if (!password) { showAlert(alertEl, 'error', 'Informe sua senha.'); passInput.focus(); return; }
 
       setButtonLoading(btnSubmit, true, 'Entrar na plataforma');
-
       try {
         await login(email, password);
         showAlert(alertEl, 'success', 'Login autorizado! Redirecionando...');
-        setTimeout(() => {
-          redirectToApp();
-        }, 400);
+        setTimeout(() => redirectToApp(), 400);
       } catch (err) {
         showAlert(alertEl, 'error', err.message || 'Erro ao realizar login.');
         setButtonLoading(btnSubmit, false, 'Entrar na plataforma');
       }
     });
+
+    // ── Login com Google ───────────────────────────────────────────────────────
+    btnGoogle.addEventListener('click', async () => {
+      hideAlert(alertEl);
+      btnGoogle.disabled = true;
+      btnGoogle.textContent = 'Conectando com Google...';
+
+      let attempts = 0;
+      while ((typeof google === 'undefined' || !google?.accounts?.id) && attempts < 20) {
+        await new Promise(r => setTimeout(r, 300));
+        attempts++;
+      }
+
+      const GOOGLE_CLIENT_ID = window.EDEV_GOOGLE_CLIENT_ID || '';
+      if (!GOOGLE_CLIENT_ID) {
+        showAlert(alertEl, 'error', 'Autenticação com Google não configurada. Entre em contato com o suporte.');
+        resetGoogleBtn();
+        return;
+      }
+
+      try {
+        await loginWithGoogle(GOOGLE_CLIENT_ID);
+        showAlert(alertEl, 'success', 'Login com Google autorizado! Redirecionando...');
+        setTimeout(() => redirectToApp(), 400);
+      } catch (err) {
+        if (err.requiresPasswordConfirm) {
+          // Domínio de terceiro — exibe modal para confirmar senha Edev
+          openConfirmModal(err.email, err.idToken);
+          resetGoogleBtn();
+        } else {
+          showAlert(alertEl, 'error', err.message || 'Erro ao autenticar com Google.');
+          resetGoogleBtn();
+        }
+      }
+    });
+
+    // ── Modal de confirmação de senha (domínio de terceiro) ────────────────────
+    function openConfirmModal(email, idToken) {
+      const existing = document.getElementById('googleConfirmModal');
+      if (existing) existing.remove();
+
+      const modal = document.createElement('div');
+      modal.id = 'googleConfirmModal';
+      modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;z-index:9999;padding:16px;';
+      modal.innerHTML = `
+        <div style="background:var(--surface,#1e293b);border:1px solid var(--border,rgba(148,163,184,.15));border-radius:12px;padding:28px 24px;max-width:420px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.4);">
+          <h2 style="margin:0 0 8px;font-size:1.1rem;font-weight:700;color:var(--text,#f1f5f9);">Vincular conta Google</h2>
+          <p style="margin:0 0 20px;font-size:0.88rem;color:var(--muted,#94a3b8);line-height:1.5;">
+            Encontramos uma conta Edev com o e-mail <strong style="color:var(--blue,#1CA8E3);">${email}</strong>.<br>
+            Para vincular sua conta Google com segurança, confirme sua senha Edev.
+          </p>
+          <div id="modalAlert" style="display:none;padding:10px 12px;border-radius:8px;font-size:0.85rem;margin-bottom:14px;"></div>
+          <label style="display:block;font-size:0.85rem;font-weight:600;color:var(--muted,#94a3b8);margin-bottom:6px;">Sua senha Edev</label>
+          <input id="modalPassword" type="password" placeholder="••••••••" autocomplete="current-password"
+            style="width:100%;box-sizing:border-box;background:var(--input-bg,#0f172a);border:1.5px solid var(--border,rgba(148,163,184,.15));border-radius:8px;padding:11px 14px;color:var(--text,#f1f5f9);font-size:0.95rem;outline:none;margin-bottom:16px;">
+          <div style="display:flex;gap:10px;">
+            <button id="modalCancel" style="flex:1;padding:11px;border:1.5px solid var(--border,rgba(148,163,184,.2));border-radius:8px;background:transparent;color:var(--muted,#94a3b8);font-size:0.9rem;cursor:pointer;font-family:inherit;">Cancelar</button>
+            <button id="modalConfirm" style="flex:2;padding:11px;border:none;border-radius:8px;background:linear-gradient(135deg,#1CA8E3,#0284c7);color:#fff;font-size:0.9rem;font-weight:700;cursor:pointer;font-family:inherit;">Confirmar e Vincular</button>
+          </div>
+        </div>`;
+
+      document.body.appendChild(modal);
+      document.getElementById('modalPassword').focus();
+
+      document.getElementById('modalCancel').addEventListener('click', () => modal.remove());
+      modal.addEventListener('click', (e) => { if (e.target === modal) modal.remove(); });
+
+      document.getElementById('modalConfirm').addEventListener('click', async () => {
+        const pwd        = document.getElementById('modalPassword').value;
+        const modalAlert = document.getElementById('modalAlert');
+        const confirmBtn = document.getElementById('modalConfirm');
+
+        if (!pwd) { showModalAlert(modalAlert, 'Informe sua senha.'); return; }
+
+        confirmBtn.disabled = true;
+        confirmBtn.textContent = 'Vinculando...';
+
+        try {
+          await googleConfirmLink(idToken, pwd);
+          modal.remove();
+          showAlert(alertEl, 'success', 'Conta vinculada! Redirecionando...');
+          setTimeout(() => redirectToApp(), 500);
+        } catch (err) {
+          confirmBtn.disabled = false;
+          confirmBtn.textContent = 'Confirmar e Vincular';
+          showModalAlert(modalAlert, err.message || 'Senha incorreta. Tente novamente.');
+        }
+      });
+
+      document.getElementById('modalPassword').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') document.getElementById('modalConfirm').click();
+      });
+    }
+
+    function showModalAlert(el, msg) {
+      el.style.display = 'block';
+      el.style.background = 'rgba(239,68,68,.12)';
+      el.style.color = '#fca5a5';
+      el.style.border = '1px solid rgba(239,68,68,.3)';
+      el.textContent = msg;
+    }
   </script>
 
   <!-- Banner de Cookies (LGPD) -->

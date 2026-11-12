@@ -12,8 +12,15 @@ export function initPerfil() {
     if (!box) return;
 
     const tempo = state.tempoEstudo || { total: 0, porAula: {}, porCurso: {}, sessoes: [] };
+    const logicaMin = tempo.porCurso?.logica || 0;
     const feMin = tempo.porCurso?.frontend || 0;
     const pyMin = tempo.porCurso?.python || 0;
+
+    // Calcula tempo por módulo de Lógica de Programação
+    const logicaModulesHtml = (COURSES.logica?.modules || []).map((m, idx) => {
+      const mMin = m.lessons.reduce((acc, l) => acc + (tempo.porAula?.[l.id] || 0), 0);
+      return `<li><span class="mod-name">${m.title.split('—')[0].trim()}</span> <span class="mod-val">${formatTempo(mMin)}</span></li>`;
+    }).join('');
 
     // Calcula tempo por módulo de Front-end
     const feModulesHtml = COURSES.frontend.modules.map((m, idx) => {
@@ -34,6 +41,16 @@ export function initPerfil() {
       </div>
 
       <div class="study-courses-grid">
+        <div class="study-course-col">
+          <div class="study-course-head logica">
+            <h4>Lógica de Programação</h4>
+            <span>${formatTempo(logicaMin)}</span>
+          </div>
+          <ul class="study-modules-list">
+            ${logicaModulesHtml}
+          </ul>
+        </div>
+
         <div class="study-course-col">
           <div class="study-course-head fe">
             <h4>Front-end Completo</h4>

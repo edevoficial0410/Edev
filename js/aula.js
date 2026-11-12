@@ -8,6 +8,14 @@ import { state, save, esc, norm, allLessons, bumpStreak, checkAchievements, navi
 import { COURSES } from '../data/cursos.js';
 import { updateDashboard } from './dashboard.js';
 import { isFounder, hasActiveSubscription } from './auth.js';
+import {
+  loadNarrationPreferences,
+  checkAndShowOnboarding,
+  togglePlayLesson,
+  stopNarration,
+  updateTopbarButtonUi,
+  initNarrationControls,
+} from './narration.js';
 
 /** Curso e aula atualmente abertos */
 let currentCourse = null;
@@ -15,118 +23,22 @@ let currentLesson = null;
 let _sessionStart = null;
 
 // ============================================================
-// MODO ÁUDIO (TTS - TEXT TO SPEECH) (Melhoria 7)
+// MODO ÁUDIO & NARRAÇÃO POR IA (ElevenLabs)
 // ============================================================
 
-let _currentUtterance = null;
-let _isTtsSpeaking = false;
-let _isTtsPaused = false;
-
 export function stopTts() {
-  if ('speechSynthesis' in window) {
-    try {
-      window.speechSynthesis.cancel();
-    } catch (e) {
-      console.warn('[Edev TTS] Erro ao cancelar fala:', e);
-    }
-  }
-  _isTtsSpeaking = false;
-  _isTtsPaused = false;
-  _currentUtterance = null;
-  updateTtsButtonUi();
-}
-
-function updateTtsButtonUi() {
-  const btn = document.getElementById('btnTts');
-  if (!btn) return;
-  const icon = btn.querySelector('.tts-icon');
-  const label = btn.querySelector('.tts-text');
-
-  if (_isTtsSpeaking && !_isTtsPaused) {
-    btn.classList.add('tts-active');
-    if (icon) icon.textContent = '⏸️';
-    if (label) label.textContent = 'Pausar aula';
-    btn.title = 'Pausar leitura da aula';
-  } else if (_isTtsPaused) {
-    btn.classList.remove('tts-active');
-    if (icon) icon.textContent = '▶️';
-    if (label) label.textContent = 'Continuar';
-    btn.title = 'Continuar ouvindo aula';
-  } else {
-    btn.classList.remove('tts-active');
-    if (icon) icon.textContent = '🔊';
-    if (label) label.textContent = 'Ouvir aula';
-    btn.title = 'Ouvir teoria da aula em voz alta';
-  }
+  stopNarration();
 }
 
 function initTts() {
+  initNarrationControls();
   const btn = document.getElementById('btnTts');
   if (!btn) return;
-
-  if (!('speechSynthesis' in window)) {
-    btn.hidden = true;
-    return;
-  }
   btn.hidden = false;
 
   btn.onclick = () => {
-    if (_isTtsSpeaking && !_isTtsPaused) {
-      window.speechSynthesis.pause();
-      _isTtsPaused = true;
-      updateTtsButtonUi();
-      return;
-    }
-
-    if (_isTtsPaused) {
-      window.speechSynthesis.resume();
-      _isTtsPaused = false;
-      updateTtsButtonUi();
-      return;
-    }
-
-    // Inicia leitura da teoria da aula atual
-    const theoryEl = document.getElementById('theory');
-    if (!theoryEl) return;
-
-    // Clona para extrair texto excluindo blocos de código e a caixa de metas
-    const clone = theoryEl.cloneNode(true);
-    clone.querySelectorAll('pre, code, .code, .command-spotlight-code, .aula-goals-box, style, script').forEach(el => el.remove());
-
-    const text = clone.textContent.replace(/\s+/g, ' ').trim();
-    if (!text) return;
-
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'pt-BR';
-    utterance.rate = 1.0;
-
-    const voices = window.speechSynthesis.getVoices() || [];
-    const ptVoice = voices.find(v => v.lang && v.lang.startsWith('pt'));
-    if (ptVoice) utterance.voice = ptVoice;
-
-    utterance.onstart = () => {
-      _isTtsSpeaking = true;
-      _isTtsPaused = false;
-      updateTtsButtonUi();
-    };
-
-    utterance.onend = () => {
-      _isTtsSpeaking = false;
-      _isTtsPaused = false;
-      _currentUtterance = null;
-      updateTtsButtonUi();
-    };
-
-    utterance.onerror = () => {
-      _isTtsSpeaking = false;
-      _isTtsPaused = false;
-      _currentUtterance = null;
-      updateTtsButtonUi();
-    };
-
-    _currentUtterance = utterance;
-    window.speechSynthesis.speak(utterance);
+    if (!currentCourse || !currentLesson) return;
+    togglePlayLesson(currentCourse, currentLesson.id, currentLesson.theory, currentLesson.example);
   };
 }
 
@@ -272,6 +184,9 @@ export function openLesson(courseId, lessonId) {
   theoryEl.innerHTML =
     goalsBoxHtml + lesson.theory + `<pre class="code">${esc(lesson.example)}</pre>`;
 
+  // ── Narração por IA: Atualiza estado inicial dos botões da aula ──
+  updateTopbarButtonUi();
+
   // ── Bloco de projeto acumulativo ─────────────────────────
   const projBlock = document.getElementById('projectBlock');
   if (projBlock) {
@@ -342,6 +257,33 @@ export function openLesson(courseId, lessonId) {
   applyTextAnimations();
   setupReadingProgress();
   triggerAutoFocus();
+
+  // ── Narração por IA: onboarding e auto-play ───────────────
+  // Aguarda o modo foco terminar (triggerAutoFocus usa 350ms) antes de exibir
+  // o modal, para garantir que ele apareça DENTRO do contexto correto (fullscreen
+  // ou página normal) e nunca durante uma transição de tela.
+  const _lessonCourseId = courseId;
+  const _lessonId = lesson.id;
+  const _lessonTheory = lesson.theory;
+  const _lessonExample = lesson.example;
+
+  setTimeout(() => {
+    // Verifica se o aluno ainda está nesta aula (não navegou para outra)
+    if (currentLesson?.id !== _lessonId || currentCourse !== _lessonCourseId) return;
+
+    // Exibe o onboarding se for a primeira vez (e apenas uma vez)
+    checkAndShowOnboarding(() => {
+      togglePlayLesson(_lessonCourseId, _lessonId, _lessonTheory, _lessonExample);
+    });
+
+    // Se o aluno já optou por narração ativa, inicia automaticamente
+    loadNarrationPreferences().then(prefs => {
+      if (currentLesson?.id !== _lessonId) return; // aula mudou
+      if (prefs.narrationEnabled) {
+        togglePlayLesson(_lessonCourseId, _lessonId, _lessonTheory, _lessonExample);
+      }
+    });
+  }, 500);
 }
 
 /** Configura barra de progresso de leitura conforme o aluno rola a aula (Melhoria 1) */

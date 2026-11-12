@@ -11,6 +11,9 @@ const {
   sendPasswordResetEmail,
   sendPasswordChangedConfirmation,
 } = require('../services/emailService');
+const { safeJsonParse } = require('../utils/jsonHelpers');
+const env = require('../config/env');                     // singleton — carregado uma vez no boot
+const { OAuth2Client } = require('google-auth-library'); // idem
 
 class AuthService {
   /**
@@ -72,6 +75,7 @@ class AuthService {
         is_founder: isFounder,
         plan,
         plan_expires_at: null,
+        study_profile: null,
         created_at: new Date().toISOString(),
       },
       accessToken,
@@ -167,6 +171,7 @@ class AuthService {
         is_founder: user.is_founder ? 1 : 0,
         plan: user.plan || 'free',
         plan_expires_at: user.plan_expires_at || null,
+        study_profile: safeJsonParse(user.study_profile, null),
         created_at: user.created_at,
         last_login: new Date().toISOString(),
       },
@@ -249,7 +254,7 @@ class AuthService {
    */
   async getMe(userId) {
     const user = db.prepare(`
-      SELECT id, name, email, avatar_url, is_founder, plan, plan_expires_at, created_at, last_login 
+      SELECT id, name, email, avatar_url, is_founder, plan, plan_expires_at, created_at, last_login, study_profile 
       FROM users 
       WHERE id = ?
     `).get(userId);
@@ -260,7 +265,273 @@ class AuthService {
       throw error;
     }
 
+    user.study_profile = safeJsonParse(user.study_profile, null);
+
     return user;
+  }
+
+  /**
+   * Autentica (ou cadastra) usuário via Google OAuth (GIS ID Token)
+   *
+   * Referência: https://developers.google.com/identity/openid-connect/openid-connect#an-id-tokens-payload
+   *
+   * Campos usados:
+   *   sub            — Identificador imutável e único da conta Google. Nunca reutilizado.
+   *                    É o identificador canônico; o e-mail pode mudar, o sub não.
+   *   email          — Endereço de e-mail declarado pelo usuário na conta Google.
+   *                    NÃO é garantidamente único nem estável (pode mudar). Não usar
+   *                    como identificador primário (aviso explícito na documentação).
+   *   email_verified — Boolean. Verdadeiro se o Google verificou que o usuário tem
+   *                    acesso ao endereço. Necessário, mas NÃO suficiente para vincular
+   *                    automaticamente uma conta com domínio de terceiro.
+   *   hd             — Hosted Domain (Google Workspace / Cloud org). Presente SOMENTE
+   *                    quando a conta pertence a uma organização gerenciada pelo Google.
+   *                    A ausência indica conta de domínio não hospedado pelo Google.
+   *
+   * Estratégia de vinculação de conta existente por e-mail:
+   *   O Google é autoridade sobre um endereço quando:
+   *     a) É um endereço @gmail.com (emitido e controlado pelo Google), OU
+   *     b) É um endereço de Google Workspace com `hd` presente no token (o Google
+   *        gerencia o domínio e confirma a posse do endereço).
+   *   Nestes casos, vinculação automática é segura.
+   *
+   *   Para qualquer outro domínio (ex: @outlook.com, @yahoo.com, domínio próprio
+   *   sem Workspace), o Google NÃO é autoridade — um atacante poderia criar uma conta
+   *   Google com aquele endereço. Nesses casos, retornamos `requiresPasswordConfirm`
+   *   e o frontend deve solicitar a senha da conta Edev existente antes de vincular
+   *   (via POST /api/auth/google/confirm-link).
+   *
+   * Unicidade:
+   *   - `google_id` tem UNIQUE INDEX no banco (idx_users_google_id).
+   *   - Um google_id não pode ser vinculado a dois usuários diferentes.
+   *   - Após a vinculação, logins futuros passam pelo caminho google_id (sem e-mail lookup).
+   */
+  async googleAuth({ idToken, ip, userAgent }) {
+    // env e OAuth2Client importados no topo do módulo (singleton — valor fixado no boot)
+
+    if (!env.googleClientId) {
+      console.error('[GOOGLE AUTH] GOOGLE_CLIENT_ID está vazio — verifique backend/.env e reinicie o servidor.');
+      const error = new Error('Google OAuth não configurado no servidor.');
+      error.statusCode = 503;
+      throw error;
+    }
+
+    // Diagnóstico seguro: confirma qual audience chega ao verifyIdToken.
+    // Exibe apenas os primeiros 12 caracteres — nunca o valor completo nos logs.
+    console.log(`[GOOGLE AUTH] Verificando token | audience prefix: ${env.googleClientId.substring(0, 12)}... | IP: ${ip}`);
+
+    // ── 1. Verificação criptográfica do ID token ──────────────────────────────
+    //   verifyIdToken() valida: assinatura RS256, aud === googleClientId, exp, iss
+    const client = new OAuth2Client(env.googleClientId);
+    let payload;
+    try {
+      const ticket = await client.verifyIdToken({
+        idToken,
+        audience: env.googleClientId,
+      });
+      payload = ticket.getPayload();
+      console.log(`[GOOGLE AUTH] Token válido | email: ${payload.email} | IP: ${ip}`);
+    } catch (verifyErr) {
+      // "Wrong recipient" → audience mismatch; "Token used too late" → token expirado
+      console.warn(`[GOOGLE AUTH] Falha na verificação | IP: ${ip} | Motivo: ${verifyErr.message}`);
+      const error = new Error('Token Google inválido ou expirado. Tente novamente.');
+      error.statusCode = 401;
+      throw error;
+    }
+
+    // ── 2. email_verified obrigatório ─────────────────────────────────────────
+    if (!payload.email_verified) {
+      const error = new Error('O e-mail da conta Google não está verificado.');
+      error.statusCode = 400;
+      throw error;
+    }
+
+    const googleId  = payload.sub;   // identificador estável e imutável — usar sempre
+    const email     = payload.email.trim().toLowerCase();
+    const name      = payload.name || email.split('@')[0];
+    const avatarUrl = payload.picture || null;
+    const hd        = payload.hd || null;  // hosted domain (Google Workspace), ou null
+
+    // ── 3. Lookup por sub (google_id) — caminho primário ─────────────────────
+    let user = db.prepare('SELECT * FROM users WHERE google_id = ?').get(googleId);
+    if (user) {
+      // Usuário já vinculado — login direto
+      return this._issueGoogleSession({ user, ip, userAgent });
+    }
+
+    // ── 4. Lookup por e-mail — conta Edev preexistente ───────────────────────
+    const existingByEmail = db.prepare('SELECT * FROM users WHERE lower(email) = ?').get(email);
+
+    if (existingByEmail) {
+      // ── 4a. Determinar se Google é autoridade sobre este endereço ─────────
+      //   @gmail.com  → Google emite e controla → autoridade confirmada
+      //   hd presente → Google Workspace/Cloud org → autoridade confirmada
+      //   Qualquer outro domínio → Google NÃO é autoridade → exige confirmação
+      const isGmailAccount     = email.endsWith('@gmail.com') || email.endsWith('@googlemail.com');
+      const isWorkspaceAccount = hd !== null;
+      const googleIsAuthority  = isGmailAccount || isWorkspaceAccount;
+
+      if (!googleIsAuthority) {
+        // Retorna sinal para o frontend solicitar senha da conta Edev existente
+        console.log(`[SECURITY] Google login: vinculação pendente (domínio não-Google) | Email: ${email} | IP: ${ip}`);
+        return {
+          requiresPasswordConfirm: true,
+          email,          // para preencher o campo no frontend
+          googleId,       // necessário para o confirm-link
+          idToken,        // reenviado ao confirm-link para nova verificação
+        };
+      }
+
+      // ── 4b. Google é autoridade — vincula automaticamente ─────────────────
+      db.prepare(`
+        UPDATE users
+        SET google_id    = ?,
+            avatar_url   = COALESCE(avatar_url, ?),
+            updated_at   = datetime('now')
+        WHERE id = ?
+      `).run(googleId, avatarUrl, existingByEmail.id);
+
+      user = db.prepare('SELECT * FROM users WHERE id = ?').get(existingByEmail.id);
+      console.log(`[SECURITY] Conta vinculada ao Google (autoridade confirmada) - User ID: ${user.id} | Email: ${email} | Tipo: ${isGmailAccount ? 'Gmail' : 'Workspace/' + hd} | IP: ${ip}`);
+      return this._issueGoogleSession({ user, ip, userAgent });
+    }
+
+    // ── 5. Nenhuma conta existente — criar novo usuário Google-only ───────────
+    const totalUsers  = db.prepare('SELECT count(*) as count FROM users').get().count;
+    const isFounder   = totalUsers < 10 ? 1 : 0;
+    const plan        = isFounder === 1 ? 'founder' : 'free';
+    const sentinelHash = `google_oauth_${googleId}`;  // nunca passa em comparePassword()
+
+    const ins    = db.prepare(`
+      INSERT INTO users
+        (name, email, password_hash, google_id, avatar_url, is_founder, plan, plan_expires_at, created_at, updated_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, NULL, datetime('now'), datetime('now'))
+    `);
+    const result = ins.run(name, email, sentinelHash, googleId, avatarUrl, isFounder, plan);
+    user = db.prepare('SELECT * FROM users WHERE id = ?').get(result.lastInsertRowid);
+    console.log(`[SECURITY] Novo usuário via Google - User ID: ${user.id} | Email: ${email} | Plano: ${plan} | IP: ${ip}`);
+
+    return this._issueGoogleSession({ user, ip, userAgent });
+  }
+
+  /**
+   * Vincula conta Google a uma conta Edev existente de domínio de terceiro,
+   * exigindo autenticação com senha antes de vincular.
+   * Chamado pelo frontend quando googleAuth retorna requiresPasswordConfirm: true.
+   */
+  async googleConfirmLink({ idToken, password, ip, userAgent }) {
+    // env e OAuth2Client importados no topo do módulo (singleton — valor fixado no boot)
+
+    if (!env.googleClientId) {
+      const error = new Error('Google OAuth não configurado no servidor.');
+      error.statusCode = 503;
+      throw error;
+    }
+
+    // 1. Re-verifica o ID token (nunca confiar em dados passados sem re-verificação)
+    const client = new OAuth2Client(env.googleClientId);
+    let payload;
+    try {
+      const ticket = await client.verifyIdToken({ idToken, audience: env.googleClientId });
+      payload = ticket.getPayload();
+    } catch (verifyErr) {
+      console.warn(`[GOOGLE AUTH] confirm-link: falha na verificação | IP: ${ip} | Motivo: ${verifyErr.message}`);
+      const error = new Error('Token Google inválido ou expirado. Tente novamente.');
+      error.statusCode = 401;
+      throw error;
+    }
+
+    if (!payload.email_verified) {
+      const error = new Error('O e-mail da conta Google não está verificado.');
+      error.statusCode = 400;
+      throw error;
+    }
+
+    const googleId  = payload.sub;
+    const email     = payload.email.trim().toLowerCase();
+    const avatarUrl = payload.picture || null;
+    const hd        = payload.hd || null;
+
+    // 2. Garantir que este google_id ainda não está vinculado a outra conta
+    const alreadyLinked = db.prepare('SELECT id FROM users WHERE google_id = ?').get(googleId);
+    if (alreadyLinked) {
+      const error = new Error('Esta conta Google já está vinculada a outro usuário Edev.');
+      error.statusCode = 409;
+      throw error;
+    }
+
+    // 3. Buscar a conta Edev pelo e-mail
+    const user = db.prepare('SELECT * FROM users WHERE lower(email) = ?').get(email);
+    if (!user) {
+      const error = new Error('Nenhuma conta Edev encontrada para este e-mail.');
+      error.statusCode = 404;
+      throw error;
+    }
+
+    // 4. Verificar a senha — confirma posse da conta Edev
+    if (!user.password_hash || user.password_hash.startsWith('google_oauth_')) {
+      // Conta já é Google-only — não tem senha para confirmar
+      const error = new Error('Esta conta não possui senha cadastrada. Use Google para fazer login.');
+      error.statusCode = 400;
+      throw error;
+    }
+
+    const passwordValid = await comparePassword(password, user.password_hash);
+    if (!passwordValid) {
+      this.recordLoginAttempt(email, ip, 0);
+      console.log(`[SECURITY] Senha incorreta no confirm-link Google | Email: ${email} | IP: ${ip}`);
+      const error = new Error('Senha incorreta. Informe a senha da sua conta Edev para vincular.');
+      error.statusCode = 401;
+      throw error;
+    }
+
+    // 5. Senha correta — vincular o google_id
+    db.prepare(`
+      UPDATE users
+      SET google_id    = ?,
+          avatar_url   = COALESCE(avatar_url, ?),
+          updated_at   = datetime('now')
+      WHERE id = ?
+    `).run(googleId, avatarUrl, user.id);
+
+    const updatedUser = db.prepare('SELECT * FROM users WHERE id = ?').get(user.id);
+    console.log(`[SECURITY] Conta vinculada ao Google via senha confirmada - User ID: ${updatedUser.id} | Email: ${email} | Domínio: ${hd || 'terceiro'} | IP: ${ip}`);
+
+    return this._issueGoogleSession({ user: updatedUser, ip, userAgent });
+  }
+
+  /**
+   * Método interno: gera sessão (access + refresh token) para usuário Google autenticado.
+   * Extrai a lógica repetida dos dois fluxos acima.
+   * @private
+   */
+  _issueGoogleSession({ user, ip, userAgent }) {
+    db.prepare("UPDATE users SET last_login = datetime('now') WHERE id = ?").run(user.id);
+
+    const accessToken  = generateAccessToken({ userId: user.id, email: user.email });
+    const refreshToken = generateRefreshToken();
+    const expiresAt    = getRefreshTokenExpiresAt();
+
+    db.prepare(`
+      INSERT INTO sessions (user_id, refresh_token, user_agent, ip_address, expires_at)
+      VALUES (?, ?, ?, ?, ?)
+    `).run(user.id, refreshToken, userAgent || null, ip || null, expiresAt);
+
+    return {
+      user: {
+        id:              user.id,
+        name:            user.name,
+        email:           user.email,
+        avatar_url:      user.avatar_url,
+        is_founder:      user.is_founder,
+        plan:            user.plan,
+        plan_expires_at: user.plan_expires_at,
+        study_profile:   safeJsonParse(user.study_profile, null),
+        created_at:      user.created_at,
+      },
+      accessToken,
+      refreshToken,
+    };
   }
 
   /**

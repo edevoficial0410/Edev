@@ -13,13 +13,17 @@ const plansRoutes = require('./src/routes/plans');
 const webhookRoutes = require('./src/routes/webhook');
 const certificatesRoutes = require('./src/routes/certificates');
 const usersRoutes = require('./src/routes/users');
+const narrationRoutes = require('./src/routes/narration');
 const kiwifyService = require('./src/services/kiwifyService');
 
 // Inicializa a aplicação Express
 const app = express();
 
 // 1. Camada de Segurança HTTP Headers (Helmet)
-app.use(helmet());
+// Permite que o frontend carregue recursos de mídia (áudios) entre origens sem bloqueio CORP
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: 'cross-origin' }
+}));
 
 // 2. CORS com Whitelist configurada via env
 const corsOptions = {
@@ -55,6 +59,7 @@ app.use('/api/plans', plansRoutes);
 app.use('/api/webhook', webhookRoutes);
 app.use('/api/certificates', certificatesRoutes);
 app.use('/api/users', usersRoutes);
+app.use('/api/narration', narrationRoutes);
 app.get('/api/verify/:code', certificatesRoutes.verifyCertificateHandler);
 
 // 6. Rota pública de estatísticas dos fundadores (GET /api/stats)

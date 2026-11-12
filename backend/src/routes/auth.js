@@ -39,4 +39,10 @@ router.post('/forgot-password', forgotPasswordLimiter, validateForgotPassword, a
 // 7. Conclusão da redefinição de senha com invalidação de sessões prévias
 router.post('/reset-password', resetPasswordLimiter, validateResetPassword, authController.resetPassword);
 
+// 8. Login / Cadastro via Google OAuth (GIS ID Token)
+router.post('/google', loginLimiter, authController.googleAuth);
+
+// 9. Vinculação confirmada por senha (domínios de terceiro sem autoridade Google)
+router.post('/google/confirm-link', loginLimiter, authController.googleConfirmLink);
+
 module.exports = router;

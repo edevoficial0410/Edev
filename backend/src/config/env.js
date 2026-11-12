@@ -33,6 +33,10 @@ const env = {
   kiwifyWebhookToken: process.env.KIWIFY_WEBHOOK_TOKEN || 'tap7gfjz911',
   kiwifyMonthlyLink: process.env.KIWIFY_MONTHLY_LINK || 'https://pay.kiwify.com.br/ksvrvDc',
   kiwifyYearlyLink: process.env.KIWIFY_YEARLY_LINK || 'https://pay.kiwify.com.br/U9fA01u',
+  googleClientId: process.env.GOOGLE_CLIENT_ID || '',
+  googleClientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
+  elevenlabsApiKey: process.env.ELEVENLABS_API_KEY || '',
+  elevenlabsVoiceId: process.env.ELEVENLABS_VOICE_ID || '',
 };
 
 module.exports = env;

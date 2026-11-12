@@ -80,6 +80,7 @@ export let currentCourse = null;
 
 // Ícones representativos de cada curso no catálogo
 const COURSE_ICONS = {
+  logica: '⚔️',
   frontend: '🎨',
   python: '🐍',
   java: '☕',

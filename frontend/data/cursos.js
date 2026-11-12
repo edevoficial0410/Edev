@@ -23,7 +23,8 @@ export const PAGE_TITLES = {
   conquistas:   'Conquistas',
   certificados: 'Certificados',
   perfil:       'Perfil',
-  planos:       'Meus Planos'
+  planos:       'Meus Planos',
+  orientador:   'Orientador de Estudos'
 };
 
 // === Helpers internos ===
@@ -42,6 +43,3289 @@ function c(desc, placeholder, answer, hint, solution) {
 // ============================================================
 
 export const COURSES = {
+  logica: {
+    id: "logica",
+    name: "Lógica de Programação",
+    tag: "Lógica + Python",
+    hours: "45 horas",
+    desc: "Aprenda a pensar como um verdadeiro desenvolvedor do absoluto zero utilizando Python. Construa passo a passo o jogo completo 'Crônicas de Eldória' no terminal!",
+    modules: [
+      // ── Módulo 1 — Introdução à Programação e ao Python ──
+      {
+        title: "Módulo 1 — Introdução à Programação e ao Python",
+        lessons: [
+          L("log-1-1", "O que é Programar? — Conversando com o Computador",
+            `<h3>👋 Seja muito bem-vindo ao mundo da programação!</h3>
+<p>Puxa uma cadeira e respira fundo. Se você já olhou para uma tela cheia de código e sentiu que aquilo era algo distante, feito apenas para gênios da matemática, quero te dar uma notícia maravilhosa: programar é muito mais parecido com contar uma história ou seguir uma receita culinária do que com fazer contas complexas.</p>
+
+<p>Um computador é incrivelmente rápido, mas ele não tem imaginação nem intuição própria. Ele é como um assistente ultraeficiente que segue ordens com precisão absoluta. Se você pedir para ele fazer um bolo e esquecer de mandar quebrar os ovos, ele vai jogar os ovos com casca dentro da tigela!</p>
+
+<h3>📜 A Programação é uma Receita Passo a Passo</h3>
+<p>Quando escrevemos um programa de computador, estamos criando um <strong>algoritmo</strong>. Algoritmo é apenas um nome elegante para uma sequência ordenada e lógica de instruções para atingir um objetivo específico.</p>
+
+<p>Pense na sua rotina da manhã: acordar, levantar da cama, escovar os dentes, tomar café e sair. Cada passo depende do anterior. No desenvolvimento de software, fazemos exatamente a mesma coisa: ensinamos a máquina a executar uma sequência de passos lógicos.</p>
+
+<h3>⚔️ O Seu Projeto: Crônicas de Eldória</h3>
+<p>Aqui na Edev você não vai apenas ler teorias desconectadas da realidade. Desde os primeiros passos, tudo o que você aprender servirá para construir um jogo completo de RPG no terminal: <strong>Crônicas de Eldória</strong>.</p>
+
+<p>Você vai criar o herói, definir atributos de vida e ataque, explorar masmorras misteriosas, enfrentar monstros e tomar decisões que definem o destino do reino. Tudo isso em código real rodando no seu computador!</p>
+
+<p>Esta aula de abertura foi para te acolher e alinhar as expectativas. Nas próximas aulas, começamos a preparar as ferramentas e escrever as primeiras linhas do jogo!</p>`,
+            `# Algoritmo da vida real: Tomar um café quentinho
+# Passo 1: Pegar a caneca no armário
+# Passo 2: Ferver a água na chaleira
+# Passo 3: Colocar o pó de café no filtro
+# Passo 4: Despejar a água quente devagar
+# Passo 5: Servir na caneca e saborear!`,
+            null,
+            `# === PROJETO DO CURSO: Crônicas de Eldória ===
+# Arquivo oficial do projeto: jogo.py
+# Um RPG de aventura em turnos criado do zero por você!
+# Na próxima aula, conheceremos a linguagem que dará vida ao reino.`),
+
+          L("log-1-2", "Por que Python? — A Linguagem mais Amigável do Mundo",
+            `<h3>🌍 Escolhendo a língua para conversar com a máquina</h3>
+<p>Imagine que você viajou para um país estrangeiro e precisa pedir uma informação na rua. Você pode tentar falar por sinais complicados, ou pode falar em uma língua clara e intuitiva que todo mundo compreende com facilidade.</p>
+
+<p>Entre as centenas de linguagens de programação que existem no mundo, o <strong>Python</strong> é famoso justamente por sua elegância e clareza. Seu criador, Guido van Rossum, desenhou a linguagem com uma regra de ouro: <em>código é lido muito mais vezes do que é escrito</em>.</p>
+
+<p>Enquanto outras linguagens exigem dezenas de pontuações, chaves e declarações complexas apenas para exibir uma frase na tela, em Python você escreve quase como se estivesse conversando em inglês simples.</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 A Clareza do Python</div>
+  <div class="command-spotlight-code">print("Bem-vindo a Eldória!")</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>print</code> → Instrução direta que ordena o computador a mostrar uma mensagem na tela.</li>
+    <li><code>("...")</code> → O texto exato que você deseja exibir, protegido entre aspas.</li>
+  </ul>
+</div>
+
+<h3>🚀 Onde o Python é Usado no Mundo Real?</h3>
+<p>O Python é a linguagem que move a inteligência artificial moderna, gigantes como YouTube, Netflix, Spotify e agências como a NASA. E o melhor de tudo: ele é a melhor porta de entrada para quem nunca programou na vida.</p>
+
+<p>Com essa clareza mental, você aprende a raciocinar sobre a <strong>lógica</strong> sem tropeçar em burocracias de sintaxe. Na próxima aula, vamos preparar nosso ambiente no VS Code!</p>`,
+            `# Comparação de clareza:
+# Em Python, exibir uma mensagem é direto e limpo:
+print("Herói pronto para a batalha!")
+
+# Simples, legível e direto ao ponto!`,
+            null,
+            `# === PROJETO: Crônicas de Eldória ===
+# Linguagem escolhida: Python 3
+# Editor oficial: Visual Studio Code (VS Code)
+# Na próxima aula, prepararemos o arquivo jogo.py no seu computador!`),
+
+          L("log-1-3", "Seu Ambiente de Aventura — Python e VS Code no seu Computador",
+            `<h3>🏰 Montando a sua oficina de ferreiro</h3>
+<p>Antes de forjar uma espada lendária, o ferreiro precisa da sua bigorna, da sua fornalha e das suas ferramentas de precisão bem organizadas na bancada de trabalho.</p>
+
+<p>Para programar com conforto e segurança no seu computador, nós utilizamos duas ferramentas essenciais que são padrão na indústria mundial de desenvolvimento de software:</p>
+
+<ul>
+  <li><strong>O Interpretador Python:</strong> É o motor invisível instalado no seu sistema. Ele lê os arquivos de texto com código e traduz cada linha para instruções que o processador do seu computador compreende.</li>
+  <li><strong>O VS Code (Visual Studio Code):</strong> É o editor de código moderno da Microsoft. Ele colore seus comandos, avisa se você esqueceu alguma pontuação e possui um terminal integrado.</li>
+</ul>
+
+<h3>🖥️ No seu VS Code — Criando o Arquivo do Jogo</h3>
+<p>Vamos preparar a pasta de trabalho do seu jogo agora mesmo no seu computador:</p>
+
+<ul>
+  <li><strong>1. Crie uma pasta</strong> chamada <code>eldoria</code> ou <code>jogo-edev</code> nos seus Documentos ou Área de Trabalho.</li>
+  <li><strong>2. Abra o VS Code</strong>, clique em <em>Arquivo &gt; Abrir Pasta...</em> (ou <em>File &gt; Open Folder...</em>) e selecione a pasta que você acabou de criar.</li>
+  <li><strong>3. Crie um novo arquivo</strong> clicando no ícone de novo arquivo e dê exatamente o nome: <code>jogo.py</code>.</li>
+  <li><strong>4. Abra o Terminal Integrado</strong> do VS Code pelo menu superior <em>Terminal &gt; Novo Terminal</em> (ou pelo atalho <code>Ctrl + '</code> no Windows).</li>
+</ul>
+
+<p>Com o terminal aberto na parte de baixo da janela do VS Code, você está com tudo pronto para dar vida ao jogo na próxima aula!</p>`,
+            `# No terminal do VS Code, digite para confirmar a instalação:
+# python --version
+#
+# Resposta esperada (versão 3.10 ou superior):
+# Python 3.12.x`,
+            null,
+            `# ============================================================
+# PROJETO: Crônicas de Eldória — RPG de Texto
+# Arquivo: jogo.py
+# Autor: Você, futuro desenvolvedor Edev!
+# ============================================================
+# Ambiente configurado com sucesso. Na próxima aula daremos a voz ao jogo!`),
+
+          L("log-1-4", "A Voz do Jogo — Seu Primeiro print() em Eldória",
+            `<h3>📣 O mensageiro real na praça do castelo</h3>
+<p>Imagine que o rei contratou um arauto com uma trombeta dourada. Quando o arauto abre o pergaminho e grita para a multidão, todo o reino escuta a mensagem com clareza imediata.</p>
+
+<p>Na linguagem Python, a nossa trombeta oficial é a função <strong>print()</strong>. A palavra em inglês <em>print</em> significa "imprimir" ou "exibir". Toda vez que você quiser que o computador mostre algo na tela para o jogador ler, você utilizará esse comando.</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 A Anatomia do print()</div>
+  <div class="command-spotlight-code">print("Mensagem aqui")</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>print</code> → Nome da função nativa que exibe saídas no terminal.</li>
+    <li><code>( )</code> → Os parênteses contêm o que chamamos de <em>argumento</em> (o que será enviado para a tela).</li>
+    <li><code>" "</code> → As aspas indicam que o conteúdo é um texto literal (uma sequência de caracteres).</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Mão na Massa!</h3>
+<p>Vamos dar o primeiro suspiro de vida ao reino de Eldória:</p>
+<ul>
+  <li><strong>1. Abra o arquivo:</strong> <code>jogo.py</code> no VS Code.</li>
+  <li><strong>2. Digite a instrução:</strong> <code>print("Bem-vindo a Eldória!")</code>.</li>
+  <li><strong>3. Salve o arquivo:</strong> pressione <code>Ctrl + S</code>.</li>
+  <li><strong>4. Execute no terminal:</strong> digite <code>python jogo.py</code> e aperte <strong>Enter</strong>.</li>
+  <li><strong>5. Saída esperada no terminal:</strong><br><code>Bem-vindo a Eldória!</code></li>
+</ul>
+
+<p>Parabéns! Você acabou de executar a sua primeira instrução de programação real!</p>`,
+            `# Arquivo: jogo.py
+# Exibindo a saudação inicial do jogo no console
+print("Bem-vindo a Eldória!") # Mostra a mensagem no terminal`,
+            c(`Utilize a função print() para exibir no terminal exatamente a mensagem: Bem-vindo a Eldoria`, `# Escreva sua linha de código aqui`, `print("Bem-vindo a Eldoria")`, `Escreva print seguido de parênteses e coloque o texto entre aspas duplas.`, `print("Bem-vindo a Eldoria")`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+# Exibindo a saudação inicial do nosso mundo
+print("Bem-vindo a Eldória!")`),
+
+          L("log-1-5", "Atenção aos Detalhes — Erros de Sintaxe, Aspas e Parênteses",
+            `<h3>🛑 O guarda da ponte e a senha exata</h3>
+<p>Imagine que você chegou aos portões de um castelo fortificado. O guarda pede a senha mágica. Se a senha for "Abre-te", mas você esquecer a última letra ou fechar a boca antes da hora, a ponte levadiça simplesmente não abaixa.</p>
+
+<p>O computador é exatamente como esse guarda rigoroso. Ele não consegue adivinhar suas intenções. Se você esquecer de fechar um parêntese ou uma aspas, o Python exibirá um <strong>SyntaxError</strong> (Erro de Sintaxe), avisando que a regra gramatical da linguagem foi violada.</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">⚠️ O Erro mais Comum de Iniciantes</div>
+  <div class="command-spotlight-code">SyntaxError: unterminated string literal</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>unterminated string literal</code> → Você abriu aspas mas esqueceu de fechar antes do fim da linha.</li>
+    <li><code>unexpected EOF while parsing</code> → Você abriu parênteses mas esqueceu de fechar no final.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Experimentando com Segurança</h3>
+<p>Um bom programador não tem medo de erros — ele aprende a ler os avisos do terminal com tranquilidade:</p>
+<ul>
+  <li>No arquivo <code>jogo.py</code>, tente propositalmente apagar a última aspas do print e rode <code>python jogo.py</code>.</li>
+  <li>Veja como o terminal aponta uma setinha <code>^</code> exatamente na linha onde o problema aconteceu.</li>
+  <li>Coloque a aspas de volta, feche os parênteses e rode novamente. Tudo volta a funcionar perfeitamente!</li>
+</ul>`,
+            `# Código com erro (não fechei a aspas):
+# print("Olá aventureiro) -> Gera SyntaxError!
+
+# Código correto (abriu aspas, fechou aspas; abriu parênteses, fechou parênteses):
+print("Olá aventureiro!") # Sintaxe 100% perfeita`,
+            c(`Corrija a linha abaixo fechando as aspas e o parêntese para exibir: O reino precisa de você!`, `print("O reino precisa de você!`, `print("O reino precisa de você!")`, `Toda aspas aberta precisa ser fechada, assim como todos os parênteses.`, `print("O reino precisa de você!")`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+# Mensagens com sintaxe rigorosamente correta
+print("Bem-vindo a Eldória!")
+print("O reino precisa de você!")`),
+
+          L("log-1-6", "Construindo o Cenário — Múltiplos Prints e Quebras de Linha",
+            `<h3>📖 As páginas de um livro de aventuras</h3>
+<p>Quando você abre um livro de fantasia, a história não é jogada em uma única linha colada. Há parágrafos, pausas dramáticas e respiração entre cada acontecimento da trama.</p>
+
+<p>Por padrão, cada vez que o comando <strong>print()</strong> é executado, o Python automaticamente salta para a linha de baixo no terminal. Se você quiser criar uma linha vazia para separar visualmente as informações, basta chamar <code>print()</code> com os parênteses vazios!</p>
+
+<p>Outra ferramenta mágica é o caractere especial <code>\\n</code> (barra invertida seguida de 'n', de <em>new line</em>). Sempre que o Python encontra esse símbolo dentro de uma frase, ele quebra a linha imediatamente naquele ponto exato.</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 Quebrando Linhas no Console</div>
+  <div class="command-spotlight-code">print()  ou  print("Linha 1\\nLinha 2")</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>print()</code> → Cria uma linha em branco no console para dar respiro visual.</li>
+    <li><code>\\n</code> → Força uma quebra de linha imediata dentro do mesmo texto.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Narrando a Chegada</h3>
+<ul>
+  <li><strong>1. Abra o arquivo:</strong> <code>jogo.py</code>.</li>
+  <li><strong>2. Adicione novas linhas de narrativa:</strong> conte ao jogador onde ele está pisando.</li>
+  <li><strong>3. Execute no terminal:</strong> digite <code>python jogo.py</code>.</li>
+  <li><strong>4. Saída esperada no terminal:</strong> as frases aparecem organizadas uma embaixo da outra, criando o clima do jogo.</li>
+</ul>`,
+            `# Arquivo: jogo.py
+# Criando a narrativa introdutória com parágrafos no terminal
+print("As sombras cobrem a floresta antiga...") # Linha 1
+print() # Linha em branco para respiração
+print("Você segura sua tocha e avança com cuidado.") # Linha 2`,
+            c(`Exiba no terminal a frase 'Passo 1' e na linha de baixo 'Passo 2' utilizando dois comandos print() separados.`, `# Digite seus dois prints aqui`, `print("Passo 1")
+print("Passo 2")`, `Escreva um print("Passo 1") e na linha seguinte escreva print("Passo 2").`, `print("Passo 1")
+print("Passo 2")`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+# Apresentação do mundo
+print("Bem-vindo a Eldória!")
+print("Um reino repleto de perigos, tesouros e lendas esquecidas.")
+print() # Espaço visual
+print("Você desperta nos arredores da antiga Floresta Sombria...")`),
+
+          L("log-1-7", "Arte no Terminal — Molduras e Multiplicação de Texto",
+            `<h3>🎨 A moldura do quadro na taverna</h3>
+<p>Você já entrou em uma taverna medieval ou museu e viu uma pintura lendária? A moldura dourada ao redor do quadro é o que destaca a arte e diz para os seus olhos: "atenção, o que está aqui dentro é especial".</p>
+
+<p>No terminal preto e branco, nós podemos criar o mesmo impacto visual desenhando divisórias elegantes. Só que digitar quarenta sinais de igual <code>====================</code> manualmente à mão é cansativo e sujeito a erros de contagem.</p>
+
+<p>O Python possui um superpoder incrível: você pode <strong>multiplicar textos</strong> usando o operador asterisco <code>*</code>! Se você escrever <code>"=" * 40</code>, o Python criará uma linha perfeitamente reta com 40 sinais de igual em uma fração de segundo.</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 Multiplicando Textos com Facilidade</div>
+  <div class="command-spotlight-code">print("=" * 40)</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>"="</code> → O caractere que você deseja repetir.</li>
+    <li><code>*</code> → Operador de multiplicação. Com textos, ele repete o conteúdo.</li>
+    <li><code>40</code> → A quantidade exata de repetições.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Criando Molduras</h3>
+<ul>
+  <li><strong>1. No arquivo <code>jogo.py</code>:</strong> adicione <code>print("=" * 40)</code> antes e depois do título.</li>
+  <li><strong>2. Rode no terminal:</strong> <code>python jogo.py</code>.</li>
+  <li><strong>3. Veja o resultado:</strong> o título do seu RPG ganha instantaneamente uma aparência profissional de jogo retrô!</li>
+</ul>`,
+            `# Multiplicação de strings para efeitos visuais:
+print("=" * 30) # Imprime 30 caracteres '=' seguidos
+print("     CRÔNICAS DE ELDÓRIA     ") # Título centralizado
+print("=" * 30) # Fecha a moldura inferior`,
+            c(`Use print() para desenhar uma linha divisória repetindo o caractere '=' 40 vezes.`, `# Imprima a linha com 40 iguais`, `print("=" * 40)`, `Multiplique a string "=" pelo número 40 dentro do print.`, `print("=" * 40)`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+# Tela de abertura com molduras elegantes
+print("=" * 45)
+print("             CRÔNICAS DE ELDÓRIA             ")
+print("=" * 45)
+print()
+print("Um reino repleto de perigos, tesouros e lendas.")
+print("Você desperta nos arredores da Floresta Sombria...")`),
+
+          L("log-1-8", "Projeto: A Tela de Abertura de Crônicas de Eldória",
+            `<h3>🏆 O primeiro marco da sua jornada como desenvolvedor!</h3>
+<p>Chegamos ao final do nosso primeiro módulo! Você começou entendendo como o computador pensa, preparou o seu ambiente no VS Code e já domina saídas no terminal com formatação e molduras.</p>
+
+<p>Agora é hora de consolidar tudo o que você aprendeu no seu arquivo oficial: o <code>jogo.py</code>. Vamos construir juntos uma tela de abertura imersiva digna dos grandes clássicos do RPG.</p>
+
+<h3>🖥️ No seu VS Code: Finalizando o Módulo 1</h3>
+<p>Siga os passos para deixar seu projeto impecável:</p>
+<ul>
+  <li><strong>1. Abra o arquivo:</strong> <code>jogo.py</code>.</li>
+  <li><strong>2. Escreva o cabeçalho completo:</strong> com bordas estilizadas de <code>"=" * 50</code>, o nome do jogo em destaque, a versão e uma mensagem avisando que uma grande aventura está prestes a começar.</li>
+  <li><strong>3. Execute no terminal:</strong> <code>python jogo.py</code>.</li>
+  <li><strong>4. Observe a tela:</strong> você acabou de criar a tela oficial do seu jogo, que receberá novos sistemas em cada módulo que virá pela frente!</li>
+</ul>
+
+<p>Resolva o desafio acumulativo abaixo para registrar a conclusão do Módulo 1 no seu progresso!</p>`,
+            `# Estrutura oficial da tela de abertura:
+print("*" * 50) # Borda superior com asteriscos
+print("           BEM-VINDO A CRÔNICAS DE ELDÓRIA           ") # Título
+print("*" * 50) # Borda inferior`,
+            c(`Construa a abertura do jogo: imprima uma moldura com print('=' * 50) e em seguida print('CRÔNICAS DE ELDÓRIA').`, `# Escreva as duas linhas da abertura oficial`, `print('=' * 50)
+print('CRÔNICAS DE ELDÓRIA')`, `Primeiro faça o print da moldura multiplicando '=' por 50 e depois o print do nome do jogo.`, `print('=' * 50)
+print('CRÔNICAS DE ELDÓRIA')`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória — RPG de Texto
+# Arquivo: jogo.py
+# Módulo 1: Tela de Abertura e Apresentação
+# ============================================================
+
+# Moldura superior decorativa
+print("=" * 50)
+print("             CRÔNICAS DE ELDÓRIA             ")
+print("          O Despertar do Aventureiro         ")
+print("=" * 50)
+print()
+
+# Narrativa inicial da aventura
+print("O vento gélido sopra entre as ruínas antigas.")
+print("Lendas dizem que nas profundezas deste reino,")
+print("um artefato esquecido aguarda por um verdadeiro herói...")
+print()
+print("=" * 50)`)
+        ]
+      },
+
+      // ── Módulo 2 — Variáveis e Tipos de Dados ──
+      {
+        title: "Módulo 2 — Variáveis e Tipos de Dados",
+        lessons: [
+          L("log-2-1", "O que são Variáveis? — As Caixas Mágicas da Memória",
+            `<h3>📦 As caixas de mudança etiquetadas</h3>
+<p>Imagine que você está se mudando para uma nova casa de campo. No meio da sala existem dezenas de caixas de papelão. Para não ficar perdido, você pega uma caneta piloto e escreve na tampa de uma caixa: <em>"Livros Antigos"</em>. Dentro dela, você guarda os livros.</p>
+
+<p>Na memória do computador, uma <strong>variável</strong> funciona exatamente como essa caixa etiquetada. A etiqueta é o <strong>nome da variável</strong> e o que fica guardado lá dentro é o <strong>valor</strong>.</p>
+
+<p>Para guardar algo em uma variável em Python, utilizamos o sinal de igual <code>=</code>. Em programação, esse símbolo não significa "igualdade matemática", mas sim <strong>atribuição</strong>: estamos dizendo <em>"guarde o valor da direita dentro da caixa da esquerda"</em>.</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 Criando uma Variável na Memória</div>
+  <div class="command-spotlight-code">nome_do_heroi = "Arthur"</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>nome_do_heroi</code> → Nome da variável (sempre minúsculo e separado por underline).</li>
+    <li><code>=</code> → Operador de atribuição (armazena o valor na memória).</li>
+    <li><code>"Arthur"</code> → O conteúdo que está sendo guardado.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Sua Primeira Caixa</h3>
+<ul>
+  <li><strong>1. Abra o arquivo:</strong> <code>jogo.py</code>.</li>
+  <li><strong>2. Crie sua primeira variável:</strong> digite <code>reino = "Eldória"</code> e abaixo <code>print(reino)</code>.</li>
+  <li><strong>3. Execute no terminal:</strong> digite <code>python jogo.py</code>.</li>
+  <li><strong>4. Saída esperada no terminal:</strong> a palavra <code>Eldória</code> é mostrada na tela, resgatada direto da memória do computador!</li>
+</ul>`,
+            `# Guardando e exibindo uma variável:
+nome = "Galahad" # Cria a caixa 'nome' e guarda o texto
+print("O nome do cavaleiro é:") # Mostra mensagem fixa
+print(nome) # Resgata o valor de dentro da variável`,
+            c(`Crie uma variável chamada reino com o valor 'Eldória' e na linha seguinte exiba o valor de reino com print().`, `# Crie a variável e exiba seu valor`, `reino = "Eldória"
+print(reino)`, `Defina reino = "Eldória" e depois chame print(reino) sem aspas na variável.`, `reino = "Eldória"
+print(reino)`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória — RPG de Texto
+# Arquivo: jogo.py
+# Módulo 2: Variáveis e Ficha do Personagem
+# ============================================================
+
+# Tela de abertura
+print("=" * 50)
+print("             CRÔNICAS DE ELDÓRIA             ")
+print("=" * 50)
+print()
+
+# Definindo o nome do nosso universo
+nome_do_jogo = "Crônicas de Eldória"
+versao = "1.0.0"
+
+print(f"Iniciando {nome_do_jogo} - Versão {versao}...")`),
+
+          L("log-2-2", "Nomes e Textos — O Tipo String (str)",
+            `<h3>📜 O pergaminho com palavras mágicas</h3>
+<p>Na vida real, usamos palavras para dar nome às pessoas, aos lugares e aos monstros. Em computação, qualquer sequência de caracteres — letras, espaços, símbolos e números lidos como texto — é chamada de <strong>String</strong> (abreviada como <code>str</code> em Python).</p>
+
+<p>Para o Python saber onde a palavra começa e onde ela termina, a String precisa estar sempre abraçada por aspas simples <code>'texto'</code> ou aspas duplas <code>"texto"</code>.</p>
+
+<p>A forma mais moderna e bonita de misturar variáveis dentro de frases é usando as chamadas <strong>f-strings</strong> (strings formatadas). Basta colocar a letrinha <code>f</code> antes das aspas e envolver a variável com chaves <code>{ }</code>!</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 A Mágica das f-strings</div>
+  <div class="command-spotlight-code">f"Saudações, nobre {classe}!"</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>f"..."</code> → O prefixo 'f' avisa ao Python que haverá variáveis dentro do texto.</li>
+    <li><code>{classe}</code> → O Python substitui as chaves pelo valor real da variável na tela.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Formatando a Classe do Herói</h3>
+<ul>
+  <li><strong>1. No <code>jogo.py</code>:</strong> declare <code>classe_heroi = "Guerreiro"</code>.</li>
+  <li><strong>2. Imprima usando f-string:</strong> <code>print(f"Classe escolhida: {classe_heroi}")</code>.</li>
+  <li><strong>3. Rode no terminal:</strong> <code>python jogo.py</code>.</li>
+  <li><strong>4. Saída esperada:</strong> <code>Classe escolhida: Guerreiro</code>.</li>
+</ul>`,
+            `# Manipulação e formatação de strings:
+heroi = "Kaelen" # Tipo str
+classe = "Mago"  # Tipo str
+titulo = f"{heroi}, o {classe} de Fogo" # Combinação com f-string
+print(titulo) # Exibe: Kaelen, o Mago de Fogo`,
+            c(`Crie uma variável chamada heroi com valor 'Arthur' e imprima a frase usando f-string: f'Herói: {heroi}'`, `# Escreva o código com a f-string`, `heroi = "Arthur"
+print(f"Herói: {heroi}")`, `Defina a variável heroi e faça print(f"Herói: {heroi}").`, `heroi = "Arthur"
+print(f"Herói: {heroi}")`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+print("=" * 50)
+print("             CRÔNICAS DE ELDÓRIA             ")
+print("=" * 50)
+print()
+
+# Identidade do herói (Textos / Strings)
+classe = "Guerreiro"
+arma = "Espada de Ferro"
+
+print(f"Você empunha sua {arma} como um valente {classe}.")`),
+
+          L("log-2-3", "Números Inteiros — O Tipo int no RPG",
+            `<h3>❤️ Os corações de vida e as moedas na sacola</h3>
+<p>Imagine a barra de vida de um personagem clássico de videogame: ela é composta por pontos fechados e exatos, como 100 de vida ou 15 de defesa. Não existe meio coração de madeira no baú nem meia moeda de prata.</p>
+
+<p>Para representar quantidades inteiras — sem casas decimais, positivas ou negativas — utilizamos o tipo numérico <strong>int</strong> (inteiro). Diferente dos textos, números <strong>NUNCA devem levar aspas</strong>!</p>
+
+<p>Se você colocar aspas em volta de um número, como <code>"100"</code>, o Python achará que é apenas um texto e não conseguirá somar ou subtrair a sua vida quando você sofrer um ataque!</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 Número vs Texto</div>
+  <div class="command-spotlight-code">hp = 100  # Correto (int)  |  hp = "100"  # Errado (str)</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>100</code> → Um número real. O computador pode somar, subtrair e calcular dano.</li>
+    <li><code>"100"</code> → Um texto decorativo. A máquina não entende como quantidade matemática.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Declarando os Atributos</h3>
+<ul>
+  <li><strong>1. No arquivo <code>jogo.py</code>:</strong> adicione <code>vida = 100</code> e <code>ouro = 50</code>.</li>
+  <li><strong>2. Imprima os valores:</strong> <code>print(f"Vida atual: {vida} HP | Ouro: {ouro} moedas")</code>.</li>
+  <li><strong>3. Execute no terminal:</strong> <code>python jogo.py</code>.</li>
+  <li><strong>4. Saída esperada:</strong> os números são exibidos perfeitamente integrados com o texto.</li>
+</ul>`,
+            `# Atributos numéricos de um personagem:
+vida_maxima = 100 # int
+vida_atual = 85   # int
+ouro = 50         # int
+nivel = 1         # int
+
+print(f"Status: {vida_atual}/{vida_maxima} HP | {ouro} Ouro | Nível {nivel}")`,
+            c(`Defina uma variável hp com o número inteiro 100 e uma variável ouro com 50.`, `# Defina hp e ouro`, `hp = 100
+ouro = 50`, `Digite hp = 100 na primeira linha e ouro = 50 na segunda linha (sem aspas nos números).`, `hp = 100
+ouro = 50`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+print("=" * 50)
+print("             CRÔNICAS DE ELDÓRIA             ")
+print("=" * 50)
+print()
+
+# Variáveis do Herói
+classe = "Guerreiro"
+vida_maxima = 100
+vida = 100
+ouro = 30
+ataque_base = 15
+
+print(f"Atributos iniciais: {vida}/{vida_maxima} HP | Ouro: {ouro} | Ataque: {ataque_base}")`),
+
+          L("log-2-4", "Números Quebrados — O Tipo float e Decimais",
+            `<h3>⚖️ A balança de precisão do alquimista</h3>
+<p>Quando você visita a loja do alquimista para comprar essências mágicas raras, ele coloca um frasco sobre uma balança de precisão. O líquido não pesa exatamente 1 quilo: ele pesa 1.75 litros ou custa 12.50 moedas de prata.</p>
+
+<p>Na programação, os números reais com casas decimais pertencem ao tipo <strong>float</strong> (ponto flutuante). Em computação, a regra de ouro internacional é: <strong>utilize ponto (.) e NUNCA vírgula (,) para separar as casas decimais</strong>.</p>
+
+<p>Se você digitar <code>12,50</code> com vírgula, o Python achará que você está criando dois itens separados em vez de um único número fracionado!</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 Ponto Decimal no Python</div>
+  <div class="command-spotlight-code">multiplicador_critico = 1.5</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>1.5</code> → Número float. Representa um aumento de 50% no dano do golpe.</li>
+    <li><code>.</code> → Ponto decimal padrão internacional da computação.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Adicionando Multiplicador Crítico</h3>
+<ul>
+  <li><strong>1. No arquivo <code>jogo.py</code>:</strong> adicione <code>dano_critico = 1.5</code> e <code>peso_mochila = 4.8</code>.</li>
+  <li><strong>2. Imprima na tela:</strong> <code>print(f"Multiplicador de dano crítico: {dano_critico}x")</code>.</li>
+  <li><strong>3. Rode no terminal:</strong> <code>python jogo.py</code>.</li>
+</ul>`,
+            `# Exemplos de números float no RPG:
+peso_carga = 14.5 # Carga em kg (float)
+chance_esquiva = 0.25 # 25% de chance de desviar (float)
+preco_pocao = 12.50 # Preço com centavos de prata (float)
+
+print(f"Peso da armadura: {peso_carga} kg | Chance de esquiva: {chance_esquiva}")`,
+            c(`Crie uma variável chamada critico com o valor decimal 1.5 e exiba o valor com print(critico).`, `# Crie a variável critico e exiba`, `critico = 1.5
+print(critico)`, `Lembre-se de usar ponto em vez de vírgula: critico = 1.5.`, `critico = 1.5
+print(critico)`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+print("=" * 50)
+print("             CRÔNICAS DE ELDÓRIA             ")
+print("=" * 50)
+print()
+
+# Atributos com tipos int, str e float
+classe = "Guerreiro"
+vida = 100
+ouro = 30
+ataque_base = 15
+multiplicador_critico = 1.5 # Tipo float para golpe certeiro
+
+print(f"Classe: {classe} | Ataque Base: {ataque_base} | Dano Crítico: {multiplicador_critico}x")`),
+
+          L("log-2-5", "Verdadeiro ou Falso — O Tipo bool (Booleano)",
+            `<h3>🕯️ A tocha acesa ou apagada na masmorra</h3>
+<p>Imagine que você está em frente a uma porta de ferro na masmorra escura. Só existem duas respostas possíveis para a pergunta "a porta está trancada?": sim ou não. Não existe "mais ou menos trancada".</p>
+
+<p>Na ciência da computação, essa lógica de dois estados é chamada de tipo <strong>Booleano</strong> (abreviado como <code>bool</code>). Ela só pode assumir dois valores no universo do Python:</p>
+
+<ul>
+  <li><code>True</code> → Verdadeiro (com a letra <strong>T maiúscula</strong>).</li>
+  <li><code>False</code> → Falso (com a letra <strong>F maiúscula</strong>).</li>
+</ul>
+
+<p>Os booleanos são as engrenagens mestras que permitem ao seu jogo tomar decisões: o herói está vivo? Ele tem a chave dourada? O inimigo está envenenado?</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 Estados Booleanos</div>
+  <div class="command-spotlight-code">tem_escudo = True  |  em_combate = False</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>True</code> → Condição verdadeira ou recurso ativo.</li>
+    <li><code>False</code> → Condição falsa ou recurso inativo.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Definindo Estados do Herói</h3>
+<ul>
+  <li><strong>1. No arquivo <code>jogo.py</code>:</strong> adicione <code>tem_escudo = True</code> e <code>esta_vivo = True</code>.</li>
+  <li><strong>2. Imprima na tela:</strong> <code>print(f"Herói em combate: {em_combate}")</code>.</li>
+  <li><strong>3. Rode no terminal:</strong> <code>python jogo.py</code>.</li>
+</ul>`,
+            `# Controle de estado no jogo com booleanos:
+heroi_vivo = True # O herói está vivo
+tem_tocha = False # O herói ainda não encontrou uma tocha
+
+print(f"Vivo: {heroi_vivo} | Iluminação: {tem_tocha}")`,
+            c(`Crie uma variável booleana chamada heroi_vivo com o valor True e exiba com print(heroi_vivo).`, `# Crie a variável heroi_vivo com True`, `heroi_vivo = True
+print(heroi_vivo)`, `Escreva True com T maiúsculo e sem aspas.`, `heroi_vivo = True
+print(heroi_vivo)`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+print("=" * 50)
+print("             CRÔNICAS DE ELDÓRIA             ")
+print("=" * 50)
+print()
+
+# Estado inicial do herói
+classe = "Guerreiro"
+vida = 100
+ouro = 30
+heroi_vivo = True # Booleano: controla se o jogo continua
+em_combate = False # Booleano: controla o estado de alerta
+
+print(f"Status do Herói: Vivo={heroi_vivo} | Em Combate={em_combate}")`),
+
+          L("log-2-6", "Ouvindo o Jogador — A Função input() e Conversão de Tipos",
+            `<h3>👂 O oráculo que escuta a sua voz</h3>
+<p>Até agora, nosso jogo era apenas um monólogo: o computador falava e nós apenas assistíamos. Mas um verdadeiro RPG precisa ouvir o jogador, pedir seu nome e reagir às suas decisões!</p>
+
+<p>Para ler o que o usuário digita no teclado, usamos a função <strong>input()</strong>. Ela pausa o programa, espera o jogador digitar sua resposta no terminal e apertar <strong>Enter</strong>, e devolve o texto digitado.</p>
+
+<p><strong>Cuidado de ouro:</strong> o <code>input()</code> SEMPRE entrega um texto (String), mesmo que o usuário digite números! Se você quiser que o valor seja tratado como número para contas, você deve converter usando <strong>int()</strong>.</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 Lendo e Convertendo Entradas</div>
+  <div class="command-spotlight-code">nome = input("Digite seu nome: ")  |  idade = int(input("Idade: "))</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>input("...")</code> → Exibe a pergunta e aguarda o teclado do jogador.</li>
+    <li><code>int(...)</code> → Converte a resposta de texto para número inteiro real.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Perguntando o Nome do Herói</h3>
+<ul>
+  <li><strong>1. No arquivo <code>jogo.py</code>:</strong> adicione <code>nome_jogador = input("Como os bardos devem te chamar? ")</code>.</li>
+  <li><strong>2. Em seguida dê as boas-vindas:</strong> <code>print(f"Que a luz guie sua espada, {nome_jogador}!")</code>.</li>
+  <li><strong>3. Execute no terminal:</strong> digite <code>python jogo.py</code>, digite seu nome e aperte Enter!</li>
+</ul>`,
+            `# Coleta interativa de dados:
+nome = input("Qual o seu nome, forasteiro? ") # Lê texto
+print(f"Bem-vindo à guilda, {nome}!") # Responde usando o nome digitado`,
+            c(`Escreva a linha que lê o nome do jogador com input('Nome: ') e armazena na variável nome.`, `# Leia a entrada do jogador`, `nome = input("Nome: ")`, `Use a instrução nome = input("Nome: ").`, `nome = input("Nome: ")`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+print("=" * 50)
+print("             CRÔNICAS DE ELDÓRIA             ")
+print("=" * 50)
+print()
+
+# Coletando a identidade do jogador
+nome_jogador = input("Qual é o seu nome, nobre aventureiro? ")
+print(f"\\nSeja bem-vindo, {nome_jogador}! Seu destino começa agora.")`),
+
+          L("log-2-7", "Projeto: A Ficha do Personagem em Eldória",
+            `<h3>📜 O pergaminho oficial do guerreiro</h3>
+<p>Chegamos ao grande encerramento do Módulo 2! Agora você já conhece os 4 grandes tipos primitivos de dados da programação (<code>str</code>, <code>int</code>, <code>float</code> e <code>bool</code>) e sabe receber respostas pelo teclado.</p>
+
+<p>Chegou a hora de construir a <strong>Ficha do Personagem</strong> oficial do seu jogo <code>jogo.py</code>. Essa ficha será consultada durante todo o restante da nossa aventura!</p>
+
+<h3>🖥️ No seu VS Code: Montando a Ficha Completa</h3>
+<ul>
+  <li><strong>1. Abra o arquivo:</strong> <code>jogo.py</code>.</li>
+  <li><strong>2. Pergunte o nome do aventureiro</strong> usando <code>input()</code>.</li>
+  <li><strong>3. Inicialize os atributos:</strong> classe, vida (100), ouro (50), ataque (20) e heroi_vivo (True).</li>
+  <li><strong>4. Exiba um quadro formatado:</strong> com molduras e todas as estatísticas organizadas.</li>
+  <li><strong>5. Execute no terminal:</strong> <code>python jogo.py</code> e contemple sua ficha ganhando vida!</li>
+</ul>
+
+<p>Conclua o desafio acumulativo abaixo para registrar a conclusão do Módulo 2!</p>`,
+            `# Exemplo de montagem da ficha no console:
+nome = "Aric" # str
+hp = 100      # int
+ouro = 50     # int
+vivo = True   # bool
+
+print("-" * 30)
+print(f"HERÓI: {nome} | HP: {hp} | OURO: {ouro}")
+print("-" * 30)`,
+            c(`Crie a ficha básica: defina nome = 'Aric', hp = 100 e ouro = 50, depois imprima f'Herói: {nome} | HP: {hp} | Ouro: {ouro}'.`, `# Monte as variáveis e imprima a ficha`, `nome = 'Aric'
+hp = 100
+ouro = 50
+print(f'Herói: {nome} | HP: {hp} | Ouro: {ouro}')`, `Declare as 3 variáveis e use print com f-string exibindo nome, hp e ouro.`, `nome = 'Aric'
+hp = 100
+ouro = 50
+print(f'Herói: {nome} | HP: {hp} | Ouro: {ouro}')`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória — RPG de Texto
+# Arquivo: jogo.py
+# Módulo 2: Ficha Oficial do Personagem
+# ============================================================
+
+# 1. Tela de Abertura
+print("=" * 50)
+print("             CRÔNICAS DE ELDÓRIA             ")
+print("          O Despertar do Aventureiro         ")
+print("=" * 50)
+print()
+
+# 2. Criação do Herói (Interação com o Jogador)
+nome_heroi = input("Como os bardos cantarão seu nome? ")
+classe_heroi = "Guerreiro das Sombras"
+
+# 3. Atributos Iniciais (Tipos: int, float, bool)
+vida_maxima = 100
+vida_atual = 100
+ouro = 45
+dano_ataque = 22
+multiplicador_critico = 1.5
+heroi_vivo = True
+
+# 4. Exibição da Ficha de Personagem
+print("\\n" + "-" * 50)
+print("               FICHA DO PERSONAGEM               ")
+print("-" * 50)
+print(f" Nome:   {nome_heroi}")
+print(f" Classe: {classe_heroi}")
+print(f" Vida:   {vida_atual}/{vida_maxima} HP")
+print(f" Ataque: {dano_ataque} (Crítico: {multiplicador_critico}x)")
+print(f" Ouro:   {ouro} moedas de ouro")
+print("-" * 50)
+print("\\nSua aventura está prestes a começar...")`)
+        ]
+      },
+
+      // ── Módulo 3 — Operadores e Expressões ──
+      {
+        title: "Módulo 3 — Operadores e Expressões",
+        lessons: [
+          L("log-3-1", "Aritmética Básica no RPG — Soma, Subtração, Multiplicação e Divisão",
+            `<h3>⚔️ O cálculo de um golpe certeiro</h3>
+<p>Quando a espada de um herói atinge o escudo de um orc, nada acontece por pura mágica: nos bastidores do jogo, números colidem com outros números. A força do golpe é somada aos bônus da arma e a defesa da armadura é subtraída do impacto.</p>
+
+<p>Para realizar operações matemáticas em Python, usamos os operadores aritméticos que você já conhece da escola, adaptados para os símbolos do teclado:</p>
+
+<ul>
+  <li><code>+</code> (Adição) → Recuperar pontos de vida, juntar moedas de ouro achadas no baú.</li>
+  <li><code>-</code> (Subtração) → Sofrer dano de um monstro, gastar moedas na taverna.</li>
+  <li><code>*</code> (Multiplicação) → Multiplicar dano por golpe crítico ou calcular bônus de combo.</li>
+  <li><code>/</code> (Divisão) → Dividir recompensas. Em Python, a barra simples sempre resulta em um número <code>float</code>.</li>
+</ul>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 Operadores Aritméticos</div>
+  <div class="command-spotlight-code">vida_atual = vida_atual - dano_sofrido  ou  vida_atual -= dano</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>vida_atual - dano</code> → Calcula a nova vida após o golpe.</li>
+    <li><code>-=</code> → Atalho prático que subtrai o valor e já atualiza a variável na memória.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Aplicando o Primeiro Dano</h3>
+<ul>
+  <li><strong>1. No arquivo <code>jogo.py</code>:</strong> defina <code>dano_sofrido = 18</code>.</li>
+  <li><strong>2. Atualize a vida:</strong> <code>vida_atual = vida_atual - dano_sofrido</code>.</li>
+  <li><strong>3. Exiba o resultado:</strong> <code>print(f"Você sofreu {dano_sofrido} de dano! Vida restante: {vida_atual}")</code>.</li>
+  <li><strong>4. Execute no terminal:</strong> <code>python jogo.py</code>.</li>
+</ul>`,
+            `# Cálculos matemáticos simples no RPG:
+vida = 100       # Vida cheia
+dano = 25        # Dano do monstro
+vida = vida - dano # Atualiza vida para 75
+pocao = 15       # Cura
+vida = vida + pocao # Atualiza vida para 90
+
+print(f"Vida após combate e cura: {vida} HP")`,
+            c(`Defina vida = 100 e dano = 20, e calcule nova_vida subtraindo o dano da vida.`, `# Escreva as variáveis e o cálculo`, `vida = 100
+dano = 20
+nova_vida = vida - dano`, `Use o sinal de menos: nova_vida = vida - dano.`, `vida = 100
+dano = 20
+nova_vida = vida - dano`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# Módulo 3: Operadores e Expressões
+# ============================================================
+
+# Status inicial
+vida_maxima = 100
+vida_atual = 100
+ouro = 45
+
+# Simulação de um evento: golpe sofrido
+dano_armadilha = 15
+vida_atual = vida_atual - dano_armadilha
+
+print(f"Uma armadilha disparou! Dano: {dano_armadilha} | Vida: {vida_atual}/{vida_maxima}")`),
+
+          L("log-3-2", "Divisão Inteira e Resto — Os Operadores // e %",
+            `<h3>🪙 A partilha do saque entre os aventureiros</h3>
+<p>Imagine que o seu grupo de 3 heróis encontrou um baú com 10 moedas de ouro antigas. Como moedas de metal não podem ser quebradas ao meio na taverna, quantas moedas inteiras cada um recebe? E quantas moedas sobram no fundo do baú?</p>
+
+<p>Para resolver isso sem casas decimais, o Python oferece dois operadores matemáticos fantásticos:</p>
+
+<ul>
+  <li><code>//</code> (Divisão Inteira) → Devolve apenas a parte inteira do resultado, jogando fora os decimais. <code>10 // 3</code> dá exatamente <strong>3</strong> moedas inteiras para cada um!</li>
+  <li><code>%</code> (Módulo / Resto da Divisão) → Devolve o que sobrou da divisão. <code>10 % 3</code> dá <strong>1</strong> (a moeda que sobrou no baú).</li>
+</ul>
+
+<p>O operador de resto <code>%</code> é um dos maiores segredos dos desenvolvedores de jogos: se <code>numero % 2 == 0</code>, significa que o número é <strong>par</strong> (ex: turno do herói); se der 1, o número é <strong>ímpar</strong> (turno do monstro)!</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 Divisão Inteira e Resto</div>
+  <div class="command-spotlight-code">moedas_cada = total // herois  |  sobra = total % herois</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>//</code> → Descobre a cota inteira exata para cada jogador.</li>
+    <li><code>%</code> → Descobre o que resta sem precisar fazer malabarismos lógicos.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Dividindo o Tesouro</h3>
+<ul>
+  <li><strong>1. No arquivo <code>jogo.py</code>:</strong> adicione <code>tesouro = 25</code> e <code>membros = 2</code>.</li>
+  <li><strong>2. Calcule a cota:</strong> <code>ouro_cada = tesouro // membros</code> e <code>resto = tesouro % membros</code>.</li>
+  <li><strong>3. Execute no terminal:</strong> <code>python jogo.py</code>.</li>
+</ul>`,
+            `# Calculando divisão inteira e resto:
+ouro_encontrado = 25 # Moedas no baú
+grupo = 4            # Heróis no grupo
+
+cada_um = ouro_encontrado // grupo # 6 moedas
+sobra = ouro_encontrado % grupo    # 1 moeda que sobrou
+
+print(f"Cada herói recebe {cada_um} moedas. Sobra no baú: {sobra} moeda.")`,
+            c(`Calcule a sobra da divisão de 19 moedas entre 4 jogadores usando o operador de resto % e guarde na variável resto.`, `# Calcule o resto aqui`, `resto = 19 % 4`, `Use a instrução resto = 19 % 4.`, `resto = 19 % 4`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+# Partilha de recompensas
+tesouro_bau = 50
+membros_grupo = 2
+
+ouro_ganho = tesouro_bau // membros_grupo
+ouro_extra = tesouro_bau % membros_grupo
+
+print(f"Tesouro dividido: +{ouro_ganho} moedas para você! (Sobra: {ouro_extra})")`),
+
+          L("log-3-3", "Comparando Valores — Operadores Relacionais",
+            `<h3>⚖️ O julgamento da balança do destino</h3>
+<p>Quando você quer comprar uma poção que custa 30 moedas, o taverneiro olha para a sua bolsa e pergunta: "Você tem ouro suficiente?". O computador precisa fazer exatamente essa mesma checagem.</p>
+
+<p>Os <strong>operadores relacionais</strong> comparam dois valores e sempre respondem com um Booleano: <code>True</code> (Verdadeiro) ou <code>False</code> (Falso):</p>
+
+<ul>
+  <li><code>==</code> (Igual a) → Cuidado: dois sinais de igual comparam igualdade! Um sinal só <code>=</code> atribui valor.</li>
+  <li><code>!=</code> (Diferente de) → Verdadeiro se os valores forem distintos.</li>
+  <li><code>&gt;</code> (Maior que) e <code>&lt;</code> (Menor que) → Compara grandezas.</li>
+  <li><code>&gt;=</code> (Maior ou igual) e <code>&lt;=</code> (Menor ou igual) → Inclui o próprio valor limite.</li>
+</ul>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 Comparação Relacional</div>
+  <div class="command-spotlight-code">pode_comprar = ouro >= preco_pocao  # Devolve True ou False</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>ouro &gt;= preco_pocao</code> → Testa se o ouro é suficiente para a compra.</li>
+    <li><code>pode_comprar</code> → Armazena True se tiver ouro suficiente, False se faltar.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Verificando se o Herói Sobreviveu</h3>
+<ul>
+  <li><strong>1. No arquivo <code>jogo.py</code>:</strong> adicione <code>esta_vivo = vida_atual &gt; 0</code>.</li>
+  <li><strong>2. Imprima a checagem:</strong> <code>print(f"O herói ainda está de pé? {esta_vivo}")</code>.</li>
+  <li><strong>3. Execute no terminal:</strong> veja o terminal responder <code>True</code>!</li>
+</ul>`,
+            `# Exemplos de comparações no RPG:
+vida = 45 # HP atual
+ouro = 30 # Moedas
+preco_espada = 50 # Custo na loja
+
+esta_vivo = vida > 0           # True (45 é maior que 0)
+tem_ouro = ouro >= preco_espada # False (30 não é maior ou igual a 50)
+
+print(f"Vivo: {esta_vivo} | Pode comprar espada: {tem_ouro}")`,
+            c(`Crie uma comparação que teste se vida é maior que 0 e guarde o resultado booleano na variável vivo.`, `# Teste se vida é maior que zero`, `vivo = vida > 0`, `Escreva vivo = vida > 0.`, `vivo = vida > 0`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+vida_atual = 85
+custo_pocao = 25
+ouro_atual = 45
+
+# Comparações de segurança do jogo
+heroi_sobreviveu = vida_atual > 0
+tem_ouro_suficiente = ouro_atual >= custo_pocao
+
+print(f"Status: Vivo={heroi_sobreviveu} | Pode comprar poção={tem_ouro_suficiente}")`),
+
+          L("log-3-4", "Decisões Combinadas — Operadores Lógicos and, or, not",
+            `<h3>🗝️ O portal que exige duas chaves mágicas</h3>
+<p>Imagine um grande portal de pedra selado por feitiçaria antiga. Para que o portal se abra, o herói precisa de duas coisas ao mesmo tempo: ter a <strong>Chave de Rubi</strong> E possuir nível 5. Se faltar qualquer uma delas, o portal continua trancado.</p>
+
+<p>Para combinar várias condições lógicas em uma única regra, utilizamos os <strong>operadores lógicos</strong>:</p>
+
+<ul>
+  <li><code>and</code> (E lógico) → Todas as condições precisam ser verdadeiras para o resultado ser <code>True</code>.</li>
+  <li><code>or</code> (OU lógico) → Basta que UMA única condição seja verdadeira para o resultado ser <code>True</code>.</li>
+  <li><code>not</code> (NÃO / Inversão) → Inverte o valor. Se for <code>True</code>, vira <code>False</code>; se for <code>False</code>, vira <code>True</code>.</li>
+</ul>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 Operadores Lógicos no RPG</div>
+  <div class="command-spotlight-code">pode_entrar = tem_chave and nivel >= 5  |  pode_curar = vida &lt; 50 or tem_veneno</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>and</code> → Exige que ambos os lados sejam satisfeitos simultaneamente.</li>
+    <li><code>or</code> → Aceita se qualquer um dos lados for verdadeiro.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Condição de Vitória ou Fuga</h3>
+<ul>
+  <li><strong>1. No <code>jogo.py</code>:</strong> declare <code>tem_pocao = True</code> e <code>vida_baixa = vida_atual &lt; 30</code>.</li>
+  <li><strong>2. Teste a urgência:</strong> <code>deve_curar = vida_baixa and tem_pocao</code>.</li>
+  <li><strong>3. Execute no terminal:</strong> <code>python jogo.py</code>.</li>
+</ul>`,
+            `# Lógica combinada no RPG:
+tem_chave = True # Possui a chave do calabouço
+nivel = 7        # Nível do herói
+
+# Só entra se tiver a chave E nível mínimo 5:
+pode_abrir_porta = tem_chave and (nivel >= 5)
+print(f"Pode abrir a câmara secreta? {pode_abrir_porta}")`,
+            c(`Crie a expressão lógica que testa se tem_ouro é True E tem_vaga é True, guardando o resultado na variável pode_entrar.`, `# Escreva a expressão com and`, `pode_entrar = tem_ouro and tem_vaga`, `Use pode_entrar = tem_ouro and tem_vaga.`, `pode_entrar = tem_ouro and tem_vaga`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+vida_atual = 85
+ouro = 45
+tem_tocha = True
+nivel = 1
+
+# Verificações lógicas para entrar na Masmorra das Sombras
+apto_para_masmorra = (vida_atual > 50) and (tem_tocha or ouro >= 100)
+print(f"Apto para explorar a masmorra? {apto_para_masmorra}")`),
+
+          L("log-3-5", "Precedência de Operadores — A Ordem das Contas",
+            `<h3>🎯 Quem ataca primeiro no campo de batalha?</h3>
+<p>Em um duelo de cavaleiros, a velocidade da flecha é mais rápida que o golpe pesado do martelo. Na matemática e na programação ocorre o mesmo: certas contas são calculadas antes das outras.</p>
+
+<p>Se você escrever <code>10 + 5 * 2</code>, o Python NÃO fará 15 vezes 2 (que daria 30). Ele calculará primeiro a multiplicação <code>5 * 2 = 10</code> e depois somará com o 10, resultando em <strong>20</strong>!</p>
+
+<p>Para garantir que o computador faça a conta exatamente na ordem que a regra do seu jogo exige, <strong>use parênteses ( )</strong>! Tudo o que está dentro dos parênteses ganha prioridade absoluta.</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 A Regra de Ouro da Precedência</div>
+  <div class="command-spotlight-code">dano_final = (ataque_base + bonus_arma) * critico - defesa_inimigo</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>(ataque_base + bonus_arma)</code> → Calculado em primeiro lugar por estar entre parênteses.</li>
+    <li><code>* critico</code> → Multiplicado em seguida.</li>
+    <li><code>- defesa_inimigo</code> → Subtraído por último.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: A Fórmula Oficial de Dano</h3>
+<ul>
+  <li><strong>1. No arquivo <code>jogo.py</code>:</strong> adicione <code>forca = 15</code>, <code>espada = 5</code>, <code>critico = 2</code> e <code>defesa = 8</code>.</li>
+  <li><strong>2. Calcule o dano real:</strong> <code>dano_calculado = (forca + espada) * critico - defesa</code>.</li>
+  <li><strong>3. Execute no terminal:</strong> <code>python jogo.py</code>.</li>
+</ul>`,
+            `# Demonstração da importância dos parênteses:
+ataque = 20
+bonus = 10
+multiplicador = 2
+
+# Sem parênteses: 20 + (10 * 2) = 40
+dano_sem = ataque + bonus * multiplicador
+
+# Com parênteses: (20 + 10) * 2 = 60
+dano_com = (ataque + bonus) * multiplicador
+
+print(f"Sem parênteses: {dano_sem} | Com parênteses: {dano_com}")`,
+            c(`Calcule a expressão (base + bonus) * 2 e guarde na variável dano.`, `# Escreva o cálculo priorizando os parênteses`, `dano = (base + bonus) * 2`, `Use os parênteses ao redor de base + bonus e multiplique por 2.`, `dano = (base + bonus) * 2`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+# Cálculo preciso de dano com precedência
+forca_heroi = 20
+bonus_espada = 6
+multiplicador_critico = 2
+defesa_monstro = 10
+
+dano_causado = (forca_heroi + bonus_espada) * multiplicador_critico - defesa_monstro
+print(f"Golpe devastador! Dano final desferido: {dano_causado}")`),
+
+          L("log-3-6", "Projeto: Sistema de Dano e Compra na Taverna",
+            `<h3>🍻 A Taverna do Javali Saltitante</h3>
+<p>Chegamos ao grande desafio acumulativo do Módulo 3! Agora seu código é capaz de calcular danos complexos, dividir saques com precisão e avaliar condições combinadas.</p>
+
+<p>Vamos integrar ao <code>jogo.py</code> o sistema financeiro e de combate inicial: o herói enfrentará um perigo na estrada, sofrerá dano e entrará na taverna para gastar ouro comprando uma Poção de Vida!</p>
+
+<h3>🖥️ No seu VS Code: Atualizando o Jogo</h3>
+<ul>
+  <li><strong>1. Abra o arquivo:</strong> <code>jogo.py</code>.</li>
+  <li><strong>2. Simule o evento de emboscada:</strong> o herói sofre um ataque e sua vida diminui.</li>
+  <li><strong>3. Simule a visita à taverna:</strong> o herói gasta moedas para restaurar vida com uma poção.</li>
+  <li><strong>4. Exiba a ficha atualizada:</strong> mostrando que as variáveis mudaram de forma consistente.</li>
+  <li><strong>5. Execute no terminal:</strong> <code>python jogo.py</code>.</li>
+</ul>
+
+<p>Resolva o desafio acumulativo abaixo para concluir o Módulo 3!</p>`,
+            `# Compra e restauração de vida:
+vida = 70
+ouro = 50
+preco_pocao = 25
+cura_pocao = 30
+
+# Processo da compra:
+ouro = ouro - preco_pocao # Ouro passa a ser 25
+vida = vida + cura_pocao  # Vida volta a 100
+
+print(f"Após a poção: Vida={vida} HP | Ouro={ouro}")`,
+            c(`Simule a compra da poção: subtraia preco do ouro (ouro = ouro - preco) e some cura na vida (vida = vida + cura).`, `# Atualize o ouro e a vida`, `ouro = ouro - preco
+vida = vida + cura`, `Escreva ouro = ouro - preco na primeira linha e vida = vida + cura na segunda.`, `ouro = ouro - preco
+vida = vida + cura`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória — RPG de Texto
+# Arquivo: jogo.py
+# Módulo 3: Cálculos de Dano e Sistema Econômico
+# ============================================================
+
+# 1. Tela de Abertura
+print("=" * 50)
+print("             CRÔNICAS DE ELDÓRIA             ")
+print("          O Despertar do Aventureiro         ")
+print("=" * 50)
+print()
+
+# 2. Atributos do Jogador
+nome_heroi = "Arthur"
+vida_maxima = 100
+vida_atual = 100
+ouro = 60
+dano_base = 25
+
+print(f"Aventureiro: {nome_heroi} | Vida: {vida_atual}/{vida_maxima} | Ouro: {ouro}")
+print("-" * 50)
+
+# 3. Evento: Emboscada de Lobos Selvagens
+dano_recebido = 35
+vida_atual = vida_atual - dano_recebido
+print(f"\\n🐺 Um bando de lobos atacou! Você sofreu {dano_recebido} de dano.")
+print(f"Vida atual: {vida_atual}/{vida_maxima} HP")
+
+# 4. Evento: Visita ao Alquimista
+preco_pocao = 20
+cura_pocao = 25
+print(f"\\n🌿 Você compra uma Poção de Cura por {preco_pocao} moedas de ouro.")
+
+ouro = ouro - preco_pocao
+vida_atual = vida_atual + cura_pocao
+
+print(f"Status pós-cura: {vida_atual}/{vida_maxima} HP | Ouro restante: {ouro} moedas")
+print("=" * 50)`)
+        ]
+      },
+
+      // ── Módulo 4 — Estruturas Condicionais ──
+      {
+        title: "Módulo 4 — Estruturas Condicionais",
+        lessons: [
+          L("log-4-1", "A Encruzilhada — Tomando Decisões com if",
+            `<h3>🧭 A bifurcação na Floresta Sombria</h3>
+<p>Imagine que você está caminhando por uma trilha na floresta e a estrada se divide em duas: à esquerda há uma placa que diz "Ponte dos Trolls", e à direita diz "Caminho das Fadas". Você só vai desembainhar sua espada SE escolher ir pela esquerda.</p>
+
+<p>Na programação, os programas tomam decisões usando a palavra mágica <strong>if</strong> (que significa "SE" em inglês). Se a condição for verdadeira (<code>True</code>), o computador executa o bloco de código que está lá dentro.</p>
+
+<p>Em Python, existe uma regra sagrada de formatação chamada <strong>indentação</strong>: todas as linhas que pertencem ao <code>if</code> devem ter <strong>4 espaços de recuo</strong> (ou uma tecla Tab). É esse espaço que avisa ao Python onde a decisão começa e termina!</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 A Estrutura do if</div>
+  <div class="command-spotlight-code">if vida &lt;= 0:
+    print("O herói tombou em combate...")</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>if</code> → Inicia a verificação da condição.</li>
+    <li><code>:</code> → Os dois pontos no final da linha são OBRIGATÓRIOS para abrir o bloco.</li>
+    <li><code>    (4 espaços)</code> → Indentação que indica que a linha só roda se o if for verdadeiro.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: O Primeiro Teste de Sobrevivência</h3>
+<ul>
+  <li><strong>1. No <code>jogo.py</code>:</strong> escreva um bloco <code>if vida_atual &lt;= 20:</code>.</li>
+  <li><strong>2. Dentro do if (recuado 4 espaços):</strong> digite <code>print("⚠️ ALERTA: Sua vida está criticamente baixa!")</code>.</li>
+  <li><strong>3. Execute no terminal:</strong> <code>python jogo.py</code>.</li>
+</ul>`,
+            `# Exemplo de condicional simples com indentação:
+vida = 15
+
+if vida < 30:
+    # Esta linha só executa se a vida for menor que 30:
+    print("Sua barra de vida está piscando em vermelho!")`,
+            c(`Complete o if: se vida <= 0, exiba a mensagem 'Derrota' com print.`, `if vida <= 0:
+    # Seu código aqui`, `if vida <= 0:
+    print("Derrota")`, `Mantenha a indentação de 4 espaços e faça print("Derrota").`, `if vida <= 0:
+    print("Derrota")`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# Módulo 4: Estruturas Condicionais
+# ============================================================
+
+vida_atual = 25
+vida_maxima = 100
+
+# Verificação de estado crítico com if
+if vida_atual < 30:
+    print("⚠️  AVISO DO BASTIÃO: Seu sangue pinga no chão. Procure um curandeiro!")`),
+
+          L("log-4-2", "O Outro Caminho — A Estrutura else",
+            `<h3>🚪 A porta com ou sem a chave</h3>
+<p>Imagine que você tenta girar a maçaneta de uma arca de tesouro. Se você tiver a chave, a fechadura estala e o baú se abre. CASO CONTRÁRIO (se você não tiver a chave), uma tranca de ferro pesado resiste e nada acontece.</p>
+
+<p>Para criar o caminho alternativo de uma condição, usamos a palavra <strong>else</strong> (que significa "senão" ou "caso contrário"). O <code>else</code> nunca recebe uma condição própria: ele é executado automaticamente quando o <code>if</code> der <code>False</code>.</p>
+
+<p>Com a dupla <strong>if/else</strong>, seu jogo nunca fica sem resposta: ou ele vai por um caminho, ou vai pelo outro. Nunca pelos dois ao mesmo tempo!</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 A Dupla if / else</div>
+  <div class="command-spotlight-code">if vida &gt; 0:
+    print("Vivo!")
+else:
+    print("Game Over!")</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>if</code> → Executado se a condição for verdadeira.</li>
+    <li><code>else:</code> → Executado obrigatoriamente se a condição for falsa.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Portões de Eldória</h3>
+<ul>
+  <li><strong>1. No arquivo <code>jogo.py</code>:</strong> adicione uma checagem de ouro para entrar na cidade.</li>
+  <li><strong>2. Se ouro &gt;= 10:</strong> imprima "O guarda recolhe a taxa e abre os portões".</li>
+  <li><strong>3. No else:</strong> imprima "O guarda empurra você para longe: 'Sem moedas, sem entrada!'".</li>
+  <li><strong>4. Rode no terminal:</strong> <code>python jogo.py</code>.</li>
+</ul>`,
+            `# Testando condições com dois desfechos possíveis:
+ouro = 5
+
+if ouro >= 10:
+    print("Você compra uma tocha brilhante.")
+else:
+    print("Você não tem moedas suficientes e continua no escuro.")`,
+            c(`Complete a estrutura com else: se ouro >= 10, print('Aprovado'), senão print('Recusado').`, `if ouro >= 10:
+    print("Aprovado")
+# Complete o else aqui`, `if ouro >= 10:
+    print("Aprovado")
+else:
+    print("Recusado")`, `Escreva else: alinhado com o if e na linha seguinte print("Recusado") recuado 4 espaços.`, `if ouro >= 10:
+    print("Aprovado")
+else:
+    print("Recusado")`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+ouro = 15
+taxa_portao = 10
+
+if ouro >= taxa_portao:
+    ouro = ouro - taxa_portao
+    print(f"Os portões da Cidadela se abrem! Ouro restante: {ouro}")
+else:
+    print("O guarda de guarda barra sua passagem: 'Volte quando tiver ouro!'")`),
+
+          L("log-4-3", "Múltiplas Escolhas — A Estrutura elif",
+            `<h3>📜 O menu de três portas na câmara dos desafios</h3>
+<p>Imagine que você chega a um salão subterrâneo e encontra 3 portas distintas: a Porta de Fogo (1), a Porta de Gelo (2) e a Porta das Serpentes (3). O que fazer quando há mais de duas opções possíveis?</p>
+
+<p>Para testar múltiplas condições em sequência sem bagunçar o código, o Python tem o <strong>elif</strong> (uma contração carinhosa de <em>else if</em>, ou seja, "senão se").</p>
+
+<p>O computador testa o <code>if</code> primeiro. Se for falso, passa para o primeiro <code>elif</code>. Se também for falso, passa para o próximo <code>elif</code>. E se nenhum der certo, cai no <code>else</code> final!</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 A Cadeia if / elif / else</div>
+  <div class="command-spotlight-code">if opcao == "1":
+    ...
+elif opcao == "2":
+    ...
+else:
+    ...</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>if</code> → Primeira checagem prioritária.</li>
+    <li><code>elif</code> → Opções intermediárias (você pode ter quantos elifs quiser).</li>
+    <li><code>else</code> → Opção padrão caso nenhuma das anteriores coincida.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Menu de Ações do Turno</h3>
+<ul>
+  <li><strong>1. No arquivo <code>jogo.py</code>:</strong> crie um menu com as opções: <code>1 - Atacar</code> e <code>2 - Defender</code>.</li>
+  <li><strong>2. Leia a opção do jogador com <code>input()</code>:</strong> <code>escolha = input("O que deseja fazer? ")</code>.</li>
+  <li><strong>3. Implemente a cadeia:</strong> <code>if escolha == "1": ... elif escolha == "2": ... else: ...</code>.</li>
+  <li><strong>4. Teste no terminal:</strong> digite 1, depois rode de novo e digite 2!</li>
+</ul>`,
+            `# Menu de escolhas no combate:
+escolha = "1"
+
+if escolha == "1":
+    print("Você golpeia com sua espada!")
+elif escolha == "2":
+    print("Você ergue seu escudo de carvalho!")
+elif escolha == "3":
+    print("Você lança uma faísca mágica!")
+else:
+    print("Comando não reconhecido pelo bardo!")`,
+            c(`Crie a estrutura elif: se escolha == '1' print('Ataque'), elif escolha == '2' print('Defesa').`, `# Escreva o if e o elif`, `if escolha == '1':
+    print('Ataque')
+elif escolha == '2':
+    print('Defesa')`, `Escreva if escolha == '1': com print na linha de baixo, e depois elif escolha == '2': com print.`, `if escolha == '1':
+    print('Ataque')
+elif escolha == '2':
+    print('Defesa')`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+print("Um vulto se aproxima nas sombras!")
+print("[1] Desembainhar a Espada")
+print("[2] Levantar o Escudo")
+print("[3] Tentar Negociar")
+
+escolha = input("Sua decisão (1, 2 ou 3): ")
+
+if escolha == "1":
+    print("Você avança com fúria e golpeia!")
+elif escolha == "2":
+    print("Você firma seus pés e aguarda o impacto!")
+elif escolha == "3":
+    print("Você tenta dialogar, mas o inimigo apenas ruge!")
+else:
+    print("Você hesitou e perdeu preciosos segundos!")`),
+
+          L("log-4-4", "Condições Aninhadas — Decisões Dentro de Decisões",
+            `<h3>🏰 O baú secreto dentro do calabouço</h3>
+<p>Imagine que você conseguiu entrar na masmorra após derrotar os guardas. Lá dentro, você encontra um baú reforçado com três cadeados. Para abrir o baú, primeiro você precisava estar na masmorra, e DEPOIS precisa ter o pé de cabra.</p>
+
+<p>Quando colocamos um <code>if</code> dentro do corpo de outro <code>if</code>, chamamos isso de <strong>condições aninhadas</strong>. Cada nível interno de decisão ganha mais 4 espaços de indentação (totalizando 8 espaços no segundo nível).</p>
+
+<p>Isso permite construir ramificações ricas de história: o jogador tomou a decisão A, e diante do desfecho de A, depara-se com a nova decisão B!</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 Decisões em Camadas</div>
+  <div class="command-spotlight-code">if entrou_na_caverna:
+    if tem_tocha:
+        print("Você enxerga o tesouro!")</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>Nível 1 (4 espaços)</code> → Verifica se o herói está dentro da caverna.</li>
+    <li><code>Nível 2 (8 espaços)</code> → Só é executado se o Nível 1 tiver sido verdadeiro.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: A Caverna Profunda</h3>
+<ul>
+  <li><strong>1. No arquivo <code>jogo.py</code>:</strong> crie a checagem se o jogador decidiu explorar a cripta.</li>
+  <li><strong>2. Se entrou:</strong> teste se ele possui tocha acesa; se tiver, encontra ouro; se não tiver, tropeça e perde vida.</li>
+  <li><strong>3. Execute no terminal:</strong> <code>python jogo.py</code>.</li>
+</ul>`,
+            `# Condições aninhadas no RPG:
+entrou_caverna = True
+tem_tocha = True
+
+if entrou_caverna:
+    print("Você pisa no chão úmido da caverna.")
+    if tem_tocha:
+        print("Sua tocha revela pinturas antigas e um baú!")
+    else:
+        print("Está escuro como breu. Você tropeça nas pedras.")`,
+            c(`Dentro de um if porta_aberta:, crie outro if tem_tocha: que imprima 'Avançando no escuro'.`, `if porta_aberta:
+    # Adicione o if interno aqui`, `if porta_aberta:
+    if tem_tocha:
+        print("Avançando no escuro")`, `Coloque 4 espaços no if interno e 8 espaços no print interno.`, `if porta_aberta:
+    if tem_tocha:
+        print("Avançando no escuro")`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+entrou_na_cripta = True
+tem_tocha = False
+vida_atual = 100
+
+if entrou_na_cripta:
+    print("Você desce as escadas de pedra carcomida.")
+    if tem_tocha:
+        print("A luz da tocha revela 20 moedas de ouro no sarcófago!")
+    else:
+        print("Na escuridão total, você pisa em espinhos ocultos!")
+        vida_atual -= 10
+        print(f"Vida restante: {vida_atual} HP")`),
+
+          L("log-4-5", "Condições com Operadores Lógicos na Prática",
+            `<h3>🛡️ A Bênção do Paladino</h3>
+<p>Nem sempre você precisa empilhar vários <code>if</code> aninhados para tomar uma decisão. Muitas vezes é muito mais limpo e elegante usar os operadores lógicos <code>and</code> e <code>or</code> direto na linha de condição!</p>
+
+<p>Por exemplo: para o herói conseguir fugir de uma fera lendária, ele precisa ter <strong>mais de 20 de vida</strong> E o monstro precisa estar <strong>distraído</strong>. Se qualquer uma dessas condições falhar, a fuga é impedida.</p>
+
+<p>Usar expressões lógicas bem estruturadas torna seu código legível como prosa: qualquer pessoa que ler seu arquivo entenderá exatamente as regras do mundo.</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 Condicionais com Lógica Expressiva</div>
+  <div class="command-spotlight-code">if vida &gt; 50 and ouro &gt;= 100:
+    print("Herói próspero e saudável!")</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>and</code> → Reduz 2 ou 3 ifs separados a uma única linha clara e direta.</li>
+    <li><code>or</code> → Permite caminhos alternativos sem duplicar blocos de código.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Condição de Fuga Bem-Sucedida</h3>
+<ul>
+  <li><strong>1. No arquivo <code>jogo.py</code>:</strong> escreva <code>if vida_atual &gt; 40 and tem_pocao:</code>.</li>
+  <li><strong>2. No bloco:</strong> imprima "Você tem fôlego e recursos para resistir ao cerco!".</li>
+  <li><strong>3. Execute no terminal:</strong> <code>python jogo.py</code>.</li>
+</ul>`,
+            `# Condicionais combinadas elegantes:
+vida = 75
+ouro = 120
+classe = "Mago"
+
+if classe == "Mago" and ouro >= 100:
+    print("O Arquimago aceita você como aprendiz na torre!")
+elif classe == "Guerreiro" or vida >= 80:
+    print("O capitão da guarda convida você para o torneio real!")`,
+            c(`Escreva um if que teste se vida > 0 and ouro >= 50, e imprima 'Pronto'.`, `# Escreva o if com and`, `if vida > 0 and ouro >= 50:
+    print("Pronto")`, `Use if vida > 0 and ouro >= 50: e na linha de baixo print("Pronto").`, `if vida > 0 and ouro >= 50:
+    print("Pronto")`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+vida_atual = 65
+ouro = 40
+classe = "Guerreiro"
+
+if classe == "Guerreiro" and vida_atual >= 50:
+    print("O ferreiro da cidadela reconhece sua bravura e afia sua lâmina de graça!")
+else:
+    print("O ferreiro cobra taxa dobrada pelo serviço.")`),
+
+          L("log-4-6", "Tratando Escolhas Inválidas do Jogador",
+            `<h3>🎮 O jogador curioso e as teclas inesperadas</h3>
+<p>Você já jogou um jogo onde as opções eram "1 - Sim" ou "2 - Não", e você digitou "banana" só para ver o que o jogo faria? Jogadores adoram testar os limites do sistema!</p>
+
+<p>Se você esperar apenas as opções certas e não planejar o que acontece com respostas desconhecidas, seu jogo pode ficar mudo ou tomar atitudes bizarras. Um bom desenvolvedor sempre protege o programa com um <strong>bloco de escape</strong> no <code>else</code> final.</p>
+
+<p>Esse tratamento avisa educadamente ao jogador: "Opção inválida! Escolha apenas 1 ou 2", mantendo a estabilidade e a imersão da experiência.</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 Proteção de Entrada</div>
+  <div class="command-spotlight-code">else:
+    print("Opção inválida! O herói ficou paralisado pela indecisão.")</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>else</code> → Captura qualquer caractere estranho digitado pelo jogador.</li>
+    <li>Garante que o jogo nunca fique travado sem explicação na tela.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Blindando o Menu</h3>
+<ul>
+  <li><strong>1. No arquivo <code>jogo.py</code>:</strong> adicione um <code>else</code> no final do menu de escolhas.</li>
+  <li><strong>2. Rode no terminal:</strong> digite uma letra aleatória como <code>z</code> e veja seu jogo reagir de forma inteligente sem quebrar!</li>
+</ul>`,
+            `# Validação amigável de entrada:
+comando = "x" # O jogador digitou algo inexistente
+
+if comando == "1":
+    print("Atacando monstro...")
+elif comando == "2":
+    print("Fugindo em retirada...")
+else:
+    print("⚠️ Comando inválido! O goblin aproveita sua hesitação para rir de você.")`,
+            c(`Complete o bloco else para imprimir 'Opção inválida' caso nenhuma escolha anterior case.`, `else:
+    # Imprima o aviso de erro`, `else:
+    print("Opção inválida")`, `Coloque print("Opção inválida") recuado com 4 espaços.`, `else:
+    print("Opção inválida")`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+print("Um guarda suspeito pede a senha do acampamento:")
+resposta = input("Qual a senha (fogo / agua / terra)? ")
+
+if resposta == "fogo":
+    print("Portão aberto! Bem-vindo ao acampamento.")
+elif resposta == "agua":
+    print("Senha incorreta, mas os guardas deixam você pernoitar na estrebaria.")
+elif resposta == "terra":
+    print("Senha errada! O alarme é soado!")
+else:
+    print("Você balbuciou palavras sem sentido. Os guardas desconfiam de você!")`),
+
+          L("log-4-7", "Projeto: O Jogador Escolhe entre Lutar ou Fugir",
+            `<h3>⚔️ A Emboscada do Goblin na Clareira</h3>
+<p>Chegamos ao ponto alto do Módulo 4! Agora o seu jogo é um universo interativo que ramifica a narrativa de acordo com a vontade real do jogador.</p>
+
+<p>No <code>jogo.py</code>, vamos implementar o primeiro grande evento de aventura: enquanto viaja pelos limites de Eldória, um <strong>Goblin Salteador</strong> salta dos arbustos com uma adaga enferrujada. O jogador deve decidir no teclado entre <strong>[1] Lutar</strong> ou <strong>[2] Fugir</strong>!</p>
+
+<h3>🖥️ No seu VS Code: O Duelo de Decisão</h3>
+<ul>
+  <li><strong>1. Abra o arquivo:</strong> <code>jogo.py</code>.</li>
+  <li><strong>2. Apresente o monstro:</strong> nome, HP do inimigo e a ameaça.</li>
+  <li><strong>3. Leia a opção do jogador com <code>input()</code>.</strong></li>
+  <li><strong>4. Se escolher [1] (Lutar):</strong> o herói desfere um golpe, derrota o goblin e ganha 25 moedas de ouro!</li>
+  <li><strong>5. Se escolher [2] (Fugir):</strong> o herói corre em disparada, tropeça nas raízes e perde 10 de vida, mas escapa com vida!</li>
+  <li><strong>6. No else:</strong> o jogador hesita e o goblin rouba 5 moedas de ouro da sua bolsa!</li>
+  <li><strong>7. Execute no terminal:</strong> <code>python jogo.py</code> e teste todos os desfechos!</li>
+</ul>
+
+<p>Conclua o desafio acumulativo abaixo para concluir o Módulo 4 com chave de ouro!</p>`,
+            `# Estrutura da decisão de combate no RPG:
+escolha = input("[1] Lutar ou [2] Fugir: ")
+
+if escolha == "1":
+    print("Você desembainha sua espada e ataca!")
+elif escolha == "2":
+    print("Você dá meia-volta e corre!")
+else:
+    print("Paralisado pelo medo, você leva uma pedrada!")`,
+            c(`Crie a decisão no combate: se acao == '1' imprima 'Combate iniciado', senão se acao == '2' imprima 'Fuga bem-sucedida'.`, `# Escreva o if e elif para acao`, `if acao == '1':
+    print('Combate iniciado')
+elif acao == '2':
+    print('Fuga bem-sucedida')`, `Use if acao == '1': print('Combate iniciado') e elif acao == '2': print('Fuga bem-sucedida').`, `if acao == '1':
+    print('Combate iniciado')
+elif acao == '2':
+    print('Fuga bem-sucedida')`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória — RPG de Texto
+# Arquivo: jogo.py
+# Módulo 4: Sistema de Decisões e Primeiro Encontro
+# ============================================================
+
+# 1. Identidade e Atributos do Herói
+nome_heroi = "Arthur"
+vida_maxima = 100
+vida_atual = 100
+ouro = 40
+ataque_heroi = 25
+
+print("=" * 50)
+print(f"       AVENTURA EM ELDÓRIA — VIAJANTE: {nome_heroi}       ")
+print("=" * 50)
+print(f"Status Atual: {vida_atual}/{vida_maxima} HP | Ouro: {ouro} moedas\\n")
+
+# 2. O Encontro Inesperado
+print("Um ruído ecoa nos galhos secos da Floresta...")
+print("👹 Um Goblin Salteador pula no meio da estrada com olhos famintos!")
+print()
+print("O que você faz?")
+print(" [1] Desembainhar a espada e lutar com coragem")
+print(" [2] Dar meia-volta e fugir pelos arbustos")
+print("-" * 50)
+
+decisao = input("Digite sua escolha (1 ou 2): ")
+print()
+
+# 3. Ramificação da Narrativa
+if decisao == "1":
+    print("⚔️  Você avança contra o Goblin!")
+    dano_causado = ataque_heroi + 5
+    print(f"Seu golpe certeiro causou {dano_causado} de dano!")
+    print("O Goblin cai derrotado no chão pedregoso.")
+    ouro_ganho = 25
+    ouro += ouro_ganho
+    print(f"💰 Você vasculhou a bolsa da criatura: +{ouro_ganho} moedas de ouro!")
+elif decisao == "2":
+    print("🏃 Você decide que não vale o risco e corre em disparada!")
+    dano_fuga = 10
+    vida_atual -= dano_fuga
+    print(f"Você escapou, mas raspou em espinhos venenosos: -{dano_fuga} HP.")
+else:
+    print("⚠️ Você congelou de medo sem saber o que fazer!")
+    print("O Goblin arremessa uma pedra, rouba 5 moedas da sua bota e foge rindo!")
+    ouro = max(0, ouro - 5)
+    vida_atual -= 5
+
+print("\\n" + "=" * 50)
+print(f"Status Final da Jornada: {vida_atual}/{vida_maxima} HP | Ouro: {ouro}")
+print("=" * 50)`)
+        ]
+      },
+
+      // ── Módulo 5 — Estruturas de Repetição ──
+      {
+        title: "Módulo 5 — Estruturas de Repetição",
+        lessons: [
+          L("log-5-1", "O Feitiço da Repetição — Por que precisamos de Loops?",
+            `<h3>🌊 A roda d'água do moinho medieval</h3>
+<p>Imagine o moinho de farinha da vila: a cada segundo, a água do rio empurra as pás de madeira e a roda gira. O moleiro não precisa ficar empurrando a roda com as próprias mãos a cada volta: o fluxo contínuo do rio faz a tarefa se repetir incansavelmente.</p>
+
+<p>Na programação, se você precisasse que um duelo entre o herói e um monstro durasse 20 turnos de troca de golpes, você teria que copiar e colar o mesmo código 20 vezes seguidas no seu arquivo? Claro que não!</p>
+
+<p>Copiar e colar código é a pior armadilha de um desenvolvedor: se você precisar mudar uma única vírgula, terá que alterar em 20 lugares diferentes. É para isso que existem as <strong>estruturas de repetição</strong> (ou <em>loops</em> / laços).</p>
+
+<p>Com um loop, você escreve o turno de batalha UMA ÚNICA VEZ e manda o computador repetir enquanto o combate não tiver terminado!</p>`,
+            `# O jeito cansativo (sem repetição):
+print("Turno 1: Golpe!")
+print("Turno 2: Golpe!")
+print("Turno 3: Golpe!")
+# Imagina fazer isso para 100 turnos?
+
+# O jeito inteligente de um programador (com loop):
+# Uma única instrução repete quantas vezes você quiser!`,
+            null,
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# Módulo 5: Estruturas de Repetição e Sistema de Batalha
+# ============================================================
+# Na próxima aula, aprenderemos o laço while para criar o combate dinâmico!`),
+
+          L("log-5-2", "Repetindo até a Condição Mudar — O Laço while",
+            `<h3>⏳ A ampulheta que escorre na masmorra</h3>
+<p>Imagine que você está prendendo a respiração debaixo d'água em um fosso do castelo. A regra é clara: ENQUANTO você estiver submerso, continue nadando em direção à luz. Assim que sua cabeça sair da água, a condição muda e você para de nadar.</p>
+
+<p>Em Python, o comando <strong>while</strong> significa exatamente "ENQUANTO". Ele continuará executando o bloco de código repetidas vezes ENQUANTO a sua condição for verdadeira (<code>True</code>).</p>
+
+<p><strong>Cuidado supremo:</strong> todo loop <code>while</code> precisa de algo dentro dele que mude a condição em algum momento! Se a condição nunca virar <code>False</code>, você terá criado um <strong>loop infinito</strong>, e o programa ficará rodando eternamente até travar o computador!</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 A Estrutura do while</div>
+  <div class="command-spotlight-code">while vida_monstro &gt; 0:
+    vida_monstro -= 10</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>while</code> → Inicia a repetição baseada em uma condição contínua.</li>
+    <li><code>vida_monstro -= 10</code> → A cada volta, a vida diminui até chegar a zero e o loop parar.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: O Desgaste da Lâmina</h3>
+<ul>
+  <li><strong>1. No <code>jogo.py</code>:</strong> defina <code>durabilidade = 3</code>.</li>
+  <li><strong>2. Crie o while:</strong> <code>while durabilidade &gt; 0:</code>, imprima "A espada reluz!" e diminua <code>durabilidade -= 1</code>.</li>
+  <li><strong>3. Rode no terminal:</strong> veja a frase se repetir exatamente 3 vezes e parar!</li>
+</ul>`,
+            `# Exemplo de loop while decrescente:
+contador = 3
+
+while contador > 0:
+    print(f"Contagem regressiva do feitiço: {contador}...")
+    contador -= 1 # Passo essencial para evitar loop infinito!
+
+print("⚡ O raio mágico explode no ar!")`,
+            c(`Complete o laço while: enquanto energia > 0, imprima 'Correndo' e diminua energia em 1 (energia -= 1).`, `while energia > 0:
+    # Seu código aqui`, `while energia > 0:
+    print("Correndo")
+    energia -= 1`, `Coloque print("Correndo") e na linha seguinte energia -= 1, ambos com 4 espaços.`, `while energia > 0:
+    print("Correndo")
+    energia -= 1`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+# Simulação de combate em loop contínuo
+vida_monstro = 60
+dano_espada = 20
+
+print("Batalha iniciada!")
+while vida_monstro > 0:
+    print(f"Golpe aplicado! Vida do monstro antes: {vida_monstro}")
+    vida_monstro -= dano_espada
+    print(f"Monstro ferido! Vida restante: {vida_monstro} HP\\n")
+
+print("Monstro derrotado com sucesso!")`),
+
+          L("log-5-3", "Contadores e Acumuladores em Loops",
+            `<h3>🥊 O juiz contando os rounds do torneio</h3>
+<p>Em um ringue ou torneio de justa medieval, a cada vez que a sineta toca, o mestre de cerimônias anuncia: "Round 1!", "Round 2!", "Round 3!". Ao mesmo tempo, o escrivão anota o total de pontos acumulados por cada competidor.</p>
+
+<p>Na programação, nós chamamos essas variáveis de apoio de <strong>contadores</strong> e <strong>acumuladores</strong>:</p>
+
+<ul>
+  <li><strong>Contador:</strong> Uma variável que soma um valor fixo (normalmente <code>+ 1</code>) a cada iteração do loop para contar quantas voltas já foram dadas (ex: número da rodada).</li>
+  <li><strong>Acumulador:</strong> Uma variável que soma quantidades variáveis para obter um total geral (ex: <code>dano_total += dano_da_rodada</code>).</li>
+</ul>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 Contadores e Acumuladores</div>
+  <div class="command-spotlight-code">rodada += 1  |  dano_total += dano_rodada</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>rodada += 1</code> → Avança a contagem de turnos.</li>
+    <li><code>dano_total += dano</code> → Guarda a soma progressiva de todos os impactos.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Contando os Turnos do Duelo</h3>
+<ul>
+  <li><strong>1. No <code>jogo.py</code>:</strong> inicie <code>turno = 1</code> e <code>dano_acumulado = 0</code> antes do loop.</li>
+  <li><strong>2. Dentro do loop:</strong> incremente <code>turno += 1</code> a cada rodada de combate.</li>
+  <li><strong>3. Execute no terminal:</strong> <code>python jogo.py</code> e veja o relatório de quantos turnos a batalha durou!</li>
+</ul>`,
+            `# Contando rodadas e somando pontuação:
+rodada = 1
+pontos_totais = 0
+
+while rodada <= 3:
+    print(f"Iniciando a Rodada {rodada}!")
+    pontos_totais += 10 # Acumula 10 pontos
+    rodada += 1         # Incrementa o contador
+
+print(f"Fim de treino! Total acumulado: {pontos_totais} pontos.")`,
+            c(`Dentro de um loop, incremente a variável contador em 1 usando o operador += 1.`, `# Incremente o contador`, `contador += 1`, `Use a instrução contador += 1.`, `contador += 1`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+vida_orc = 50
+dano_golpe = 15
+turno = 1
+dano_total = 0
+
+while vida_orc > 0:
+    print(f"--- Turno {turno} ---")
+    vida_orc -= dano_golpe
+    dano_total += dano_golpe
+    turno += 1
+
+print(f"Combate encerrado no Turno {turno - 1}! Dano total causado: {dano_total}")`),
+
+          L("log-5-4", "Repetindo com Contagem Certa — O Laço for e range()",
+            `<h3>🏹 As flechas contadas na aljava do arqueiro</h3>
+<p>Imagine que o arqueiro real tem exatamente 5 flechas na sua aljava. Ele sabe com certeza absoluta antes mesmo de começar que irá disparar 5 vezes, nem mais, nem menos.</p>
+
+<p>Quando você já sabe com antecedência <strong>quantas vezes</strong> deseja repetir uma ação, o comando <strong>for</strong> combinado com a função <strong>range()</strong> é a ferramenta mais rápida, segura e elegante do Python.</p>
+
+<p>O <code>range(1, 6)</code> cria uma sequência de números que começa no 1 e vai até antes do 6 (ou seja: 1, 2, 3, 4, 5). O <code>for</code> pega cada número dessa fila automaticamente, sem risco de loop infinito!</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 A Dupla for e range()</div>
+  <div class="command-spotlight-code">for flecha in range(1, 6):
+    print(f"Disparando flecha {flecha}!")</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>for item in ...</code> → Percorre cada elemento de uma sequência.</li>
+    <li><code>range(inicio, fim)</code> → Gera a sequência numérica (o número final não entra).</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Rajada de Golpes</h3>
+<ul>
+  <li><strong>1. No <code>jogo.py</code>:</strong> crie um ataque especial com <code>for golpe in range(1, 4):</code>.</li>
+  <li><strong>2. Imprima dentro do loop:</strong> <code>print(f"Ataque quádruplo: Golpe {golpe} atinge o alvo!")</code>.</li>
+  <li><strong>3. Execute no terminal:</strong> <code>python jogo.py</code>.</li>
+</ul>`,
+            `# Disparando uma sequência de 4 ataques rápidos:
+for golpe in range(1, 5): # Gera 1, 2, 3, 4
+    print(f"Golpe de adaga número {golpe}!")
+
+print("Combo de ataques concluído com precisão!")`,
+            c(`Crie um laço for que use i no range(1, 4) e imprima o valor de i a cada volta.`, `# Escreva o loop for com range(1, 4)`, `for i in range(1, 4):
+    print(i)`, `Use for i in range(1, 4): e na linha de baixo print(i).`, `for i in range(1, 4):
+    print(i)`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+print("O herói canaliza sua energia mágica: Combo Tempestade!")
+for onda in range(1, 4):
+    print(f"✨ Onda mágica {onda} atinge todos os inimigos da sala!")
+
+print("O ar vibra com a poeira mágica assentando.")`),
+
+          L("log-5-5", "Interrompendo a Repetição — A Instrução break",
+            `<h3>🚨 A alavanca de emergência no trem a vapor</h3>
+<p>Imagine que você está viajando em um trem e de repente avista uma pedra gigante nos trilhos à frente. Você não espera o trem chegar na próxima estação: você puxa imediatamente a alavanca vermelha de emergência e o trem freia na hora!</p>
+
+<p>Na programação, a palavra <strong>break</strong> funciona como essa alavanca de emergência. Quando o Python encontra um <code>break</code> dentro de um loop, ele <strong>aborta a repetição imediatamente</strong> e pula direto para fora do bloco, não importando a condição do loop.</p>
+
+<p>No nosso RPG, o <code>break</code> é vital: se o jogador conseguir fugir do monstro no meio da luta, ou se a vida de alguém zerar, puxamos o <code>break</code> para encerrar o combate na hora!</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 Parada Forçada com break</div>
+  <div class="command-spotlight-code">if fugiu:
+    print("Você escapou!")
+    break</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>break</code> → Encerra o loop atual no mesmo milissegundo.</li>
+    <li>A execução continua normalmente na linha seguinte após o loop.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Interrupção por Fuga</h3>
+<ul>
+  <li><strong>1. No arquivo <code>jogo.py</code>:</strong> dentro do loop de batalha, se a escolha for fugir, execute <code>break</code>.</li>
+  <li><strong>2. Rode no terminal:</strong> veja como o combate para imediatamente sem executar os golpes seguintes!</li>
+</ul>`,
+            `# Encerrando o loop antes da contagem acabar:
+for tentativa in range(1, 10):
+    print(f"Tentativa de abrir a fechadura: {tentativa}")
+    if tentativa == 3:
+        print("🗝️ Clique! A fechadura abriu!")
+        break # Para o loop imediatamente na tentativa 3!`,
+            c(`Dentro de um if sucesso:, interrompa a execução do loop utilizando a instrução break.`, `if sucesso:
+    # Interrompa o loop`, `if sucesso:
+    break`, `Escreva break recuado dentro do if.`, `if sucesso:
+    break`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+vida_esqueleto = 40
+
+while True: # Loop contínuo
+    print("Você acerta o esqueleto com um golpe pesado (-20 HP)!")
+    vida_esqueleto -= 20
+    
+    if vida_esqueleto <= 0:
+        print("Os ossos do esqueleto se desmancham pelo chão!")
+        break # Combate encerrado!
+
+print("Você embainha sua espada e respira aliviado.")`),
+
+          L("log-5-6", "Pulando para o Próximo Passo — A Instrução continue",
+            `<h3>🌀 O guerreiro atordoado que perde a vez</h3>
+<p>Em um duelo tático, o feiticeiro lança um pó mágico brilhante nos olhos do seu personagem. Você fica tonto e perde o turno daquele momento, mas não morre nem desiste da luta: apenas pula sua ação daquela rodada e aguarda a próxima!</p>
+
+<p>Enquanto o <code>break</code> cancela o loop inteiro para sempre, a instrução <strong>continue</strong> apenas <strong>cancela a volta atual e salta direto para o início da próxima repetição</strong>.</p>
+
+<p>Isso é excelente para ignorar jogadas inválidas, lidar com personagens paralisados ou pular etapas sem interromper o restante do jogo.</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 Pulando Etapas com continue</div>
+  <div class="command-spotlight-code">if atordoado:
+    print("Você pisca os olhos atordoado e não ataca!")
+    continue</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>continue</code> → Ignora todas as linhas abaixo dele dentro do loop.</li>
+    <li>Reinicia imediatamente o loop a partir da próxima verificação.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Efeito de Paralisia</h3>
+<ul>
+  <li><strong>1. No arquivo <code>jogo.py</code>:</strong> adicione uma checagem de atordoamento que chama <code>continue</code>.</li>
+  <li><strong>2. Rode no terminal:</strong> perceba como as linhas de ataque abaixo do continue são ignoradas naquele turno específico!</li>
+</ul>`,
+            `# Pulando números ou turnos específicos:
+for turno in range(1, 5):
+    if turno == 2:
+        print(f"Turno {turno}: O herói está atordoado e passa a vez!")
+        continue # Pula o ataque do turno 2!
+    print(f"Turno {turno}: Herói golpeia com sucesso!")`,
+            c(`Dentro de um if congelado:, salte para a próxima iteração do loop usando a instrução continue.`, `if congelado:
+    # Salte para o próximo turno`, `if congelado:
+    continue`, `Escreva a instrução continue recuada dentro do if.`, `if congelado:
+    continue`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+for rodada in range(1, 4):
+    print(f"\\n--- Rodada {rodada} ---")
+    if rodada == 2:
+        print("⚡ Nevasca súbita! O herói treme de frio e perde a ação!")
+        continue
+    print("Lâmina afiada: Ataque realizado com sucesso!")`),
+
+          L("log-5-7", "Projeto: Loop Principal de Batalha",
+            `<h3>⚔️ O Grande Duelo na Arena de Eldória</h3>
+<p>Chegamos ao momento mais aguardado até aqui: o combate completo em turnos dinâmicos! Agora o seu jogo não é mais uma história estática de um golpe só.</p>
+
+<p>No <code>jogo.py</code>, vamos construir um verdadeiro <strong>loop de batalha em turnos</strong> contra um Goblin Guerreiro: a cada rodada, o jogador escolhe entre atacar, defender ou fugir. O monstro contra-ataca, as vidas mudam em tempo real e o combate só acaba quando um dos dois for derrotado ou o herói escapar!</p>
+
+<h3>🖥️ No seu VS Code: Criando o Motor de Batalha</h3>
+<ul>
+  <li><strong>1. Abra o arquivo:</strong> <code>jogo.py</code>.</li>
+  <li><strong>2. Defina os status:</strong> <code>vida_heroi = 100</code> e <code>vida_goblin = 60</code>.</li>
+  <li><strong>3. Crie o laço:</strong> <code>while vida_heroi &gt; 0 and vida_goblin &gt; 0:</code>.</li>
+  <li><strong>4. Apresente as ações:</strong> [1] Atacar | [2] Fugir.</li>
+  <li><strong>5. Calcule o contra-ataque do monstro</strong> caso ele continue vivo.</li>
+  <li><strong>6. Trate as condições de vitória ou derrota</strong> após a saída do loop.</li>
+  <li><strong>7. Execute no terminal:</strong> <code>python jogo.py</code> e jogue a batalha completa!</li>
+</ul>
+
+<p>Resolva o desafio acumulativo para concluir o Módulo 5 com sucesso!</p>`,
+            `# Estrutura básica do loop de batalha:
+while hp_jogador > 0 and hp_inimigo > 0:
+    acao = input("[1] Atacar [2] Fugir: ")
+    if acao == "1":
+        hp_inimigo -= 20
+        if hp_inimigo <= 0:
+            print("Inimigo derrotado!")
+            break
+        hp_jogador -= 10 # Contra-ataque
+    elif acao == "2":
+        print("Fuga!")
+        break`,
+            c(`Crie o cabeçalho do laço while que mantém o combate ativo enquanto vida_heroi > 0 and vida_monstro > 0:.`, `# Escreva a linha do while`, `while vida_heroi > 0 and vida_monstro > 0:`, `Use while vida_heroi > 0 and vida_monstro > 0:.`, `while vida_heroi > 0 and vida_monstro > 0:`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória — RPG de Texto
+# Arquivo: jogo.py
+# Módulo 5: Sistema de Batalha em Turnos Dinâmicos
+# ============================================================
+
+# Status do Combate
+nome_heroi = "Arthur"
+vida_heroi = 100
+ataque_heroi = 25
+
+nome_monstro = "Goblin Lanceiro"
+vida_monstro = 60
+ataque_monstro = 15
+
+print("=" * 50)
+print(f"       BATALHA DECISIVA: {nome_heroi} vs {nome_monstro}       ")
+print("=" * 50)
+
+turno = 1
+
+# Loop Principal de Combate
+while vida_heroi > 0 and vida_monstro > 0:
+    print(f"\\n--- TURNO {turno} ---")
+    print(f"❤️  {nome_heroi}: {vida_heroi} HP | 👹 {nome_monstro}: {vida_monstro} HP")
+    print("[1] Desferir Golpe de Espada")
+    print("[2] Tentar Fugir do Combate")
+    
+    escolha = input("Sua ação: ")
+    
+    if escolha == "1":
+        # Turno do Herói
+        print(f"\\n⚔️  {nome_heroi} avança e causa {ataque_heroi} de dano!")
+        vida_monstro -= ataque_heroi
+        
+        # Verifica se o monstro caiu
+        if vida_monstro <= 0:
+            print(f"🏆 Vitória! O {nome_monstro} foi aniquilado!")
+            break
+            
+        # Contra-ataque do Monstro
+        print(f"💥 O {nome_monstro} revida ferozmente com sua lança, causando {ataque_monstro} de dano!")
+        vida_heroi -= ataque_monstro
+        
+        if vida_heroi <= 0:
+            print("💀 Você foi derrotado... O reino chora sua queda.")
+            break
+            
+    elif escolha == "2":
+        print("\\n🏃 Você joga areia nos olhos do monstro e foge com sucesso!")
+        break
+    else:
+        print("\\n⚠️ Você tropeçou nos próprios pés e perdeu o turno!")
+        vida_heroi -= ataque_monstro
+        
+    turno += 1
+
+print("\\n" + "=" * 50)
+print(f"Fim do combate! Vida final do herói: {max(0, vida_heroi)} HP")
+print("=" * 50)`)
+        ]
+      },
+
+      // ── Módulo 6 — Strings, Listas e Coleções ──
+      {
+        title: "Módulo 6 — Strings, Listas e Coleções",
+        lessons: [
+          L("log-6-1", "A Mochila do Aventureiro — O que é uma Lista?",
+            `<h3>🎒 A mochila de couro com divisórias</h3>
+<p>Imagine que você vai sair em uma jornada perigosa e precisa levar consigo uma tocha, uma corda e uma poção mágica. Você não vai criar uma variável solta para cada pedrinha ou item que encontrar pela estrada (<code>item1</code>, <code>item2</code>, <code>item3</code>...). Isso seria caótico!</p>
+
+<p>Na programação, quando precisamos guardar múltiplos valores em uma única variável organizada, usamos uma <strong>Lista</strong> (ou <em>Array</em> em outras linguagens). Em Python, as listas são declaradas entre colchetes <code>[ ]</code>, com os itens separados por vírgula.</p>
+
+<p>Uma lista pode guardar qualquer tipo de dado: textos, números e até outras listas. Ela cresce ou diminui conforme sua necessidade ao longo do jogo.</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 Criando uma Lista em Python</div>
+  <div class="command-spotlight-code">mochila = ["Poção de Vida", "Tocha", "Corda de Cânhamo"]</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>[ ]</code> → Colchetes indicam a criação de uma lista na memória.</li>
+    <li><code>,</code> → A vírgula separa individualmente cada elemento guardado na mochila.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Sua Primeira Mochila</h3>
+<ul>
+  <li><strong>1. No arquivo <code>jogo.py</code>:</strong> declare <code>inventario = ["Espada Enferrujada", "Poção Pequena"]</code>.</li>
+  <li><strong>2. Imprima na tela:</strong> <code>print(f"Conteúdo da mochila: {inventario}")</code>.</li>
+  <li><strong>3. Execute no terminal:</strong> <code>python jogo.py</code>.</li>
+</ul>`,
+            `# Criando e exibindo uma lista de itens:
+itens = ["Adaga", "Pão de Viagem", "Moeda da Sorte"]
+print("Itens carregados pelo herói:")
+print(itens) # Exibe: ['Adaga', 'Pão de Viagem', 'Moeda da Sorte']`,
+            c(`Crie uma lista chamada itens com os elementos 'Espada' e 'Escudo'.`, `# Crie a lista itens`, `itens = ['Espada', 'Escudo']`, `Escreva itens = ['Espada', 'Escudo'].`, `itens = ['Espada', 'Escudo']`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# Módulo 6: Inventário e Estruturas de Dados
+# ============================================================
+
+# Inicializando a mochila do aventureiro
+inventario = ["Espada de Ferro", "Poção de Vida", "Tocha"]
+print(f"Mochila inicial organizada: {inventario}")`),
+
+          L("log-6-2", "Acessando Itens por Índice — Começando do Zero",
+            `<h3>🏷️ Os compartimentos numerados do baú</h3>
+<p>Imagine um armário com várias gavetas empilhadas. Para pegar exatamente o que está na primeira gaveta, você precisa dizer o número dela. Mas aqui está o maior segredo que todo iniciante precisa abraçar: <strong>em computação, a contagem sempre começa no ZERO (0)</strong>!</p>
+
+<p>Portanto, em uma lista:</p>
+<ul>
+  <li><code>lista[0]</code> → É o <strong>primeiro</strong> item da lista!</li>
+  <li><code>lista[1]</code> → É o segundo item.</li>
+  <li><code>lista[2]</code> → É o terceiro item.</li>
+</ul>
+
+<p>E tem mais um truque genial do Python: se você usar números negativos, ele conta de trás para frente! <code>lista[-1]</code> sempre pega o <strong>último</strong> item guardado, não importa o tamanho da lista!</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 Acessando Elementos por Índice</div>
+  <div class="command-spotlight-code">primeiro = mochila[0]  |  ultimo = mochila[-1]</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>[0]</code> → O índice do elemento pioneiro.</li>
+    <li><code>[-1]</code> → O índice do último item da coleção.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Empunhando a Arma Principal</h3>
+<ul>
+  <li><strong>1. No <code>jogo.py</code>:</strong> pegue o primeiro item do inventário: <code>arma_equipada = inventario[0]</code>.</li>
+  <li><strong>2. Imprima na tela:</strong> <code>print(f"Arma nas mãos do guerreiro: {arma_equipada}")</code>.</li>
+  <li><strong>3. Execute no terminal:</strong> <code>python jogo.py</code>.</li>
+</ul>`,
+            `# Acessando posições específicas na lista:
+armas = ["Arco Curto", "Machado Duplo", "Cajado Arcano"]
+
+arma_principal = armas[0] # Pega "Arco Curto"
+arma_reserva = armas[-1]   # Pega "Cajado Arcano"
+
+print(f"Principal: {arma_principal} | Reserva: {arma_reserva}")`,
+            c(`Dada a lista itens = ['Poção', 'Espada', 'Escudo'], acesse o primeiro item na posição 0 e guarde na variável primeiro.`, `# Acesse o primeiro item da lista itens`, `primeiro = itens[0]`, `Use primeiro = itens[0].`, `primeiro = itens[0]`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+inventario = ["Espada de Ferro", "Poção de Vida", "Tocha"]
+
+# Acessando o primeiro e o último item
+arma_ativa = inventario[0]
+item_reserva = inventario[-1]
+
+print(f"Empunhando: {arma_ativa} | No fundo da bolsa: {item_reserva}")`),
+
+          L("log-6-3", "Guardando e Tirando Itens — append(), pop() e remove()",
+            `<h3>📦 Colocando itens novos e consumindo poções</h3>
+<p>Em uma aventura de verdade, o conteúdo da sua mochila muda o tempo todo: você encontra um amuleto no ninho da águia, bebe uma poção para curar um ferimento ou descarta uma bota furada para aliviar o peso.</p>
+
+<p>Para manipular os elementos de uma lista dinamicamente, o Python oferece métodos prontos e muito poderosos:</p>
+
+<ul>
+  <li><code>lista.append(item)</code> → Adiciona um novo elemento no final da lista (coletar loot!).</li>
+  <li><code>lista.remove(item)</code> → Procura um item pelo nome e o remove da lista (ex: consumir a poção).</li>
+  <li><code>lista.pop()</code> → Remove e devolve o último item da lista.</li>
+</ul>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 Métodos de Alteração de Lista</div>
+  <div class="command-spotlight-code">mochila.append("Chave de Ouro")  |  mochila.remove("Poção de Vida")</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>append()</code> → Insere no final. A lista ganha +1 elemento.</li>
+    <li><code>remove()</code> → Remove a primeira ocorrência do item indicado.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Coletando Espólios de Batalha</h3>
+<ul>
+  <li><strong>1. No arquivo <code>jogo.py</code>:</strong> após vencer o monstro, execute <code>inventario.append("Dente de Goblin")</code>.</li>
+  <li><strong>2. Em seguida:</strong> simule beber a poção com <code>inventario.remove("Poção de Vida")</code>.</li>
+  <li><strong>3. Execute no terminal:</strong> <code>python jogo.py</code> e veja o inventário refletindo as mudanças!</li>
+</ul>`,
+            `# Modificando o inventário em tempo real:
+mochila = ["Pão", "Água"]
+
+# Encontrou tesouro:
+mochila.append("Rubi Sagrado")
+print(f"Após achar tesouro: {mochila}")
+
+# Comeu o pão:
+mochila.remove("Pão")
+print(f"Após comer o pão: {mochila}")`,
+            c(`Adicione o item 'Escudo de Ferro' ao final da lista mochila usando o método append().`, `# Adicione o escudo na mochila`, `mochila.append("Escudo de Ferro")`, `Escreva mochila.append("Escudo de Ferro").`, `mochila.append("Escudo de Ferro")`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+inventario = ["Espada de Ferro", "Poção de Vida"]
+
+print(f"Mochila antes do saque: {inventario}")
+
+# Coletando espólio do Goblin derrotado
+loot = "Adaga de Osso"
+inventario.append(loot)
+print(f"✨ Você encontrou e guardou: {loot}!")
+
+# Consumindo a poção
+inventario.remove("Poção de Vida")
+print("🧪 Você bebeu a Poção de Vida!")
+
+print(f"Mochila atualizada: {inventario}")`),
+
+          L("log-6-4", "Quantos Itens eu Tenho? — A Função len() e o Operador in",
+            `<h3>🔍 O peso da mochila e a checagem da chave</h3>
+<p>Antes de tentar atravessar um pântano lamacento, o guia da caravana pergunta: "Quantos quilos de suprimentos você carrega?". E ao chegar na ponte levadiça, o vigia questiona: "A Chave de Prata está dentro da sua sacola?".</p>
+
+<p>Para responder a essas duas perguntas essenciais com precisão instantânea:</p>
+
+<ul>
+  <li><code>len(lista)</code> → A função <em>len</em> (de <em>length</em>, tamanho) responde quantos itens existem dentro da lista naquele momento.</li>
+  <li><code>item in lista</code> → O operador <strong>in</strong> testa se um item existe dentro da coleção, respondendo com <code>True</code> ou <code>False</code>.</li>
+</ul>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 Checagens Inteligentes</div>
+  <div class="command-spotlight-code">if "Chave" in mochila:
+    print("A porta se abre!")</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>len(mochila)</code> → Devolve a quantidade de elementos (ex: 4).</li>
+    <li><code>"Chave" in mochila</code> → Devolve True se o item estiver presente na lista.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Checando a Chave do Portal</h3>
+<ul>
+  <li><strong>1. No <code>jogo.py</code>:</strong> adicione <code>tem_chave = "Chave Dourada" in inventario</code>.</li>
+  <li><strong>2. Crie uma condição:</strong> se tiver a chave, abre a cripta; senão avisa que o portal está trancado.</li>
+  <li><strong>3. Execute no terminal:</strong> <code>python jogo.py</code>.</li>
+</ul>`,
+            `# Verificando presença e quantidade de itens:
+itens = ["Corda", "Tocha", "Chave Dourada"]
+
+total = len(itens) # 3 itens
+tem_chave = "Chave Dourada" in itens # True
+
+print(f"Total de itens carregados: {total}")
+if "Chave Dourada" in itens:
+    print("Você possui a chave necessária para o portão!")`,
+            c(`Crie uma condição que teste if 'Poção' in mochila: e imprima 'Poção pronta' na linha seguinte.`, `# Teste a presença da Poção`, `if "Poção" in mochila:
+    print("Poção pronta")`, `Use if "Poção" in mochila: com print recuado.`, `if "Poção" in mochila:
+    print("Poção pronta")`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+inventario = ["Espada de Ferro", "Adaga de Osso", "Chave de Cripta"]
+
+total_itens = len(inventario)
+print(f"Espaço na mochila ocupado: {total_itens}/5 slots.")
+
+if "Chave de Cripta" in inventario:
+    print("🗝️  A Chave de Cripta brilha perto da tumba secreta!")
+else:
+    print("🔒 A tumba permanece impenetrável.")`),
+
+          L("log-6-5", "Exibindo Todo o Inventário — O Laço for em Listas",
+            `<h3>📜 O inventário desdobrado sobre a mesa da taverna</h3>
+<p>Quando você abre sua mochila na mesa da taverna, você quer ver todos os seus pertences listados um embaixo do outro, de forma limpa e organizada, com marcadores bonitos para escolher o que usar.</p>
+
+<p>O laço <strong>for</strong> que aprendemos anteriormente é o companheiro perfeito das listas. Ele é capaz de visitar cada elemento da coleção, um por um, do primeiro ao último, atribuindo o item atual a uma variável temporária.</p>
+
+<p>Você também pode usar a função mágica <strong>enumerate()</strong> para que o Python numere automaticamente cada item da mochila para você!</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 Iterando sobre Itens da Lista</div>
+  <div class="command-spotlight-code">for i, item in enumerate(mochila, 1):
+    print(f"[{i}] {item}")</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>for item in mochila</code> → Percorre cada item da lista.</li>
+    <li><code>enumerate(..., 1)</code> → Numera os itens começando do número 1.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Menu Elegante de Inventário</h3>
+<ul>
+  <li><strong>1. No arquivo <code>jogo.py</code>:</strong> crie um bloco que exibe o cabeçalho <code>--- SEU INVENTÁRIO ---</code>.</li>
+  <li><strong>2. Use o laço for com enumerate:</strong> exiba cada item numerado entre colchetes.</li>
+  <li><strong>3. Execute no terminal:</strong> <code>python jogo.py</code>.</li>
+</ul>`,
+            `# Listando elementos com enumerate:
+bolsa = ["Poção de Vida", "Elixir de Mana", "Antídoto"]
+
+print("--- INVENTÁRIO DO JOGADOR ---")
+for numero, item in enumerate(bolsa, 1):
+    print(f"[{numero}] {item}")`,
+            c(`Crie um laço for que percorra a lista itens e imprima cada item com print(item).`, `# Percorra a lista itens com for`, `for item in itens:
+    print(item)`, `Use for item in itens: e na linha de baixo print(item) com 4 espaços.`, `for item in itens:
+    print(item)`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+inventario = ["Espada de Ferro", "Adaga de Osso", "Poção de Cura", "Mapa Antigo"]
+
+print("-" * 40)
+print("             MOCHILA DO HERÓI            ")
+print("-" * 40)
+for posicao, item in enumerate(inventario, 1):
+    print(f" [{posicao}] {item}")
+print("-" * 40)`),
+
+          L("log-6-6", "Manipulando Nomes e Comandos — Métodos de String",
+            `<h3>🧹 O escriba que limpa e padroniza as cartas</h3>
+<p>Se um jogador digitar <code>"lutar"</code>, outro digitar <code>"LUTAR"</code> com letras maiúsculas e um terceiro digitar <code>"  lutar  "</code> com espaços acidentais antes e depois, o computador achará que são 3 palavras completamente diferentes!</p>
+
+<p>Para evitar que o jogador se frustre por causa de uma letra maiúscula ou de um espaço extra no teclado, os desenvolvedores de jogos sempre <strong>higienizam</strong> as respostas usando métodos de String:</p>
+
+<ul>
+  <li><code>texto.lower()</code> → Transforma todas as letras em minúsculas (ex: <code>"LUTAR"</code> vira <code>"lutar"</code>).</li>
+  <li><code>texto.upper()</code> → Transforma tudo em MAIÚSCULAS.</li>
+  <li><code>texto.strip()</code> → Remove espaços em branco sobrando no início e no fim da palavra.</li>
+  <li><code>texto.capitalize()</code> → Deixa apenas a primeira letra maiúscula (ótimo para nomes de cidades).</li>
+</ul>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 Higienização de Entradas</div>
+  <div class="command-spotlight-code">escolha = input("Ação: ").strip().lower()</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>.strip()</code> → Remove espaços extras invisíveis que o jogador digitou sem querer.</li>
+    <li><code>.lower()</code> → Garante que 'Sim', 'SIM' e 'sim' sejam interpretados perfeitamente iguais.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Comandos Tolerantes a Erros</h3>
+<ul>
+  <li><strong>1. No arquivo <code>jogo.py</code>:</strong> trate a entrada do menu com <code>.strip().lower()</code>.</li>
+  <li><strong>2. Rode no terminal:</strong> digite com maiúsculas ou espaços e veja seu jogo compreender o comando com perfeição!</li>
+</ul>`,
+            `# Tratamento de respostas de texto:
+resposta = "   SIM  "
+resposta_limpa = resposta.strip().lower() # Vira "sim"
+
+if resposta_limpa == "sim":
+    print("Comando aceito com sucesso!")`,
+            c(`Limpe e converta para minúsculas a variável comando usando os métodos strip() e lower().`, `# Trate a variável comando`, `comando_limpo = comando.strip().lower()`, `Use comando_limpo = comando.strip().lower().`, `comando_limpo = comando.strip().lower()`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+resposta = input("Deseja abrir o baú misterioso (sim / não)? ")
+resposta_tratada = resposta.strip().lower()
+
+if resposta_tratada == "sim":
+    print("Você ergue a tampa de carvalho e encontra gemas brilhantes!")
+elif resposta_tratada == "não" or resposta_tratada == "nao":
+    print("Você passa reto com cautela.")
+else:
+    print("Opção não reconhecida.")`),
+
+          L("log-6-7", "A Ficha Completa — Introdução a Dicionários no RPG",
+            `<h3>📖 O livro de registros com fichas completas</h3>
+<p>Em uma lista, acessamos os valores por números de posição (<code>0, 1, 2</code>). Mas para representar uma entidade complexa como um Personagem ou um Monstro, seria muito mais intuitivo dizer <code>heroi["nome"]</code> ou <code>heroi["vida"]</code> em vez de decorar qual índice guarda cada coisa!</p>
+
+<p>Para isso, o Python tem uma das estruturas mais amadas do universo da programação: o <strong>Dicionário</strong> (ou <em>dict</em>). Em um dicionário, os dados são guardados em pares de <strong>chave: valor</strong>, delimitados por chaves <code>{ }</code>.</p>
+
+<p>Os dicionários são a base dos sistemas profissionais de RPG e o formato que estrutura os dados na web inteira (o famoso JSON).</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 Criando um Dicionário em Python</div>
+  <div class="command-spotlight-code">heroi = {"nome": "Arthur", "vida": 100, "ouro": 50}</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>"nome": "Arthur"</code> → A chave 'nome' guarda o valor textual.</li>
+    <li><code>heroi["vida"]</code> → Acessa diretamente a vida do herói pelo nome do atributo.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Criando o Dicionário do Monstro</h3>
+<ul>
+  <li><strong>1. No arquivo <code>jogo.py</code>:</strong> declare <code>monstro = {"nome": "Goblin", "hp": 40, "dano": 12}</code>.</li>
+  <li><strong>2. Imprima o status:</strong> <code>print(f"Monstro: {monstro['nome']} com {monstro['hp']} de vida!")</code>.</li>
+  <li><strong>3. Execute no terminal:</strong> <code>python jogo.py</code>.</li>
+</ul>`,
+            `# Estruturando entidades com dicionários:
+personagem = {
+    "nome": "Lira",
+    "classe": "Arqueira",
+    "vida": 90,
+    "ouro": 75
+}
+
+print(f"Personagem: {personagem['nome']} | Classe: {personagem['classe']}")
+# Modificando um valor no dicionário:
+personagem["vida"] -= 15
+print(f"Vida atualizada: {personagem['vida']} HP")`,
+            c(`Crie um dicionário chamado monstro com as chaves 'nome': 'Orc' e 'hp': 80.`, `# Crie o dicionário monstro`, `monstro = {'nome': 'Orc', 'hp': 80}`, `Escreva monstro = {'nome': 'Orc', 'hp': 80}.`, `monstro = {'nome': 'Orc', 'hp': 80}`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+# Modelagem de entidades do RPG com Dicionários
+heroi = {
+    "nome": "Arthur",
+    "classe": "Cavaleiro",
+    "vida": 100,
+    "ouro": 45,
+    "ataque": 24
+}
+
+inimigo = {
+    "nome": "Hobgoblin de Elite",
+    "vida": 70,
+    "ataque": 16,
+    "recompensa": 35
+}
+
+print(f"Frente a frente: {heroi['nome']} ({heroi['vida']} HP) vs {inimigo['nome']} ({inimigo['vida']} HP)")`),
+
+          L("log-6-8", "Projeto: Inventário do Jogador",
+            `<h3>🏆 O Grande Sistema de Inventário em Eldória</h3>
+<p>Chegamos ao encerramento do Módulo 6! Agora seu jogo conta com listas dinâmicas, controle de itens, métodos de string para segurança e dicionários para os personagens.</p>
+
+<p>No <code>jogo.py</code>, vamos integrar o <strong>Sistema Oficial de Mochila</strong>: o jogador terá uma lista de itens reais, poderá abrir o menu da bolsa a qualquer momento, usar uma Poção de Cura para restaurar seu HP e recolher tesouros deixados pelos inimigos!</p>
+
+<h3>🖥️ No seu VS Code: Atualizando a Mochila</h3>
+<ul>
+  <li><strong>1. Abra o arquivo:</strong> <code>jogo.py</code>.</li>
+  <li><strong>2. Inicialize o inventário:</strong> com uma espada, uma tocha e duas poções de cura.</li>
+  <li><strong>3. Implemente a ação de usar poção:</strong> verifica se <code>"Poção de Cura" in inventario</code>, cura 30 de vida, remove a poção da mochila com <code>.remove()</code> e exibe a vida restaurada!</li>
+  <li><strong>4. Execute no terminal:</strong> <code>python jogo.py</code> e veja seu herói gerenciar seus recursos como um profissional!</li>
+</ul>
+
+<p>Resolva o desafio acumulativo abaixo para concluir o Módulo 6!</p>`,
+            `# Lógica de consumo de item do inventário:
+mochila = ["Poção de Cura", "Corda"]
+hp = 60
+
+if "Poção de Cura" in mochila:
+    mochila.remove("Poção de Cura")
+    hp += 30
+    print(f"Poção usada! HP restaurado para {hp}. Mochila: {mochila}")`,
+            c(`Se 'Poção' estiver em mochila, remova a 'Poção' com mochila.remove('Poção') e some 25 à vida.`, `# Escreva o consumo da poção`, `if 'Poção' in mochila:
+    mochila.remove('Poção')
+    vida += 25`, `Escreva if 'Poção' in mochila: e dentro do bloco execute mochila.remove('Poção') e vida += 25.`, `if 'Poção' in mochila:
+    mochila.remove('Poção')
+    vida += 25`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória — RPG de Texto
+# Arquivo: jogo.py
+# Módulo 6: Sistema Completo de Inventário e Mochila
+# ============================================================
+
+# 1. Dados do Herói
+heroi = {
+    "nome": "Arthur",
+    "vida_maxima": 100,
+    "vida": 55, # Começa ferido para testar a poção
+    "ouro": 50,
+    "ataque": 22
+}
+
+# 2. Mochila Oficial do Jogador
+mochila = ["Espada de Ferro", "Poção de Cura", "Tocha", "Poção de Cura"]
+
+print("=" * 50)
+print(f"       ESTADO DO AVENTUREIRO: {heroi['nome']}       ")
+print("=" * 50)
+print(f"Vida Atual: {heroi['vida']}/{heroi['vida_maxima']} HP | Ouro: {heroi['ouro']}")
+
+# 3. Exibição da Mochila
+print("\\n--- CONTEÚDO DA MOCHILA ---")
+for idx, item in enumerate(mochila, 1):
+    print(f" [{idx}] {item}")
+print("-" * 30)
+
+# 4. Usando uma Poção de Cura da Mochila
+print("\\nVocê abre a bolsa em busca de alívio para seus ferimentos...")
+if "Poção de Cura" in mochila:
+    mochila.remove("Poção de Cura")
+    cura = 35
+    heroi["vida"] = min(heroi["vida_maxima"], heroi["vida"] + cura)
+    print(f"🧪 Você bebeu uma Poção de Cura! (+{cura} HP)")
+    print(f"Vida atualizada: {heroi['vida']}/{heroi['vida_maxima']} HP")
+else:
+    print("❌ Nenhuma poção encontrada na mochila!")
+
+print(f"\\nItens restantes na bolsa: {len(mochila)} itens.")
+print("=" * 50)`)
+        ]
+      },
+
+      // ── Módulo 7 — Funções e Organização do Código ──
+      {
+        title: "Módulo 7 — Funções e Organização do Código",
+        lessons: [
+          L("log-7-1", "Feitiços Reutilizáveis — O que é uma Função?",
+            `<h3>📖 As páginas do grimório de feitiços</h3>
+<p>Imagine um sábio mago em uma torre. Toda vez que ele precisa conjurar uma bola de fogo, ele não precisa redescobrir como a faísca e o enxofre interagem desde o zero: ele simplesmente recita a fórmula que já está registrada em seu grimório com um nome bem claro: <em>BolaDeFogo()</em>.</p>
+
+<p>Na programação, uma <strong>função</strong> é exatamente como essa receita ou feitiço memorizado: é um bloco de código nomeado que fica guardado na memória. Ele só é executado quando você o <strong>chama</strong> pelo nome.</p>
+
+<p>Para criar uma função em Python, usamos a palavra-chave <strong>def</strong> (de <em>define</em>, definir). Em seguida damos o nome da função, abrimos parênteses <code>()</code> e colocamos dois pontos <code>:</code>.</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 Criando e Chamando uma Função</div>
+  <div class="command-spotlight-code">def saudar_heroi():
+    print("Saudações, campeão de Eldória!")
+
+saudar_heroi()  # Chamada da função</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>def nome():</code> → Define a função e suas instruções internas.</li>
+    <li><code>nome()</code> → Executa o bloco de código guardado quantas vezes você quiser.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Sua Primeira Função</h3>
+<ul>
+  <li><strong>1. No arquivo <code>jogo.py</code>:</strong> crie uma função <code>def exibir_titulo():</code> que imprime a moldura e o nome do jogo.</li>
+  <li><strong>2. Abaixo da função:</strong> chame <code>exibir_titulo()</code>.</li>
+  <li><strong>3. Execute no terminal:</strong> <code>python jogo.py</code>.</li>
+</ul>`,
+            `# Criando e reutilizando uma função simples:
+def tocar_trombeta():
+    print("🎺 TAAA-RAAA! Os portões do castelo se abrem!")
+
+# Chamando a função 2 vezes:
+tocar_trombeta()
+tocar_trombeta()`,
+            c(`Defina uma função chamada aviso() que execute print('Cuidado!') em seu interior.`, `# Defina a função aviso`, `def aviso():
+    print("Cuidado!")`, `Escreva def aviso(): e na linha de baixo print("Cuidado!") com 4 espaços.`, `def aviso():
+    print("Cuidado!")`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# Módulo 7: Funções e Arquitetura Modular
+# ============================================================
+
+# Função para padronizar cabeçalhos no console
+def exibir_cabecalho():
+    print("=" * 50)
+    print("             CRÔNICAS DE ELDÓRIA             ")
+    print("=" * 50)
+
+# Invocando a função no início do programa
+exibir_cabecalho()`),
+
+          L("log-7-2", "Passando Instruções — Funções com Parâmetros",
+            `<h3>📦 A caixa de correio com destinatário específico</h3>
+<p>Imagine que o mensageiro real entrega uma carta para você dizendo apenas: "Parabéns!". Você perguntaria na hora: "Parabéns para quem? Pelo que?". Uma mensagem se torna mil vezes mais útil quando você informa os detalhes específicos.</p>
+
+<p>Esses detalhes passados para dentro de uma função são chamados de <strong>parâmetros</strong> (ou argumentos). Eles funcionam como variáveis especiais que nascem entre os parênteses da função.</p>
+
+<p>Com parâmetros, a mesma função pode calcular o dano de uma adaga pequena ou de um machado colossal simplesmente recebendo números diferentes!</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 Funções Parametrizadas</div>
+  <div class="command-spotlight-code">def atacar(nome_alvo, forca_golpe):
+    print(f"Você ataca {nome_alvo} causando {forca_golpe} de dano!")</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>nome_alvo, forca_golpe</code> → Parâmetros que recebem os valores no momento da chamada.</li>
+    <li><code>atacar("Goblin", 25)</code> → Os valores reais entregues para a função trabalhar.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Saudação Personalizada</h3>
+<ul>
+  <li><strong>1. No <code>jogo.py</code>:</strong> crie <code>def apresentar_inimigo(nome, vida, perigo):</code>.</li>
+  <li><strong>2. Chame a função passando:</strong> <code>apresentar_inimigo("Lobisomem", 80, "Alto")</code>.</li>
+  <li><strong>3. Rode no terminal:</strong> <code>python jogo.py</code>.</li>
+</ul>`,
+            `# Função flexível com dois parâmetros:
+def desferir_golpe(atacante, dano):
+    print(f"⚔️ {atacante} desferiu um ataque com {dano} de poder!")
+
+desferir_golpe("Arthur", 30) # Chamada 1
+desferir_golpe("Goblin", 12) # Chamada 2 com valores diferentes`,
+            c(`Defina uma função chamada curar(nome, pontos) que imprima f'{nome} curou {pontos} HP'.`, `# Defina a função curar`, `def curar(nome, pontos):
+    print(f"{nome} curou {pontos} HP")`, `Escreva def curar(nome, pontos): e no corpo faça o print com a f-string.`, `def curar(nome, pontos):
+    print(f"{nome} curou {pontos} HP")`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+def anunciar_encontro(nome_criatura, nivel_perigo):
+    print(f"\\n⚠️ ALERTA: Uma criatura surge: {nome_criatura}!")
+    print(f"Nível de ameaça estimado: {nivel_perigo}")
+    print("-" * 40)
+
+# Testando com monstros diferentes
+anunciar_encontro("Goblin das Cavernas", "Baixo")
+anunciar_encontro("Dragão Ancião", "Lendário")`),
+
+          L("log-7-3", "Entregando o Resultado — A Palavra return",
+            `<h3>🏭 A forja do ferreiro: matéria-prima que vira produto</h3>
+<p>Quando você leva 5 barras de ferro e 10 moedas para o ferreiro da cidadela, você não quer que ele apenas grite "Fabriquei uma espada!". Você quer que ele <strong>entregue a espada pronta nas suas mãos</strong> para você guardar na sua mochila!</p>
+
+<p>Essa é a diferença mais crucial da programação: <strong>print() apenas desenha um texto na tela</strong>, enquanto a palavra <strong>return devolve o dado calculado</strong> para a linha de código que fez a chamada.</p>
+
+<p>Com o <code>return</code>, o resultado do cálculo de dano pode ser usado para atualizar a vida do monstro, calcular recompensas ou ser salvo no inventário.</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 A Instrução return</div>
+  <div class="command-spotlight-code">def calcular_dano(ataque, defesa):
+    return max(1, ataque - defesa)</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>return valor</code> → Devolve o resultado e encerra a execução da função imediatamente.</li>
+    <li>O resultado pode ser armazenado em variáveis: <code>dano = calcular_dano(25, 10)</code>.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Calculando o Golpe com return</h3>
+<ul>
+  <li><strong>1. No arquivo <code>jogo.py</code>:</strong> escreva <code>def calcular_dano_final(base, bonus, defesa):</code> que retorna <code>(base + bonus) - defesa</code>.</li>
+  <li><strong>2. Guarde o resultado:</strong> <code>impacto = calcular_dano_final(20, 5, 8)</code>.</li>
+  <li><strong>3. Execute no terminal:</strong> <code>python jogo.py</code>.</li>
+</ul>`,
+            `# Função que calcula e retorna um valor:
+def calcular_recompensa(nivel_monstro, bonus):
+    ouro_total = (nivel_monstro * 15) + bonus
+    return ouro_total # Entrega o resultado
+
+premio = calcular_recompensa(3, 10) # Guarda 55 na variável premio
+print(f"Você recebeu {premio} moedas de recompensa!")`,
+            c(`Crie uma função somar(a, b) que use a instrução return a + b para devolver a soma.`, `# Defina a função somar com return`, `def somar(a, b):
+    return a + b`, `Use def somar(a, b): e na linha seguinte return a + b.`, `def somar(a, b):
+    return a + b`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+def calcular_impacto(forca_arma, defesa_alvo):
+    # Dano mínimo garantido é sempre 1 ponto
+    dano_liquido = forca_arma - defesa_alvo
+    return max(1, dano_liquido)
+
+# Aplicando o cálculo de dano na batalha
+dano_aplicado = calcular_impacto(28, 12)
+print(f"Cálculo da forja arcana: Dano líquido = {dano_aplicado} pontos!")`),
+
+          L("log-7-4", "Fronteiras Mágicas — Escopo Local vs Escopo Global",
+            `<h3>🏰 As leis da sala secreta do trono</h3>
+<p>Imagine que o rei está em uma sala secreta conversando em sussurros com seu general. As palavras ditas lá dentro pertencem apenas àquela sala. Quem está do lado de fora nos corredores do castelo não consegue ouvir nem acessar aquela conversa.</p>
+
+<p>Na programação, esse conceito de privacidade e fronteira é chamado de <strong>Escopo</strong>:</p>
+
+<ul>
+  <li><strong>Escopo Local:</strong> Qualquer variável criada dentro de uma função só existe enquanto a função estiver rodando. Assim que a função termina, a variável deixa de existir!</li>
+  <li><strong>Escopo Global:</strong> Variáveis criadas fora de qualquer função (no corpo principal do arquivo) podem ser lidas por todo o programa.</li>
+</ul>
+
+<p>Essa separação é uma das maiores bênçãos da computação: ela impede que uma variável temporária de uma batalha estrague os dados de outra parte do jogo!</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 Escopo Local vs Global</div>
+  <div class="command-spotlight-code">def teste():
+    segredo = "ouro"  # Só existe aqui dentro!</div>
+  <ul class="command-spotlight-breakdown">
+    <li>Tentar acessar <code>segredo</code> fora da função causa um <code>NameError</code>.</li>
+    <li>Mantenha suas funções autocontidas usando parâmetros e return!</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Testando o Isolamento</h3>
+<ul>
+  <li><strong>1. No arquivo <code>jogo.py</code>:</strong> crie uma variável temporária dentro de uma função.</li>
+  <li><strong>2. Veja como ela protege seu código:</strong> o restante do jogo permanece limpo e seguro contra conflitos de nomes!</li>
+</ul>`,
+            `# Demonstrando escopo de variáveis:
+vida_global = 100 # Visível em todo o arquivo
+
+def aplicar_veneno():
+    dano_veneno = 5 # Variável LOCAL (só existe aqui)
+    return vida_global - dano_veneno
+
+nova_vida = aplicar_veneno()
+print(f"Vida após veneno: {nova_vida}")
+# print(dano_veneno) -> Causaria erro pois dano_veneno não existe aqui fora!`,
+            q(`O que acontece se você tentar usar uma variável criada dentro de uma função no programa principal fora dela?`, ["O Python exibe um NameError avisando que a variável não foi definida","O Python acessa a variável normalmente","O computador reinicia","A variável é convertida para zero automaticamente"], 0, `Como ela nasceu no escopo local, ela não é visível no escopo de fora.`, `O Python exibe um NameError avisando que a variável não foi definida`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+# Variável Global do Jogador
+vida_heroi = 100
+
+def calcular_cura_sagrada(vida_atual):
+    # bonus_bencao é uma variável puramente LOCAL
+    bonus_bencao = 25
+    return min(100, vida_atual + bonus_bencao)
+
+vida_heroi = calcular_cura_sagrada(vida_heroi)
+print(f"Bênção sagrada concedida! Nova vida global: {vida_heroi} HP")`),
+
+          L("log-7-5", "Modularizando Telas — Funções de Interface",
+            `<h3>🧼 A bancada limpa e organizada do artífice</h3>
+<p>Um ferreiro desorganizado perde minutos preciosos procurando o martelo debaixo de pilhas de cinzas. Já um mestre artífice mantém cada ferramenta em seu gancho correspondente na parede.</p>
+
+<p>No desenvolvimento de jogos, colocar dezenas de prints misturados no meio das regras de combate deixa o arquivo confuso e difícil de ler. O segredo dos profissionais é criar <strong>funções especialistas de interface</strong>.</p>
+
+<p>Criamos funções dedicadas apenas a exibir coisas bonitas na tela, como <code>exibir_status()</code> e <code>mostrar_menu()</code>. O fluxo do jogo fica limpo, direto e fácil de entender com um bater de olhos!</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 Funções de Apresentação Visual</div>
+  <div class="command-spotlight-code">def exibir_status(personagem):
+    print(f"[{personagem['nome']}] HP: {personagem['vida']}")</div>
+  <ul class="command-spotlight-breakdown">
+    <li>Função dedicada unicamente a formatar e embelezar a interface.</li>
+    <li>Pode ser chamada sempre que a vida de alguém mudar!</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Criando a Função de Status</h3>
+<ul>
+  <li><strong>1. No <code>jogo.py</code>:</strong> implemente <code>def mostrar_ficha(heroi):</code>.</li>
+  <li><strong>2. Chame a função:</strong> sempre que quiser mostrar o placar atualizado.</li>
+  <li><strong>3. Execute no terminal:</strong> <code>python jogo.py</code>.</li>
+</ul>`,
+            `# Função dedicada à interface de status:
+def mostrar_hud(nome, hp, max_hp, ouro):
+    print("+" + "-" * 32 + "+")
+    print(f"| {nome:<12} HP: {hp:>3}/{max_hp:<3} | Ouro: {ouro:>3} |")
+    print("+" + "-" * 32 + "+")
+
+mostrar_hud("Arthur", 85, 100, 45)`,
+            c(`Defina uma função mostrar_vida(nome, hp) que imprima f'{nome} tem {hp} HP'.`, `# Crie a função mostrar_vida`, `def mostrar_vida(nome, hp):
+    print(f"{nome} tem {hp} HP")`, `Use def mostrar_vida(nome, hp): com o print correspondente.`, `def mostrar_vida(nome, hp):
+    print(f"{nome} tem {hp} HP")`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+def exibir_painel_combate(heroi, monstro):
+    print("\\n" + "=" * 45)
+    print(f" 🗡️  {heroi['nome']:<15} HP: {heroi['vida']}/{heroi['vida_maxima']}")
+    print(f" 👹 {monstro['nome']:<15} HP: {monstro['vida']}/{monstro['vida_maxima']}")
+    print("=" * 45)
+
+# Testando a função com duas entidades
+h = {"nome": "Arthur", "vida": 90, "vida_maxima": 100}
+m = {"nome": "Goblin", "vida": 40, "vida_maxima": 40}
+exibir_painel_combate(h, m)`),
+
+          L("log-7-6", "Projeto: Transformando a Batalha em uma Função",
+            `<h3>🏆 O Grande Motor Modular de Eldória</h3>
+<p>Chegamos ao encerramento do Módulo 7! Agora você já sabe como encapsular lógica complexa dentro de blocos reutilizáveis com parâmetros e retorno.</p>
+
+<p>No <code>jogo.py</code>, vamos realizar um grande marco de engenharia de software: vamos transformar todo aquele loop de combate que criamos no Módulo 5 em uma <strong>função chamada batalhar(heroi, monstro)</strong>!</p>
+
+<p>O poder disso é extraordinário: com essa única função criada, você pode fazê-la rodar contra um Goblin, depois contra um Lobo e no final contra o temido Dragão de Ignis, sem precisar reescrever nem uma linha sequer de código!</p>
+
+<h3>🖥️ No seu VS Code: Modularizando o Jogo</h3>
+<ul>
+  <li><strong>1. Abra o arquivo:</strong> <code>jogo.py</code>.</li>
+  <li><strong>2. Defina a função <code>batalhar(heroi, monstro)</code>:</strong> que executa os turnos de ataque e defesa.</li>
+  <li><strong>3. A função deve retornar <code>True</code> se o herói venceu</strong>, ou <code>False</code> se o herói foi derrotado ou fugiu.</li>
+  <li><strong>4. No programa principal:</strong> invoque <code>venceu = batalhar(heroi, goblin)</code>.</li>
+  <li><strong>5. Execute no terminal:</strong> <code>python jogo.py</code> e contemple a elegância do seu código!</li>
+</ul>
+
+<p>Conclua o desafio acumulativo abaixo para registrar a conclusão do Módulo 7!</p>`,
+            `# Exemplo de função de combate completa e reutilizável:
+def lutar(jogador, inimigo):
+    print(f"Iniciando duelo contra {inimigo['nome']}!")
+    inimigo['vida'] -= jogador['ataque']
+    if inimigo['vida'] <= 0:
+        return True # Vitória
+    return False # Combate em andamento`,
+            c(`Defina a função batalhar(heroi, monstro) que subtrai o dano do heroi da vida do monstro (monstro['hp'] -= heroi['ataque']) e retorne True se monstro['hp'] <= 0.`, `# Escreva a função batalhar`, `def batalhar(heroi, monstro):
+    monstro['hp'] -= heroi['ataque']
+    if monstro['hp'] <= 0:
+        return True
+    return False`, `Defina a função com os 2 parâmetros, desconte o ataque e retorne True se a vida for menor ou igual a 0.`, `def batalhar(heroi, monstro):
+    monstro['hp'] -= heroi['ataque']
+    if monstro['hp'] <= 0:
+        return True
+    return False`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória — RPG de Texto
+# Arquivo: jogo.py
+# Módulo 7: Motor Modular de Combate com Funções
+# ============================================================
+
+def exibir_cabecalho():
+    print("=" * 50)
+    print("             CRÔNICAS DE ELDÓRIA             ")
+    print("=" * 50)
+
+def batalhar(heroi, monstro):
+    print(f"\\n⚔️  Combate iniciado contra {monstro['nome']}!")
+    
+    while heroi['vida'] > 0 and monstro['vida'] > 0:
+        print(f"❤️  {heroi['nome']}: {heroi['vida']} HP | 👹 {monstro['nome']}: {monstro['vida']} HP")
+        acao = input("[1] Atacar  [2] Fugir: ")
+        
+        if acao == "1":
+            monstro['vida'] -= heroi['ataque']
+            print(f"Você causou {heroi['ataque']} de dano!")
+            if monstro['vida'] <= 0:
+                print(f"🏆 {monstro['nome']} foi derrotado!")
+                return True
+                
+            heroi['vida'] -= monstro['ataque']
+            print(f"O monstro revidou causando {monstro['ataque']} de dano!")
+            if heroi['vida'] <= 0:
+                print("💀 O herói caiu em combate...")
+                return False
+        elif acao == "2":
+            print("🏃 Você recuou em segurança!")
+            return False
+        else:
+            print("Opção inválida! Perdeu o turno.")
+            heroi['vida'] -= monstro['ataque']
+
+# --- Execução Principal do Jogo ---
+exibir_cabecalho()
+heroi = {"nome": "Arthur", "vida": 100, "ataque": 25}
+goblin = {"nome": "Goblin Lanceiro", "vida": 50, "ataque": 12}
+
+vitoria = batalhar(heroi, goblin)
+if vitoria:
+    print("\\nParabéns! O caminho para as ruínas está livre!")`)
+        ]
+      },
+
+      // ── Módulo 8 — Depuração e Resolução de Problemas ──
+      {
+        title: "Módulo 8 — Depuração e Resolução de Problemas",
+        lessons: [
+          L("log-8-1", "O Livro dos Erros — Decifrando o Traceback",
+            `<h3>🔍 O laudo pericial do detetive real</h3>
+<p>Imagine que houve um roubo no cofre do castelo. O capitão da guarda não joga as mãos para cima em desespero: ele chama o perito real, que analisa as pegadas de barro, anota a porta exata onde o ladrão entrou e descreve com precisão a ferramenta usada.</p>
+
+<p>Quando o Python encontra um erro que não consegue resolver, ele exibe um relatório chamado <strong>Traceback</strong>. Muitos iniciantes entram em pânico ao ver um bloco vermelho no terminal, mas a verdade é que o Traceback é o seu <strong>melhor amigo</strong>!</p>
+
+<p>Para ler um erro como um desenvolvedor experiente, olhe sempre para as <strong>últimas duas linhas</strong> da mensagem: lá você encontrará o <strong>nome do arquivo</strong>, o <strong>número exato da linha</strong> onde o problema ocorreu e o <strong>tipo do erro</strong> com uma breve explicação em inglês.</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 A Anatomia de um Traceback</div>
+  <div class="command-spotlight-code">File "jogo.py", line 42, in &lt;module&gt;
+NameError: name 'ouro' is not defined</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>line 42</code> → O número exato da linha onde o computador travou.</li>
+    <li><code>NameError</code> → O tipo do erro.</li>
+    <li><code>name 'ouro' is not defined</code> → A explicação clara: a variável 'ouro' não foi criada antes!</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Investigando um Erro Proposital</h3>
+<ul>
+  <li><strong>1. No arquivo <code>jogo.py</code>:</strong> digite propositalmente <code>print(tesouro_secreto)</code> sem ter criado essa variável antes.</li>
+  <li><strong>2. Rode no terminal:</strong> <code>python jogo.py</code>.</li>
+  <li><strong>3. Leia o traceback com calma:</strong> localize a linha e a mensagem explicativa, e em seguida corrija!</li>
+</ul>`,
+            `# Exemplo de traceback comum:
+# File "app.py", line 4
+#   print(vida)
+# NameError: name 'vida' is not defined
+#
+# Diagnóstico: O programador tentou ler a variável 'vida'
+# antes de declará-la com um valor inicial!`,
+            q(`Onde em uma mensagem de Traceback do Python você encontra o motivo e a linha exata do erro?`, ["Nas últimas linhas da mensagem de erro","Apenas no início da primeira linha","O Python não informa a linha do erro","No manual impresso do computador"], 0, `O Python detalha a causa e a linha nas últimas linhas do bloco.`, `Nas últimas linhas da mensagem de erro`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# Módulo 8: Depuração, Tratamento de Exceções e Resolução de Erros
+# ============================================================
+
+# Sempre declare as variáveis antes de utilizá-las para evitar NameError:
+vida_heroi = 100
+ouro_heroi = 50
+
+print(f"Herói preparado: {vida_heroi} HP | {ouro_heroi} Moedas")`),
+
+          L("log-8-2", "Os Erros mais Comuns em Python",
+            `<h3>👾 O catálogo de monstros do código</h3>
+<p>Assim como um caçador de monstros conhece a fraqueza de cada criatura da floresta, um bom programador reconhece os 4 erros mais comuns de Python à primeira vista:</p>
+
+<ul>
+  <li><strong>NameError:</strong> Você tentou usar uma variável ou função que não foi criada ou cujo nome foi digitado errado (ex: esqueceu uma letra).</li>
+  <li><strong>TypeError:</strong> Você tentou misturar tipos incompatíveis (ex: tentar somar um texto <code>"10"</code> com o número <code>5</code>).</li>
+  <li><strong>IndexError:</strong> Você tentou acessar uma posição que não existe na lista (ex: sua mochila tem 3 itens e você pediu <code>mochila[10]</code>).</li>
+  <li><strong>ValueError:</strong> Você tentou converter algo incompatível (ex: tentar fazer <code>int("dragao")</code>).</li>
+</ul>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 Os 4 Erros Clássicos</div>
+  <div class="command-spotlight-code">NameError  |  TypeError  |  IndexError  |  ValueError</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>NameError</code> → Nome inexistente ou com erro de digitação.</li>
+    <li><code>TypeError</code> → Tipos incompatíveis em uma mesma operação.</li>
+    <li><code>IndexError</code> → Índice fora dos limites da lista.</li>
+    <li><code>ValueError</code> → Valor inválido para a conversão exigida.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Prevenindo IndexError na Mochila</h3>
+<ul>
+  <li><strong>1. No <code>jogo.py</code>:</strong> antes de acessar <code>mochila[indice]</code>, verifique se <code>indice &lt; len(mochila)</code>.</li>
+  <li><strong>2. Rode no terminal:</strong> perceba como a checagem prévia impede o jogo de travar!</li>
+</ul>`,
+            `# Como corrigir um TypeError:
+# Errado: print("Dano causado: " + 25) -> Gera TypeError!
+# Correto com f-string ou str():
+dano = 25
+print(f"Dano causado: {dano}") # Perfeito e seguro!`,
+            q(`Qual erro ocorre se você tentar acessar o elemento lista[5] em uma lista que possui apenas 2 elementos?`, ["IndexError: list index out of range","SyntaxError: bad token","ZeroDivisionError","TypeError: unhashable type"], 0, `O índice ultrapassou o tamanho da lista (out of range).`, `IndexError: list index out of range`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+itens_bau = ["Rubi de Fogo", "Pergaminho de Teleporte"]
+
+# Acesso seguro evitando IndexError:
+posicao_desejada = 1 # Segunda posição válida
+if posicao_desejada < len(itens_bau):
+    print(f"Item resgatado: {itens_bau[posicao_desejada]}")
+else:
+    print("O compartimento está vazio!")`),
+
+          L("log-8-3", "A Técnica do Detetive — Debug com Prints Estratégicos",
+            `<h3>🔦 A lanterna que ilumina os cantos escuros</h3>
+<p>Às vezes o programa roda sem dar nenhuma mensagem vermelha de erro, mas o resultado final sai completamente errado: o monstro fica com vida negativa infinita ou o ouro do herói some do nada. Isso é o que chamamos de <strong>bug de lógica</strong>.</p>
+
+<p>A técnica mais famosa, rápida e eficiente do mundo para encontrar bugs ocultos é o <strong>Print Debugging</strong>: colocar comandos <code>print()</code> temporários em pontos estratégicos do código para ver o valor exato das variáveis enquanto o jogo roda!</p>
+
+<p>Ao ver o valor de uma variável antes e depois de uma conta, você descobre no mesmo instante a linha exata onde a lógica tomou o rumo errado.</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 Print de Depuração Estratégico</div>
+  <div class="command-spotlight-code">print(f"[DEBUG] Vida antes: {vida} | Dano calculado: {dano}")</div>
+  <ul class="command-spotlight-breakdown">
+    <li>O prefixo <code>[DEBUG]</code> avisa visualmente que a linha é temporária.</li>
+    <li>Assim que o bug for encontrado e corrigido, basta apagar o print de teste!</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Rastreando Variáveis</h3>
+<ul>
+  <li><strong>1. No arquivo <code>jogo.py</code>:</strong> adicione um print temporário dentro do loop de batalha mostrando os status intermediários.</li>
+  <li><strong>2. Rode no terminal:</strong> acompanhe a matemática passo a passo e confirme que os números batem com a sua expectativa!</li>
+</ul>`,
+            `# Rastreando cálculo suspeito:
+ouro = 100
+preco = 30
+# print(f"[DEBUG] Antes da compra: ouro={ouro}, preco={preco}")
+ouro = ouro - preco
+# print(f"[DEBUG] Depois da compra: ouro={ouro}")`,
+            c(`Insira uma linha de depuração imprimindo f'[DEBUG] HP: {hp}' para conferir o valor da variável hp.`, `# Escreva o print de depuração`, `print(f"[DEBUG] HP: {hp}")`, `Use print(f"[DEBUG] HP: {hp}").`, `print(f"[DEBUG] HP: {hp}")`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+def calcular_compra(ouro_atual, preco_item):
+    # Depuração de fluxo:
+    # print(f"[DEBUG] Verificando compra: Caixa={ouro_atual}, Preço={preco_item}")
+    if ouro_atual >= preco_item:
+        return ouro_atual - preco_item
+    return ouro_atual
+
+ouro_restante = calcular_compra(50, 35)
+print(f"Saldo pós-compra: {ouro_restante} moedas")`),
+
+          L("log-8-4", "Escudo Protetor contra Quebras — try e except",
+            `<h3>🛡️ A armadura mágica que absorve o golpe fatal</h3>
+<p>Imagine que o jogo pergunta: <em>"Quantas poções deseja comprar (1 a 5)?"</em>. O que acontece se o jogador digitar por engano a palavra <code>"duas"</code> por extenso em vez do número <code>2</code>?</p>
+
+<p>Se o seu código usar <code>int(input())</code>, o Python tentará converter letras para número, gerará um <strong>ValueError</strong> e o jogo será abortado com uma tela vermelha horrível no meio da aventura!</p>
+
+<p>Para proteger seu programa contra dados inesperados do usuário, usamos o bloco <strong>try / except</strong> (tentar / capturar exceção). O Python tenta rodar o código protegido no <code>try</code>; se der erro, ele pula com segurança para o <code>except</code> e o programa continua vivo!</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 O Escudo try / except</div>
+  <div class="command-spotlight-code">try:
+    qtd = int(input("Qtd: "))
+except ValueError:
+    print("Digite apenas números válidos!")</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>try:</code> → Bloco protegido onde o erro pode acontecer.</li>
+    <li><code>except TipoDoErro:</code> → O plano de contenção caso o erro aconteça.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Blindando a Loja de Poções</h3>
+<ul>
+  <li><strong>1. No <code>jogo.py</code>:</strong> envolva a leitura da quantidade com <code>try / except ValueError:</code>.</li>
+  <li><strong>2. Rode no terminal:</strong> digite palavras em vez de números e veja seu jogo avisar gentilmente o jogador sem fechar!</li>
+</ul>`,
+            `# Protegendo a leitura de números:
+try:
+    numero = int(input("Digite um número: "))
+    print(f"O dobro é: {numero * 2}")
+except ValueError:
+    print("⚠️ Entrada inválida! Por favor, digite apenas algarismos numéricos.")`,
+            c(`Complete a estrutura: envolva int(valor) em um bloco try e no except ValueError: imprima 'Erro'.`, `try:
+    n = int(valor)
+# Adicione o except aqui`, `try:
+    n = int(valor)
+except ValueError:
+    print("Erro")`, `Escreva except ValueError: alinhado com o try e print("Erro") com 4 espaços.`, `try:
+    n = int(valor)
+except ValueError:
+    print("Erro")`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+def obter_opcao_numerica(mensagem):
+    while True:
+        try:
+            escolha = int(input(mensagem))
+            return escolha
+        except ValueError:
+            print("⚠️ Entrada incorreta! Digite um número válido.")
+
+# Testando a proteção:
+# opcao = obter_opcao_numerica("Escolha seu destino (1 ou 2): ")`),
+
+          L("log-8-5", "Projeto: Caça aos Bugs no RPG",
+            `<h3>🏆 A Blindagem Definitiva de Eldória</h3>
+<p>Chegamos ao final do Módulo 8! O seu jogo agora não é apenas divertido: ele é resiliente, seguro e estável como os softwares de grandes estúdios profissionais.</p>
+
+<p>No <code>jogo.py</code>, vamos fazer uma varredura completa de qualidade: blindaremos todas as entradas do usuário com tratamento de exceções, garantiremos que nenhum índice de lista seja acessado fora dos limites e limparemos qualquer vestígio de prints temporários.</p>
+
+<h3>🖥️ No seu VS Code: Aplicando as Blindagens</h3>
+<ul>
+  <li><strong>1. Abra o arquivo:</strong> <code>jogo.py</code>.</li>
+  <li><strong>2. Crie uma função <code>ler_inteiro(pergunta)</code>:</strong> que usa loop e <code>try/except ValueError</code> para garantir que o retorno seja sempre um número válido.</li>
+  <li><strong>3. Proteja o menu principal e de combate</strong> com essa nova função.</li>
+  <li><strong>4. Execute no terminal:</strong> <code>python jogo.py</code>, tente quebrar o jogo digitando letras e símbolos aleatórios e comprove a solidez do seu código!</li>
+</ul>
+
+<p>Resolva o desafio acumulativo abaixo para concluir o Módulo 8!</p>`,
+            `# Função oficial de leitura blindada:
+def ler_numero(msg):
+    while True:
+        try:
+            return int(input(msg))
+        except ValueError:
+            print("Entrada inválida. Tente novamente.")`,
+            c(`Crie a função ler_opcao() que dentro de um try retorne int(input('Opção: ')) e no except ValueError retorne 0.`, `# Escreva a função ler_opcao`, `def ler_opcao():
+    try:
+        return int(input('Opção: '))
+    except ValueError:
+        return 0`, `Defina ler_opcao(): com o try que retorna a conversão e o except ValueError que retorna 0.`, `def ler_opcao():
+    try:
+        return int(input('Opção: '))
+    except ValueError:
+        return 0`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória — RPG de Texto
+# Arquivo: jogo.py
+# Módulo 8: Tratamento Robusto de Exceções e Resolução de Erros
+# ============================================================
+
+def pedir_escolha(prompt, min_val, max_val):
+    """Lê um número do jogador garantindo integridade total."""
+    while True:
+        try:
+            valor = int(input(prompt))
+            if min_val <= valor <= max_val:
+                return valor
+            print(f"⚠️ Por favor, escolha um valor entre {min_val} e {max_val}!")
+        except ValueError:
+            print("⚠️ Entrada inválida! Digite apenas algarismos numéricos.")
+
+# Teste da blindagem no console
+print("Menu do Acampamento:")
+print(" [1] Descansar na fogueira (+20 HP)")
+print(" [2] Treinar espada com veterano (+5 Ataque)")
+print(" [3] Partir imediatamente")
+
+escolha = pedir_escolha("Selecione sua atividade (1 a 3): ", 1, 3)
+print(f"Opção {escolha} selecionada e confirmada com segurança!")`)
+        ]
+      },
+
+      // ── Módulo 9 — Projeto Final: O Jogo Completo ──
+      {
+        title: "Módulo 9 — Projeto Final: O Jogo Completo",
+        lessons: [
+          L("log-9-1", "Arquitetura da Campanha — Planejando a Jornada Completa",
+            `<h3>🗺️ O mapa dos reinos sobre a mesa de guerra</h3>
+<p>Nenhum grande castelo é erguido sem antes o arquiteto desenhar a planta baixa completa. Você já domina todos os pilares da programação: variáveis, tipos de dados, operadores matemáticos, decisões com if/else, repetições com while e for, coleções dinâmicas, funções e depuração de erros.</p>
+
+<p>Agora chegou a hora de conectar todas essas engrenagens em uma obra-prima unificada no seu arquivo <code>jogo.py</code>. A campanha de <strong>Crônicas de Eldória</strong> terá 4 atos inesquecíveis:</p>
+
+<ul>
+  <li><strong>Ato 1 — O Despertar:</strong> Criação do herói, escolha de classe e introdução narrativa.</li>
+  <li><strong>Ato 2 — O Vilarejo e Preparação:</strong> Taverna, compra de poções e gerenciamento de inventário.</li>
+  <li><strong>Ato 3 — A Trilha das Sombras:</strong> Emboscadas, decisões de rota e monstros intermediários.</li>
+  <li><strong>Ato 4 — O Covil do Dragão de Ignis:</strong> A grande batalha final com múltiplos desfechos!</li>
+</ul>
+
+<h3>🖥️ No seu VS Code: Estruturando o Fluxo Principal</h3>
+<ul>
+  <li><strong>1. Abra o arquivo:</strong> <code>jogo.py</code>.</li>
+  <li><strong>2. Organize as seções do arquivo:</strong> separe o topo para as funções e a parte de baixo para a função principal <code>main()</code>.</li>
+  <li><strong>3. Execute no terminal:</strong> <code>python jogo.py</code>.</li>
+</ul>`,
+            `# Estrutura da função principal de jogo:
+def main():
+    print("Iniciando campanha de Eldória...")
+    # Aqui chamaremos cada ato da aventura em sequência!
+
+if __name__ == "__main__":
+    main()`,
+            c(`Crie a função principal def main(): que imprima 'Campanha iniciada' e em seguida chame main().`, `# Escreva a função main e invoque-a`, `def main():
+    print("Campanha iniciada")
+
+main()`, `Defina def main(): com o print correspondente e chame main() na linha de fora.`, `def main():
+    print("Campanha iniciada")
+
+main()`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória — RPG de Texto
+# Arquivo: jogo.py
+# Módulo 9: Arquitetura da Campanha Completa
+# ============================================================
+
+def iniciar_jogo():
+    print("=" * 55)
+    print("        CRÔNICAS DE ELDÓRIA — EDIÇÃO DEFINITIVA        ")
+    print("=" * 55)
+    print("Carregando módulos de aventura, inventário e monstros...")
+    print("Tudo pronto para a grande jornada!")
+
+iniciar_jogo()`),
+
+          L("log-9-2", "O Chefe Final — O Confronto com o Dragão de Ignis",
+            `<h3>🐉 O rugido que estremece a montanha</h3>
+<p>Nas profundezas da Caverna de Enxofre, as cinzas flutuam no ar quente. O <strong>Dragão de Ignis</strong> abre suas asas de escamas avermelhadas. Este não é um inimigo comum: ele possui golpes especiais que exigem estratégia real do jogador!</p>
+
+<p>Para criar chefes memoráveis em jogos, usamos <strong>ações especiais baseadas em turnos ou chances</strong>. A cada 3 turnos, por exemplo, o dragão pode soltar uma <em>Baforada de Chamas</em> que causa o dobro de dano caso o herói não esteja defendendo com escudo!</p>
+
+<p>Essa mecânica torna a batalha tensa e emocionante, recompensando quem planeja os recursos da mochila.</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 A Mecânica do Chefe Final</div>
+  <div class="command-spotlight-code">if turno % 3 == 0:
+    print("🔥 O Dragão cospe uma torrente de chamas incandescentes!")</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>turno % 3 == 0</code> → Dispara o ataque supremo a cada 3 rodadas de combate.</li>
+    <li>Exige que o jogador decida entre curar-se ou defender na hora certa!</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Criando os Atributos do Dragão</h3>
+<ul>
+  <li><strong>1. No arquivo <code>jogo.py</code>:</strong> crie o dicionário do dragão com <code>vida: 120</code>, <code>ataque: 20</code> e <code>nome: "Dragão de Ignis"</code>.</li>
+  <li><strong>2. Adicione o ataque de sopro de fogo:</strong> a cada 3 turnos no loop da batalha final.</li>
+  <li><strong>3. Execute no terminal:</strong> <code>python jogo.py</code>.</li>
+</ul>`,
+            `# Mecânica de habilidade especial do monstro chefe:
+def ataque_dragao(turno):
+    if turno % 3 == 0:
+        print("🔥 BAFORADA DE FOGO DEVASTADORA! (Dano: 35)")
+        return 35
+    else:
+        print("⚔️ Golpe de garras afiadas! (Dano: 18)")
+        return 18`,
+            c(`Crie a verificação: if turno % 3 == 0:, imprima 'Sopro de Fogo', senão imprima 'Ataque Normal'.`, `# Escreva o if e else para o sopro`, `if turno % 3 == 0:
+    print("Sopro de Fogo")
+else:
+    print("Ataque Normal")`, `Use o operador de resto % 3 == 0 para detectar o turno especial.`, `if turno % 3 == 0:
+    print("Sopro de Fogo")
+else:
+    print("Ataque Normal")`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+dragao = {
+    "nome": "Dragão de Ignis",
+    "vida": 120,
+    "vida_maxima": 120,
+    "ataque_base": 18,
+    "ataque_fogo": 36
+}
+
+print(f"O solo racha! Diante de você surge o {dragao['nome']} com {dragao['vida']} HP!")`),
+
+          L("log-9-3", "Caminhos e Destinos — Múltiplos Finais no RPG",
+            `<h3>👑 O peso das suas escolhas ao longo da história</h3>
+<p>Os maiores clássicos do RPG não terminam sempre do mesmo jeito: dependendo de quanto ouro você acumulou, se você poupou criaturas inocentes ou se encontrou o artefato sagrado, a história se fecha com um desfecho exclusivo.</p>
+
+<p>No nosso jogo, implementaremos <strong>3 finais diferentes</strong>:</p>
+
+<ul>
+  <li><strong>Final 1 — Vitória Gloriosa do Campeão:</strong> Se o herói derrotou o dragão e terminou com mais de 50 HP restantes e a Espada Sagrada na mochila. Ele é coroado protetor supremo de Eldória!</li>
+  <li><strong>Final 2 — Sobrevivência Heroica:</strong> Se o herói venceu o dragão no limite das forças com pouca vida. Ele sobrevive para contar a lenda, mas precisa de repouso longo.</li>
+  <li><strong>Final 3 — Fuga Estratégica:</strong> Se o herói optou por fugir do covil com os tesouros que conseguiu antes do confronto final.</li>
+</ul>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 Avaliação dos Múltiplos Finais</div>
+  <div class="command-spotlight-code">if venceu_dragao and heroi['vida'] &gt;= 50:
+    desfecho_lendario()</div>
+  <ul class="command-spotlight-breakdown">
+    <li>Combinações lógicas no final do jogo definem o destino do reino.</li>
+    <li>Incentiva o jogador a jogar novamente para descobrir outros desfechos!</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Criando a Tela de Epílogo</h3>
+<ul>
+  <li><strong>1. No arquivo <code>jogo.py</code>:</strong> crie a função <code>exibir_epilogo(heroi, resultado)</code>.</li>
+  <li><strong>2. Avalie as variáveis de estado:</strong> e imprima o conto comemorativo correspondente.</li>
+  <li><strong>3. Execute no terminal:</strong> <code>python jogo.py</code>.</li>
+</ul>`,
+            `# Ramificação dos finais da aventura:
+def concluir_aventura(venceu, hp_final):
+    if venceu and hp_final > 50:
+        print("🏆 FINAL LENDÁRIO: Você é aclamado como o maior herói de Eldória!")
+    elif venceu:
+        print("⚔️ FINAL HEROICO: Você venceu com ferimentos graves e foi salvo pelos bardos.")
+    else:
+        print("📜 FINAL SOMBRIO: Seu nome foi gravado na pedra dos corajosos caídos.")`,
+            c(`Crie a condição: se venceu and hp >= 50, imprima 'Vitória Épica', senão imprima 'Vitória Comum'.`, `# Escreva a verificação de vitória`, `if venceu and hp >= 50:
+    print("Vitória Épica")
+else:
+    print("Vitória Comum")`, `Use if venceu and hp >= 50: e no else print("Vitória Comum").`, `if venceu and hp >= 50:
+    print("Vitória Épica")
+else:
+    print("Vitória Comum")`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+def narrar_desfecho(venceu, hp_heroi, ouro_heroi):
+    print("\\n" + "=" * 55)
+    print("                    EPÍLOGO DA LENDA                    ")
+    print("=" * 55)
+    
+    if venceu and hp_heroi >= 40:
+        print("👑 FINAL LENDÁRIO: O Dragão de Ignis sucumbiu à sua perícia!")
+        print(f"Você retorna a Eldória com {ouro_heroi} moedas e recebe o título de Grão-Lorde!")
+    elif venceu:
+        print("🛡️ FINAL HERÓICO: Uma vitória conquistada a duras penas!")
+        print("O reino está salvo e suas feridas cicatrizarão como marcas de glória.")
+    else:
+        print("🦅 FINAL DA RETIRADA: Você sobreviveu para lutar em outro amanhecer.")
+        print("As lendas dizem que o dragão ainda vigia as cinzas do pico...")
+    print("=" * 55)`),
+
+          L("log-9-4", "Polimento e Experiência do Jogador",
+            `<h3>✨ O brilho da espada polida e o ritmo da narrativa</h3>
+<p>O que separa um código amador de um jogo inesquecível é o <strong>cuidado com os detalhes</strong>. No terminal, se todas as mensagens aparecerem em um milissegundo de uma vez só, o jogador não consegue ler nada e perde toda a emoção dramática.</p>
+
+<p>Para dar pausas cinematográficas no momento de um golpe ou antes da revelação de um chefe, usamos o módulo nativo do Python chamado <strong>time</strong> com a função <code>time.sleep(segundos)</code>.</p>
+
+<p>Um pequeno atraso de 1 segundo entre o rugido do dragão e o impacto do golpe faz o coração do jogador acelerar e transforma o terminal em uma experiência de pura imersão!</p>
+
+<div class="command-spotlight">
+  <div class="command-spotlight-title">🔑 Pausas Dramáticas com time.sleep()</div>
+  <div class="command-spotlight-code">import time
+print("O dragão respira fundo...")
+time.sleep(1.5)
+print("🔥 FOGO!")</div>
+  <ul class="command-spotlight-breakdown">
+    <li><code>import time</code> → Traz para o seu programa os poderes de controle temporal do Python.</li>
+    <li><code>time.sleep(1.5)</code> → Pausa a execução por 1 segundo e meio para suspense dramático.</li>
+  </ul>
+</div>
+
+<h3>🖥️ No seu VS Code: Adicionando Efeitos de Suspense</h3>
+<ul>
+  <li><strong>1. No topo do <code>jogo.py</code>:</strong> adicione <code>import time</code>.</li>
+  <li><strong>2. Adicione pausas de <code>time.sleep(1)</code>:</strong> nos turnos de batalha e nas aberturas.</li>
+  <li><strong>3. Execute no terminal:</strong> <code>python jogo.py</code> e sinta a diferença no ritmo do jogo!</li>
+</ul>`,
+            `# Adicionando pausas para ritmo dramático:
+import time
+
+print("O herói se aproxima do altar proibido...")
+time.sleep(1.2) # Pausa de 1.2 segundos
+print("Um estalo ecoa nas paredes!")
+time.sleep(1.0)
+print("O selo antigo se rompe!")`,
+            c(`Importe o módulo time e faça o programa pausar por 1 segundo usando time.sleep(1).`, `# Importe time e use time.sleep(1)`, `import time
+time.sleep(1)`, `Digite import time na primeira linha e time.sleep(1) na segunda.`, `import time
+time.sleep(1)`),
+            `# ============================================================
+# PROJETO: Crônicas de Eldória
+# Arquivo: jogo.py
+# ============================================================
+
+import time
+
+print("Ouvindo os passos no corredor escuro...")
+time.sleep(1)
+print("Três sombras se projetam na parede!")
+time.sleep(1)
+print("Você saca sua lâmina em silêncio.")`),
+
+          L("log-9-5", "Projeto Concluído: O Jogo Completo de Eldória",
+            `<h3>🏆 O Grande Triunfo: Você é um Desenvolvedor!</h3>
+<p>Parabéns, aventureiro! Você percorreu uma jornada extraordinária: começou do absoluto zero sem saber o que era uma linha de código e agora é o autor de um <strong>RPG completo, estruturado, modular e blindado</strong> rodando no seu computador!</p>
+
+<p>Aqui está o seu arquivo definitivo <code>jogo.py</code>. Ele reúne absolutamente tudo o que construímos ao longo dos 9 módulos:</p>
+<ul>
+  <li>Abertura estilizada e ficha do herói com nome customizado.</li>
+  <li>Sistema de inventário com poções de cura funcionais.</li>
+  <li>Motor de combate em turnos com ataques, defesas e fugas.</li>
+  <li>Tratamento robusto contra entradas inválidas do jogador.</li>
+  <li>O grande confronto com o Dragão de Ignis e múltiplos desfechos!</li>
+</ul>
+
+<h3>🖥️ No seu VS Code: A Execução da Obra-Prima</h3>
+<ul>
+  <li><strong>1. Abra o arquivo:</strong> <code>jogo.py</code>.</li>
+  <li><strong>2. Salve o código completo:</strong> com todas as funções integradas.</li>
+  <li><strong>3. Abra o terminal e digite:</strong> <code>python jogo.py</code>.</li>
+  <li><strong>4. Jogue do início ao fim!</strong> Chame amigos e familiares para jogarem o seu jogo, compartilhe no seu GitHub e comemore essa grande conquista profissional!</li>
+</ul>
+
+<p>Resolva o desafio final para selar seu certificado com honras na Edev!</p>`,
+            `# O comando que roda o seu projeto final:
+# python jogo.py
+# Edivirta-se jogando o seu próprio RPG!`,
+            c(`Execute o print de consagração: print('Crônicas de Eldória: Projeto Concluído com Sucesso!').`, `# Escreva o print final`, `print('Crônicas de Eldória: Projeto Concluído com Sucesso!')`, `Escreva print('Crônicas de Eldória: Projeto Concluído com Sucesso!').`, `print('Crônicas de Eldória: Projeto Concluído com Sucesso!')`),
+            `# ============================================================
+# PROJETO FINAL: Crônicas de Eldória — RPG de Texto Completo
+# Arquivo: jogo.py
+# Curso: Lógica de Programação — Edev
+# Autor: Você!
+# ============================================================
+
+import time
+
+# --- FUNÇÕES DE INTERFACE E SEGURANÇA ---
+
+def cabecalho():
+    print("=" * 60)
+    print("                 CRÔNICAS DE ELDÓRIA                 ")
+    print("           A Jornada do Campeão Esquecido            ")
+    print("=" * 60)
+    print()
+
+def ler_opcao(msg, min_val, max_val):
+    while True:
+        try:
+            escolha = int(input(msg))
+            if min_val <= escolha <= max_val:
+                return escolha
+            print(f"⚠️ Escolha inválida! Digite entre {min_val} e {max_val}.")
+        except ValueError:
+            print("⚠️ Digite apenas números inteiros válidos!")
+
+def exibir_ficha(heroi):
+    print("\\n" + "-" * 40)
+    print(f" 🛡️  HERÓI: {heroi['nome']} | CLASSE: {heroi['classe']}")
+    print(f" ❤️  VIDA: {heroi['vida']}/{heroi['vida_maxima']} HP")
+    print(f" 🗡️  ATAQUE: {heroi['ataque']} | 💰 OURO: {heroi['ouro']}")
+    print(f" 🎒 MOCHILA: {', '.join(heroi['mochila']) if heroi['mochila'] else 'Vazia'}")
+    print("-" * 40 + "\\n")
+
+# --- SISTEMA DE COMBATE EM TURNOS ---
+
+def combate(heroi, monstro):
+    print(f"\\n⚔️  UM INIMIGO SE APROXIMA: {monstro['nome']} ({monstro['vida']} HP)!")
+    time.sleep(1)
+    turno = 1
+    
+    while heroi['vida'] > 0 and monstro['vida'] > 0:
+        print(f"\\n--- TURNO {turno} ---")
+        print(f"❤️  {heroi['nome']}: {heroi['vida']} HP | 👹 {monstro['nome']}: {monstro['vida']} HP")
+        print(" [1] Atacar com Espada")
+        print(" [2] Beber Poção de Cura da Mochila")
+        print(" [3] Tentar Fuga Tática")
+        
+        acao = ler_opcao("Sua decisão (1 a 3): ", 1, 3)
+        
+        if acao == 1:
+            print(f"\\n🗡️  Você desfere um golpe veloz!")
+            time.sleep(0.5)
+            monstro['vida'] -= heroi['ataque']
+            print(f"Você causou {heroi['ataque']} de dano ao {monstro['nome']}!")
+            
+            if monstro['vida'] <= 0:
+                print(f"\\n🏆 VITÓRIA! O {monstro['nome']} desabou sem vida!")
+                heroi['ouro'] += monstro['ouro']
+                print(f"💰 Você saqueou {monstro['ouro']} moedas de ouro!")
+                return True
+                
+        elif acao == 2:
+            if "Poção de Cura" in heroi['mochila']:
+                heroi['mochila'].remove("Poção de Cura")
+                cura = 35
+                heroi['vida'] = min(heroi['vida_maxima'], heroi['vida'] + cura)
+                print(f"\\n🧪 Você bebeu uma Poção de Cura! (+{cura} HP)")
+                print(f"Vida atual: {heroi['vida']}/{heroi['vida_maxima']} HP")
+            else:
+                print("\\n❌ Você revira a mochila mas não tem poções restantes!")
+                
+        elif acao == 3:
+            print("\\n🏃 Você joga areia e recua rapidamente pelo túnel!")
+            time.sleep(0.5)
+            return False
+            
+        # Turno de contra-ataque do Monstro
+        time.sleep(0.8)
+        dano_inimigo = monstro['ataque']
+        if "Dragão" in monstro['nome'] and turno % 3 == 0:
+            print("🔥 O DRAGÃO DISPARA UM JATO DE FOGO SUPREMO!")
+            dano_inimigo *= 2
+        else:
+            print(f"💥 O {monstro['nome']} contra-ataca ferozmente!")
+            
+        heroi['vida'] -= dano_inimigo
+        print(f"Você recebeu {dano_inimigo} de dano!")
+        
+        if heroi['vida'] <= 0:
+            print("\\n💀 Seus olhos se fecham enquanto a escuridão toma conta de Eldória...")
+            return False
+            
+        turno += 1
+        
+    return heroi['vida'] > 0
+
+# --- FLUXO PRINCIPAL DA CAMPANHA ---
+
+def main():
+    cabecalho()
+    
+    # 1. Criação de Personagem
+    nome = input("Como você deseja ser chamado nas crônicas? ").strip()
+    if not nome:
+        nome = "Aventureiro Sem Nome"
+        
+    heroi = {
+        "nome": nome,
+        "classe": "Guerreiro de Eldória",
+        "vida_maxima": 100,
+        "vida": 100,
+        "ataque": 28,
+        "ouro": 40,
+        "mochila": ["Espada de Aço", "Poção de Cura", "Tocha"]
+    }
+    
+    exibir_ficha(heroi)
+    time.sleep(1)
+    
+    # 2. O Vilarejo e a Taverna
+    print("Você chega à Taverna do Javali Saltitante antes de partir para a montanha.")
+    print("O estalajadeiro oferece uma Poção de Cura por 20 moedas.")
+    print(" [1] Comprar Poção de Cura")
+    print(" [2] Guardar o ouro e seguir viagem")
+    
+    escolha_loja = ler_opcao("Escolha: ", 1, 2)
+    if escolha_loja == 1 and heroi['ouro'] >= 20:
+        heroi['ouro'] -= 20
+        heroi['mochila'].append("Poção de Cura")
+        print("🧪 Poção guardada na mochila com sucesso!")
+    else:
+        print("Você ajeita suas botas e parte rumo aos picos enevoados.")
+        
+    time.sleep(1.2)
+    
+    # 3. Confronto com Sentinela da Trilha
+    goblin = {"nome": "Goblin Guarda", "vida": 45, "ataque": 14, "ouro": 25}
+    venceu_sentinela = combate(heroi, goblin)
+    
+    if not venceu_sentinela:
+        print("\\nFim de jogo. Reinicie para tentar uma nova estratégia.")
+        return
+        
+    exibir_ficha(heroi)
+    time.sleep(1.5)
+    
+    # 4. O Covil do Dragão de Ignis
+    print("\\n" + "=" * 60)
+    print("               O COVIL DO DRAGÃO DE IGNIS               ")
+    print("=" * 60)
+    print("O ar torna-se escaldante. Cinzas cobrem o chão de pedra negra.")
+    print("O grande Dragão de Ignis desperta diante de você!")
+    
+    dragao = {"nome": "Dragão de Ignis", "vida": 110, "ataque": 22, "ouro": 150}
+    venceu_dragao = combate(heroi, dragao)
+    
+    # 5. Epílogo e Desfecho
+    time.sleep(1)
+    print("\\n" + "=" * 60)
+    print("                      EPÍLOGO FINAL                      ")
+    print("=" * 60)
+    if venceu_dragao:
+        if heroi['vida'] >= 45:
+            print(f"👑 VITÓRIA LENDÁRIA! {heroi['nome']} derrotou a maior ameaça de Eldória!")
+            print(f"Você retorna aclamado pelo povo e herda o trono do reino com {heroi['ouro']} moedas!")
+        else:
+            print(f"🛡️ VITÓRIA HERÓICA! {heroi['nome']} sobreviveu no limite das forças!")
+            print("O dragão ruiu e os bardos cantarão suas cicatrizes por gerações!")
+    else:
+        print("🦅 O dragão continua soberano no topo da montanha...")
+        print("Mas as histórias de bravura do seu herói ecoarão para sempre.")
+        
+    print("=" * 60)
+    print("Parabéns por concluir o curso de Lógica de Programação da Edev!")
+    print("=" * 60)
+
+if __name__ == "__main__":
+    main()`)
+        ]
+      }
+    ]
+  },
+
   frontend: {
     id: "frontend",
     name: "Front-end Completo",

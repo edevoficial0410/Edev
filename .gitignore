@@ -27,3 +27,6 @@ yarn-error.log*
 Thumbs.db
 .vscode/
 .idea/
+
+# Dados locais, bancos SQLite e cache de narração
+backend/data/

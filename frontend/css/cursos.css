@@ -47,6 +47,7 @@
   height: 6px; border-radius: 999px; background: rgba(255, 255, 255, 0.08); overflow: hidden;
 }
 .course-card-fill { height: 100%; border-radius: 999px; transition: width 0.6s ease; }
+.course-card-fill.logica { background: linear-gradient(90deg, #0284c7, #38bdf8); }
 .course-card-fill.frontend { background: linear-gradient(90deg, var(--blue-2), var(--blue)); }
 .course-card-fill.python   { background: linear-gradient(90deg, #15803d, var(--green)); }
 .course-card-fill.java     { background: linear-gradient(90deg, #b45309, var(--yellow)); }
@@ -54,6 +55,7 @@
 .course-card-fill.php      { background: linear-gradient(90deg, #4338ca, #818cf8); }
 .course-card-fill.sql      { background: linear-gradient(90deg, #0f766e, #2dd4bf); }
 
+.course-badge.logica { background: rgba(56, 189, 248, 0.12); color: #38bdf8; border-color: rgba(56, 189, 248, 0.35); }
 .course-badge.java { background: rgba(234, 179, 8, 0.12); color: var(--yellow); border-color: rgba(234, 179, 8, 0.35); }
 .course-badge.cpp  { background: rgba(139, 92, 246, 0.12); color: var(--purple); border-color: rgba(139, 92, 246, 0.35); }
 .course-badge.php  { background: rgba(99, 102, 241, 0.12); color: #a5b4fc; border-color: rgba(99, 102, 241, 0.35); }
