@@ -9,8 +9,8 @@ import { COURSES } from '../data/cursos.js';
 import { updateDashboard } from './dashboard.js';
 import { isFounder, hasActiveSubscription } from './auth.js';
 import {
-  loadNarrationPreferences,
-  checkAndShowOnboarding,
+  getNarrationPreferencesSync,
+  showNarrationModal,
   togglePlayLesson,
   stopNarration,
   updateTopbarButtonUi,
@@ -258,10 +258,10 @@ export function openLesson(courseId, lessonId) {
   setupReadingProgress();
   triggerAutoFocus();
 
-  // ── Narração por IA: onboarding e auto-play ───────────────
-  // Aguarda o modo foco terminar (triggerAutoFocus usa 350ms) antes de exibir
-  // o modal, para garantir que ele apareça DENTRO do contexto correto (fullscreen
-  // ou página normal) e nunca durante uma transição de tela.
+  // ── Narração por IA: exibe modal de escolha ao abrir a aula ─
+  // Aguarda a transição de tela antes de exibir, garantindo que o modal
+  // apareça dentro do contexto correto (fullscreen ou página normal).
+  // A narração NUNCA começa automaticamente — só com ação explícita do aluno.
   const _lessonCourseId = courseId;
   const _lessonId = lesson.id;
   const _lessonTheory = lesson.theory;
@@ -271,19 +271,17 @@ export function openLesson(courseId, lessonId) {
     // Verifica se o aluno ainda está nesta aula (não navegou para outra)
     if (currentLesson?.id !== _lessonId || currentCourse !== _lessonCourseId) return;
 
-    // Exibe o onboarding se for a primeira vez (e apenas uma vez)
-    checkAndShowOnboarding(() => {
-      togglePlayLesson(_lessonCourseId, _lessonId, _lessonTheory, _lessonExample);
-    });
-
-    // Se o aluno já optou por narração ativa, inicia automaticamente
-    loadNarrationPreferences().then(prefs => {
-      if (currentLesson?.id !== _lessonId) return; // aula mudou
-      if (prefs.narrationEnabled) {
+    // Exibe o modal sempre ao abrir uma aula — a decisão de ouvir é do aluno
+    showNarrationModal(
+      // onActivate: o aluno clicou em "Ativar narração"
+      () => {
+        if (currentLesson?.id !== _lessonId) return;
         togglePlayLesson(_lessonCourseId, _lessonId, _lessonTheory, _lessonExample);
-      }
-    });
-  }, 500);
+      },
+      // onDecline: o aluno fechou ou clicou em "Continuar sem áudio" — não faz nada
+      () => {}
+    );
+  }, 400);
 }
 
 /** Configura barra de progresso de leitura conforme o aluno rola a aula (Melhoria 1) */
